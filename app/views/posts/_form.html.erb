@@ -1,0 +1,35 @@
+<%= javascript_include_tag 'img_prev' %>
+
+<%= form_for @post do |f| %>
+	<p>
+		<div class="field image">
+		    <%= f.label 'サムネイル（スクリーンショットなど）' %>
+		    <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
+		    <div id="img_field" onClick="$('#file').click()" >
+		 
+		        <!-- 画像があるときは画像を表示する -->
+		        <% if @post.image.url.present? %>
+		          <%= image_tag(@post.image.url) %>
+		        <% else %>
+		          <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+		        <% end %>
+		    </div>
+		    <!-- id "file"をつけ、「display:none;」で隠す -->
+		    <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
+		</div>
+	</p>
+	<p>
+		<%= f.label :title, "コーディネートタイトル" %>
+	 	<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :content,"コーディネート詳細" %>
+		<%= f.text_area :content%>
+	</p>
+	<% if request.path_info == new_post_path %>
+		<%= f.submit "投稿", data: { disable_with: "投稿中..."} %>
+	<% elsif request.path_info == edit_post_path(post) %>
+ 		<%= f.submit "更新", data: { disable_with: "更新中..."} %>
+ 	<% end %>
+<% end %>
+
