@@ -1,0 +1,53 @@
+<h1>show</h1>
+	<div class="img"><%= image_tag(@post.image_url) %></div>
+	<h3><%= @post.title %></h3>
+	<h3><%= @post.content %></h3>
+	
+	<h3><%= link_to "編集",edit_post_path(@post) %></h3>
+	<h3><%= link_to "削除",post_path(@post),:method => :delete %></h3>
+	<br/>
+	<h3>いいね件数: <%= @post.likes.count %></h3>
+
+	<%if user_signed_in? && @post.user_id != current_user.id %>
+		<% if current_user.already_liked?(@post) %>
+		  <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
+		<% else %>
+		  <%= button_to 'いいね', post_likes_path(@post) %>
+		<% end %>
+	<% end %>
+	<br/>
+	<h2>この投稿をいいねしてるユーザー</h2>
+		<% @post.liked_users.each do |user| %>
+		  <li><%= user.name %></li>
+		<% end %>
+	<br/>
+	<h3>コメント一覧</h3>
+	<% if @commented_users.present? %>
+		<% @post.comments.each do |c| %>
+		    <div>
+			    <% unless c.user.blank? %>
+			    	<a href="<%= user_path(c.user_id) %>"><%= image_tag c.user.photo_url %></a>
+			    <% end %>
+			    <%= c.user.name unless c.user.blank? %>
+			    <%= c.content %>
+			    <!-- コメントの投稿主の削除権限 -->
+			    <% if user_signed_in? && c.user_id == current_user.id %>
+			    	<%= link_to("コメント主権限の削除", post_comment_path(c.post_id, c.id), {method: "delete"}) %>
+			    <!-- post投稿主の削除権限（コメントが存在する場合は全て） -->
+			    
+			    <% end %>
+		    </div>
+		    <br/>
+		<% end %>
+	<% else %>
+		<p>コメントの投稿がありません</p>
+	<% end %>
+	<br/>
+	<% if user_signed_in? %>
+	    <%= form_for [@post, @comment] do |f| %>
+		  <%= f.text_field :content, "presence"=> true %>
+		  <%= f.submit 'コメントする' %>
+		<% end %>
+	<% end %>
+	<br/>
+<%= link_to "ホームへ戻る", posts_path %>
