@@ -3,75 +3,61 @@
 <h2>Sign up</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
   <%= f.error_notification %>
 
-
+  <div class="field">
+    <%= f.label :ユーザーネーム %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+  <div class="field image">
+    <%= f.label :アイコン画像 %>
+    <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
+    <div id="img_field" onClick="$('#file').click()" >
+ 
+        <!-- 画像があるときは画像を表示する -->
+        <% if @user.photo.url.present? %>
+          <%= image_tag(@user.photo.url) %>
+        <% else %>
+          <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
+        <% end %>
+    </div>
+    <!-- id "file"をつけ、「display:none;」で隠す -->
+    <%= f.file_field :photo, class: "image", style: "display:none;", id: "file"%>
+  </div>
+  <div class="field">
+    <%= f.label :ターゲット性別 %><br />
+    <%= f.text_field :gender, autofocus: true %>
+  </div>
+  
+  <!-- ショプモデル -->
+  <div class="field">
     <%= f.fields_for :shop do |shop| %>
+
       <div class="field">
-        <%= shop.label :shopネーム %><br />
-        <%= shop.text_field :name, autocomplete: "off" %>
+        <%= shop.label :電話番号 %><br />
+        <%= shop.text_field :phone, autocomplete: "off" %>
+      </div>
+      <div class="field">
+        <%= shop.label :ホームページURL %><br />
+        <%= shop.text_field :hp_url, autofocus: true %>
       </div>
 
     <% end %>
-    <br/>
-    <br/>
-    <br/>
-    <div class="field">
-      <%= f.label :ユーザーネーム %><br />
-      <%= f.text_field :name, autofocus: true %>
-    </div>
-    <div class="field image">
-      <%= f.label :アイコン画像 %>
-      <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
-      <div id="img_field" onClick="$('#file').click()" >
-   
-          <!-- 画像があるときは画像を表示する -->
-          <% if @user.photo.url.present? %>
-            <%= image_tag(@user.photo.url) %>
-          <% else %>
-            <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
-          <% end %>
-      </div>
-      <!-- id "file"をつけ、「display:none;」で隠す -->
-      <%= f.file_field :photo, class: "image", style: "display:none;", id: "file"%>
-    </div>
-    
-    <!--<div class="field">
-      <%= f.label :性別 %><br />
-      <%= f.text_field :gender, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :年齢 %><br />
-      <%= f.text_field :age, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :身長 %><br />
-      <%= f.text_field :height, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :電話番号 %><br />
-      <%= f.text_field :phone, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :ショップ %><br />
-      <%= f.text_field :shop_id, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :ホームページURL %><br />
-      <%= f.text_field :hp_url, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :フェースブックURL %><br />
-      <%= f.text_field :facebook_url, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :ツイッターURL %><br />
-      <%= f.text_field :twitta_url, autofocus: true %>
-    </div>
-    <div class="field">
-      <%= f.label :インスタグラムURL %><br />
-      <%= f.text_field :instaguram_url, autofocus: true %>
-    </div>-->
+  </div>
+  
+  <div class="field">
+    <%= f.label :フェースブックURL %><br />
+    <%= f.text_field :facebook_url, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :ツイッターURL %><br />
+    <%= f.text_field :twitta_url, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :インスタグラムURL %><br />
+    <%= f.text_field :instaguram_url, autofocus: true %>
+  </div>
     
   <div class="field">
     <%= f.label :email %><br />

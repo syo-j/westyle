@@ -7,8 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   # def new
   #   super
-  #   @user = User.new
-  #   @shop = @user.build_shop
   # end
 
 
@@ -56,17 +54,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [
-      :name, :age, :photo, :height, :gender, :phone,
-      :shop_id, :hp_url, :facebook_url, :twitta_url,
-      :instaguram_url, shop_attributes: [:name]] )
+      :name, :age, :photo, :height, :gender, :facebook_url,
+      :twitta_url, :instaguram_url, :shop_id,
+      shop_attributes: [:phone, :hp_url, :area_id, :user_id]])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [
-      :name, :age, :photo, :height, :gender, :phone,
-      :shop_id, :hp_url, :facebook_url, :twitta_url,
-      :instaguram_url, shop_attributes: [:name]] )
+      :name, :age, :photo, :height, :gender, :facebook_url,
+      :twitta_url, :instaguram_url, :shop_id,
+      shop_attributes: [:phone, :hp_url, :area_id, :user_id]])
   end
 
   # The path used after sign up.

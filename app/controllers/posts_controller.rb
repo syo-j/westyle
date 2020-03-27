@@ -19,7 +19,11 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = current_user.id 
+    @post.user_id = current_user.id
+    # user_idを持ったshopの子を持つuserなら
+    unless current_user.shop.blank?
+      @post.shop_id = current_user.shop.id
+    end
     if @post.save
       flash[:notice] = "投稿しました"
       redirect_to posts_path
@@ -66,9 +70,9 @@ class PostsController < ApplicationController
   
 
   private
+
   def post_params
     params.require(:post).permit(:title, :content, :image)
-    
   end
 
 end
