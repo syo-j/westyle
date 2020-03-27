@@ -16,7 +16,12 @@ class User < ApplicationRecord
 
   	has_many :comments, dependent: :destroy
   	belongs_to :area, optional: true
-    belongs_to :shop, optional: true
+
+    has_one :shop, inverse_of: :user, dependent: :destroy
+    #shopのフォームでuserを保存
+    accepts_nested_attributes_for :shop
+    
+
 
     mount_uploader :photo, PhotoUploader
 

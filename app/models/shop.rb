@@ -1,3 +1,4 @@
 class Shop < ApplicationRecord
-	has_many :users
+	belongs_to :user, inverse_of: :shop
+	
 end
