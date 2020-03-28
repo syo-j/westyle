@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_044110) do
+ActiveRecord::Schema.define(version: 2020_03_28_005145) do
 
   create_table "areas", force: :cascade do |t|
     t.integer "user_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_044110) do
     t.integer "bland_id"
     t.integer "size_id"
     t.integer "color_id"
+    t.integer "post_id"
   end
 
   create_table "colors", force: :cascade do |t|
