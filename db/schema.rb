@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_28_005145) do
+ActiveRecord::Schema.define(version: 2020_03_29_052221) do
 
   create_table "areas", force: :cascade do |t|
     t.integer "user_id"
@@ -92,6 +92,13 @@ ActiveRecord::Schema.define(version: 2020_03_28_005145) do
 
   create_table "sizes", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "staffs", force: :cascade do |t|
+    t.integer "registered_id"
+    t.integer "registering_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

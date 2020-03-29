@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  #get 'staffs/create'
+  #get 'staffs/destroy'
   #get 'relationships/create'
   #get 'relationships/destroy'
   #get 'users/show'
@@ -18,12 +20,12 @@ Rails.application.routes.draw do
   
   # /shop/newを習得
   devise_scope :user do
-    get '/shop/new' => 'users/registrations#shop' ,as: :new_shop
+    get '/shop/new' => 'users/registrations#shop', as: :new_shop
   end
 
   resources :users, only: [:show] do
     resource :relationships, only: [:create, :destroy]
-    
+    resource :staffs, only: [:create, :destroy]
   end
 
   resources :posts do
