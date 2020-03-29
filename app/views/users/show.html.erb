@@ -5,14 +5,26 @@
   <%= link_to image_tag(@user.photo_url), user_path(@user) %>
 </div>
 <br/>
+<br/>
+  <% unless current_user.shop.blank? %>
+    <% if current_user != @user %>
+      <% if @user.staffed_by?(current_user) %>
+        <p><%=link_to "スタッフ登録済み", user_staffs_path(@user.id), method: :delete %></p>
+      <% else %>
+        <p><%=link_to "スタッフ登録", user_staffs_path(@user.id), method: :post %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+<br/>
+<br/>
 <div>
   <% if current_user != @user %>
-        <% if @user.followed_by?(current_user) %>
-            <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
-        <% else %>
-            <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
-        <% end %>
+    <% if @user.followed_by?(current_user) %>
+      <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
+    <% else %>
+      <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
     <% end %>
+  <% end %>
 </div>
 <br/>
 <div>
