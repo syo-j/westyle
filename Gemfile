@@ -84,4 +84,10 @@ gem 'devise-i18n-views'
 gem 'bootstrap'
 gem 'jquery-rails'
 
+gem 'mechanize'
 
+# rake db:seed_fu
+gem 'seed-fu'
+
+# idが1から始まる
+gem 'activerecord-reset-pk-sequence'
