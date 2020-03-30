@@ -28,3 +28,8 @@ CSV.foreach('db/fixtures/seed_size.csv') do |row|
   end
 end
 
+CSV.foreach('db/fixtures/seed_area.csv') do |row|
+  Area.seed(:prefecture) do |s|
+    s.prefecture = row[0]
+  end
+end
