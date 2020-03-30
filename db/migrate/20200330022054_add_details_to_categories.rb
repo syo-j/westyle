@@ -1,0 +1,6 @@
+class AddDetailsToCategories < ActiveRecord::Migration[6.0]
+  def change
+  	add_column :categories, :item, :string
+  	add_column :categories, :name, :string
+  end
+end
