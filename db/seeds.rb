@@ -8,7 +8,7 @@
 
 
 
-require "csv"
+# require "csv"
 
 # CSV.foreach('db/seed_bland.csv') do |row|
 #   Bland.create(initial: row[0], name: row[1])

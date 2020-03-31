@@ -29,7 +29,10 @@
     <%= f.label :ターゲット性別 %><br />
     <%= f.text_field :gender, autofocus: true %>
   </div>
-  
+  <div class="field">
+    <%= f.label :エリア %>
+    <%= f.collection_select :area_id, Area.all, :id, :prefecture, :include_blank => true %>
+  </div>
   <!-- ショプモデル -->
   <div class="field">
     <%= f.fields_for :shop do |shop| %>
