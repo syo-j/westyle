@@ -80,9 +80,11 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 
-#bootstrap4
-gem 'bootstrap'
-gem 'jquery-rails'
+#bootstrap,jquery
+# gem 'sassc', '~> 2.0.0'
+# gem 'uglifier'
+# gem 'jquery-rails'
+# gem 'bootstrap'
 
 gem 'mechanize'
 
@@ -91,3 +93,6 @@ gem 'seed-fu'
 
 # idが1から始まる
 gem 'activerecord-reset-pk-sequence'
+
+#Font Awesome使うため
+gem 'font-awesome-rails'

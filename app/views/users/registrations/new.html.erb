@@ -25,7 +25,11 @@
     <!-- id "file"をつけ、「display:none;」で隠す -->
     <%= f.file_field :photo, class: "image", style: "display:none;", id: "file"%>
   </div>
-    
+  
+  <div class="field">
+    <%= f.label :エリア %>
+    <%= f.collection_select :area_id, Area.all, :id, :prefecture, :include_blank => true %>
+  </div>
   <div class="field">
     <%= f.label :性別 %><br />
     <%= f.text_field :gender, autofocus: true %>
