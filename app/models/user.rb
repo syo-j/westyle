@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
     has_one :shop, inverse_of: :user, dependent: :destroy
     #shopのフォームでuserを保存
-    accepts_nested_attributes_for :shop
+    accepts_nested_attributes_for :shop, allow_destroy: true
     
 
     mount_uploader :photo, PhotoUploader

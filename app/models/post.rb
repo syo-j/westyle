@@ -10,7 +10,9 @@ class Post < ApplicationRecord
 	# コメントが存在するかを見るため
 	has_many :commented_users, through: :comments, source: :user
 
-	has_many :clothes
+	has_many :clothes, inverse_of: :post
+	#postのフォームでclotheを保存
+	accepts_nested_attributes_for :clothes, allow_destroy: true
 
 	mount_uploader :image, ImageUploader
 

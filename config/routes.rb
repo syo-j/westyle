@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show] do
-    resource :relationships, only: [:create, :destroy]
+    resource :relationships, only: [:new]
     resource :staffs, only: [:create, :destroy]
   end
 
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   	collection do
   		get :search
   	end
+    # resources :clothes, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy]
     resources :comments, only: [:create, :destroy]
   end

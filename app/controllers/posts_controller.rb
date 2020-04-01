@@ -16,6 +16,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.clothes.build
   end
 
   def create
@@ -73,7 +74,11 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :image)
+    params.require(:post).permit(
+      :title, :content, :image,
+      clothes_attributes: [
+        :bland_id, :category_id, :size_id, :color_id, :price, :name
+      ])
   end
 
 end
