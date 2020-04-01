@@ -4,26 +4,62 @@
     <title>Westyle</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- bootstrapの上にstylesheet上書き -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <!-- body背景 -->
+  <% if request.path_info == search_posts_path %>
+    <body class="body-1">
+  <% else %>
+    <body>
+  <% end %>
 
-    <div>
-      <%if user_signed_in? %>
-        <li><%=link_to(current_user.name, user_path(current_user))%></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-      <%else%>
-        <div class="col-3 text-center pt-4">
-          <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark">新規登録</i></a></h4>
+    <!-- pcヘッダー -->
+    <header class='sticky-top mb-3 d-none d-md-block'>
+      <div class="container-fluid">
+        <div class="row">
+          <div class='col-3 text-center pt-4'>
+            <h5><i class="fas fa-search"></i><%= link_to("サーチ", search_posts_path) %></h5>
+          </div>
+          <div class='col-5 text-center logo_img'>
+            <%= link_to image_tag('/assets/logo.png', :class => "img-fluid mt-2 logo-size"), posts_path %>
+          </div>
+
+          <div class="col-4 row pt-4 text-center d-none d-md-inline">
+            <%if user_signed_in? %>
+             <h6 class="col-12 pb-1 col-md-6"><%=link_to(current_user.name, user_path(current_user))%></h6>
+              <h6 class="col-12 col-md-6"><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></h6>
+            <%else%>
+              <h6 class="col-12 pb-1 col-md-6"><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark">新規登録</i></a></h6>
+
+              <h6 class="col-12 col-md-6"><%= link_to "ログイン", new_user_session_path %></h6>
+            <% end %>
+          </div>
+
+          <div class="col-3 text-center d-sm-none pt-4">
+            <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark"></i></a></h4>
+          </div>
         </div>
-        <h4><%= link_to "ログイン", new_user_session_path %></h4>
-      <%end%>
+      </div>
+    </header>
+
+    <!-- スマホのヘッダー -->
+    <div class='header-mobil d-md-none'>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-right pt-4">
+            <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark"></i></a></h4>
+          </div>
+          <div class='col-12 col-md-5 text-center'>
+            <%= link_to image_tag('/assets/logo.png', :class => "img-fluid mt-2 logo-size-mobil"), posts_path %>
+          </div>
+        </div>
+      </div>
     </div>
-    <br/>
-    
+
+    <!-- メッセージ -->
     <div>
       <% if notice %>
         <p><%= notice %></p>
@@ -38,7 +74,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content pb-5"> 
           <div class="modal-header">
-            <h1 class="modal-title" id="menuModalLabel">Menu</h1>
+            <h1 class="modal-title" id="menuModalLabel">新規登録Menu</h1>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hide="true">✖︎</span>
             </button>
@@ -52,5 +88,7 @@
     </div>
 
     <%= yield %>
+
+
   </body>
 </html>
