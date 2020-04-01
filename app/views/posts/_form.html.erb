@@ -26,6 +26,35 @@
 		<%= f.label :content,"コーディネート詳細" %>
 		<%= f.text_area :content%>
 	</p>
+
+	<%= f.fields_for :clothes do |clothe| %>
+		<div class="field">
+	        <%= clothe.label :カテゴリー %><br />
+	        <%= clothe.collection_select :category_id, Category.all, :id, :name %>
+     	</div>
+     	<div class="field">
+	        <%= clothe.label :ブランド %><br />
+	        <%= clothe.collection_select :bland_id, Bland.all, :id, :name %>
+     	</div>
+		<div class="field">
+	        <%= clothe.label :商品名 %><br />
+	        <%= clothe.text_field :name %>
+     	</div>
+     	<div class="field">
+	        <%= clothe.label :サイズ %><br />
+	        <%= clothe.collection_select :size_id, Size.all, :id, :name %>
+     	</div>
+     	<div class="field">
+	        <%= clothe.label :カラー %><br />
+	        <%= clothe.collection_select :color_id, Color.all, :id, :name %>
+     	</div>
+     	<div class="field">
+	        <%= clothe.label :プライス %><br />
+	        <%= clothe.number_field :price %>
+     	</div>
+	<% end %>
+
+
 	<% if request.path_info == new_post_path %>
 		<%= f.submit "投稿", data: { disable_with: "投稿中..."} %>
 	<% elsif request.path_info == edit_post_path(post) %>

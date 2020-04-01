@@ -39,11 +39,11 @@
 
       <div class="field">
         <%= shop.label :電話番号 %><br />
-        <%= shop.text_field :phone, autocomplete: "off" %>
+        <%= shop.telephone_field :phone, autocomplete: "off" %>
       </div>
       <div class="field">
         <%= shop.label :ホームページURL %><br />
-        <%= shop.text_field :hp_url, autofocus: true %>
+        <%= shop.url_field :hp_url, autofocus: true %>
       </div>
 
     <% end %>
@@ -51,15 +51,15 @@
   
   <div class="field">
     <%= f.label :フェースブックURL %><br />
-    <%= f.text_field :facebook_url, autofocus: true %>
+    <%= f.url_field :facebook_url, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :ツイッターURL %><br />
-    <%= f.text_field :twitta_url, autofocus: true %>
+    <%= f.url_field :twitta_url, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :インスタグラムURL %><br />
-    <%= f.text_field :instaguram_url, autofocus: true %>
+    <%= f.url_field :instaguram_url, autofocus: true %>
   </div>
     
   <div class="field">
@@ -81,7 +81,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "登録" %>
+    <%= f.submit "登録", data: { disable_with: "登録中..."} %>
   </div>
 
 <% end %>

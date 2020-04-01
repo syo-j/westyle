@@ -36,23 +36,23 @@
   </div>
   <div class="field">
     <%= f.label :年齢 %><br />
-    <%= f.text_field :age, autofocus: true %>
+    <%= f.number_field :age, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :身長 %><br />
-    <%= f.text_field :height, autofocus: true %>
+    <%= f.number_field :height, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :フェースブックURL %><br />
-    <%= f.text_field :facebook_url, autofocus: true %>
+    <%= f.url_field :facebook_url, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :ツイッターURL %><br />
-    <%= f.text_field :twitta_url, autofocus: true %>
+    <%= f.url_field :twitta_url, autofocus: true %>
   </div>
   <div class="field">
     <%= f.label :インスタグラムURL %><br />
-    <%= f.text_field :instaguram_url, autofocus: true %>
+    <%= f.url_field :instaguram_url, autofocus: true %>
   </div>
     
   <div class="field">
@@ -74,7 +74,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "登録" %>
+    <%= f.submit "登録", data: { disable_with: "登録中..."} %>
   </div>
 
 <% end %>
