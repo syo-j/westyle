@@ -131,24 +131,24 @@
 					<!-- コメント内容 -->
 					<% unless @commented_users.blank? %>
 				        <% @comments.each do |comment| %>
-				        	<% if @post.user_id == current_user.id %>
-				        	<div class="row my-4">
-					        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
-									<div class="col-4 col-md-2">
-								    	<% unless comment.user.blank? %>
-						            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
-						            	<% end %>
-						            </div>
-						            <div class="col-10 row">
-									    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
-									    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
-									    <!-- コメントの投稿主の削除権限 -->
-									    <% if user_signed_in? && comment.user_id == current_user.id %>
-									    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
-									    <% end %>
-									</div>
-								<% end %>
-							</div>
+				        	<% if user_signed_in? && @post.user_id == current_user.id %>
+					        	<div class="row my-4">
+						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
+										<div class="col-4 col-md-2">
+									    	<% unless comment.user.blank? %>
+							            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
+							            	<% end %>
+							            </div>
+							            <div class="col-10 row">
+										    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
+										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
+										    <!-- コメントの投稿主の削除権限 -->
+										    <% if user_signed_in? && comment.user_id == current_user.id %>
+										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+										    <% end %>
+										</div>
+									<% end %>
+								</div>
 							<% else %>
 								<div class="row my-4">
 						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
