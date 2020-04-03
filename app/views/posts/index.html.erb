@@ -1,36 +1,83 @@
-<h1>いんでくす</h1>
 
-
-<p>Find me in app/views/posts/index.html.erb</p>
 <div>
 	<%= link_to("サーチ", search_posts_path) %>
 	<%= link_to("新規投稿", new_post_path) %>
 </div>
-<div>
-	<% @posts.each do |post| %>
-		<div class="img">
-			<% if post.image_url.present? %>
-				<%= link_to image_tag(post.image_url), post_path(post) %>
-			<% end %>
-		</div>
-		<div>
-		<%= post.title %>
-		<%= post.content %>
-		<br>
-		<%= post.user_id %>
-		</div>
-		<div>
-			<% if user_signed_in? %>
+<!-- ナビゲーションバー -->
+<nav class="posts-nav-bg boder-bottom-0 pt-1">
+	<div class="nav nav-tabs justify-content-center" id="tab-menus" role="tablist">
+		<a class="nav-item nav-link active mr-3 text-black-50" id="tab-shop" data-toggle="tab" href="#panel-shop" role="tab" aria-controls="panel-shop" aria-selected="true">SHOP</a>
+		<a class="nav-item nav-link mr-3 text-black-50" id="tab-user" data-toggle="tab" href="#panel-user" role="tab" aria-controls="panel-user" aria-selected="false">USER</a>
+		<a class="nav-item nav-link mr-3 text-black-50" id="tab-follower" data-toggle="tab" href="#panel-follower" role="tab" aria-controls="panel-follower" aria-selected="false">FOLLOWER</a>
+	</div>
+</nav>
+<!-- container -->
+<div class="container-fluid pt-4 posts-bg">
+	<div class='row'>
+		<div class="col-md-10">
+				<!-- shop -->
+				<div class="tab-content" id="panel-menus">
+					<div class="tab-pane fade show active" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop">
+						<div class="row">
+							<% @posts.each do |post| %>
+								<div class='col-6 col-sm-4 col-lg-3'>
+									<!-- カード01 -->
+									<div class='card mb-3'>
+										<div class="img-fluid overflow-hidden zoomIn img-firu image-trim">
+											<% if post.image_url.present? %>
+												<%= link_to image_tag(post.image_url), post_path(post) %>
+											<% end %>
+										</div>
+										<!-- カードエリアの本文 -->
+										<div class='text-center firu con' data-delighter>
+											<div class="row justify-content-center mt-2">
+												<div class="col-12 mb-2 row align-items-baseline">
+													<div class="col-6">
+														<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle"), user_path(post.user_id) %>
+													</div>
+													<h6 class="col-6 mb-1 text-dark">
+														<%=link_to(post.user.name, user_path(post.user_id))%>
+													</h6>
+												</div>
+												<%if user_signed_in? && post.user_id != current_user.id %>
+													<% if current_user.already_liked?(post) %>
+													  <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
+													  	<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+											          <% end %>
+													<% else %>
+														<%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
+												          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+												        <% end %>
+													<% end %>
+												<% else %>
+													<div class="btn btn-outline-success m-1">
+														<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+													</div>
+												<% end %>
+												<% if user_signed_in? %>
+													<% if current_user.id != post.user_id %>
+												        <% if post.user.followed_by?(current_user) %>
+												        	<%= link_to user_relationships_path(post.user), class: "btn btn-success m-1 h-25", method: :delete do %>
+													          <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
+													        <% end %>
+												        <% else %>
+												        	<%= link_to user_relationships_path(post.user), class: "btn btn-outline-success m-1 h-25", method: :post do %>
+													          <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+													        <% end %>
+												        <% end %>
+												    <% end %>
+											    <% end %>
+											</div>
+										</div>
+									</div>
+								</div>
+							<% end %>
 
-				<% if current_user.id != post.user_id %>
-			        <% if post.user.followed_by?(current_user) %>
-			            <p><%=link_to "フォロー済み", user_relationships_path(post.user), method: :delete %></p>
-			        <% else %>
-			            <p><%=link_to "フォローする", user_relationships_path(post.user), method: :post %></p>
-			        <% end %>
-			    <% end %>
-	    	<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<p>ーーーーーーーーーーーーーーーーーーーーーーーー------</p>
-	<% end %>
+	</div>
 </div>
+

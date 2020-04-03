@@ -12,4 +12,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+
+# asseteのjs追加分
 Rails.application.config.assets.precompile += %w( img_prev.js )
+Rails.application.config.assets.precompile += %w( new_posts.js )

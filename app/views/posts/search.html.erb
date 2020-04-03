@@ -1,17 +1,20 @@
-<h1>Posts#search</h1>
-<div>
-	<%= search_form_for @q, url: "/posts/search" do |f| %>
-	  <%= f.search_field :clothes_name_or_clothes_bland_name_or_clothes_category_name_or_title_or_content_cont, label: false, placeholder: '2文字以上での入力を' %>
-	  <%= f.submit %>
-	<% end %>
+<nav class="my-5">
+	<form class="form-inline justify-content-center">
+		<%= search_form_for @q, url: "/posts/search" do |f| %>
+		  <%= f.search_field :clothes_name_or_clothes_bland_name_or_clothes_category_name_or_title_or_content_cont, label: false, placeholder: '2文字以上での入力を', class: "mr-2 w-50" %>
+		  <%= f.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
+		<% end %>
+	</form>
+</nav>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<% if @post_images.any? %>
+			<% @post_images.each do |article| %>
+				<div class="col-3 col-md-2 search-img">
+					<%= link_to image_tag(article.image_url, class: "img-fluid"),  "/posts/#{article.id}" %>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
 </div>
-
-<% if @post_images.any? %>
-	<% @post_images.each do |article| %>
-		<div class="img">
-		<%= link_to image_tag(article.image_url), "/posts/#{article.id}" %>
-		</div>
-		<br/>
-	<% end %>
-<% end %>
 

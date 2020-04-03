@@ -1,64 +1,118 @@
 <%= javascript_include_tag 'img_prev' %>
-
-<%= form_for @post do |f| %>
-	<p>
-		<div class="field image">
-		    <%= f.label 'サムネイル（スクリーンショットなど）' %>
-		    <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
-		    <div id="img_field" onClick="$('#file').click()" >
-		 
-		        <!-- 画像があるときは画像を表示する -->
-		        <% if @post.image.url.present? %>
-		          <%= image_tag(@post.image.url) %>
-		        <% else %>
-		          <i class="fas fa-image"></i><i class="fas fa-file-upload add"></i>
-		        <% end %>
-		    </div>
-		    <!-- id "file"をつけ、「display:none;」で隠す -->
-		    <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
+<div class="container mt-5">
+	<%= form_for @post do |f| %>
+		<div class="row mb-5">
+			<div class="col-12 col-lg-4 mb-3">
+				<h5><%= f.label :コーディネート画像 %></h5><span class='badge badge-warning'>必須</span>
+			</div>
+			<div class="field image col-7 col-lg-4 m-auto">
+			    <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
+			    <div id="img_field" onClick="$('#file').click()" >
+			 
+			        <!-- 画像があるときは画像を表示する -->
+			        <% if @post.image.url.present? %>
+			          <%= image_tag(@post.image.url) %>
+			        <% else %>
+			          <i class="fas fa-image text-center"></i><i class="fas fa-file-upload add"></i>
+			        <% end %>
+			    </div>
+			    <!-- id "file"をつけ、「display:none;」で隠す -->
+			    <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
+			</div>
+			<div class="col-12 col-lg-3 mt-3">
+				<h6>推奨ファイルサイズ：</h6>
+			</div>
 		</div>
-	</p>
-	<p>
-		<%= f.label :title, "コーディネートタイトル" %>
-	 	<%= f.text_field :title %>
-	</p>
-	<p>
-		<%= f.label :content,"コーディネート詳細" %>
-		<%= f.text_area :content%>
-	</p>
-
-	<%= f.fields_for :clothes do |clothe| %>
-		<div class="field">
-	        <%= clothe.label :カテゴリー %><br />
-	        <%= clothe.collection_select :category_id, Category.all, :id, :name %>
-     	</div>
-     	<div class="field">
-	        <%= clothe.label :ブランド %><br />
-	        <%= clothe.collection_select :bland_id, Bland.all, :id, :name %>
-     	</div>
-		<div class="field">
-	        <%= clothe.label :商品名 %><br />
-	        <%= clothe.text_field :name %>
-     	</div>
-     	<div class="field">
-	        <%= clothe.label :サイズ %><br />
-	        <%= clothe.collection_select :size_id, Size.all, :id, :name %>
-     	</div>
-     	<div class="field">
-	        <%= clothe.label :カラー %><br />
-	        <%= clothe.collection_select :color_id, Color.all, :id, :name %>
-     	</div>
-     	<div class="field">
-	        <%= clothe.label :プライス %><br />
-	        <%= clothe.number_field :price %>
-     	</div>
+		<div class="field row mb-5">
+			<h5 class="col-12"><%= f.label :title, "コーディネートタイトル" %></h5>
+		 	<%= f.text_field :title, class: "col-6 m-auto" %>
+		</div>
+		<div class="field row mb-5">
+			<h5 class="col-12">
+				<%= f.label :content,"コーディネート詳細" %>
+			</h5>
+			<%= f.text_area :content, :size => "60x10", class: "col-10 m-auto" %>
+		</div>
+		<h4 class="pb-2">アイテム追加一覧</h4>
+		<div class="row container mb-4">
+			<%= f.fields_for :clothes do |clothe| %>
+				<div class="field col-3 col-lg-2">
+			        <%= clothe.label :カテゴリー %><br />
+			        <div class="">
+						<h4><a data-toggle="modal" data-target="#categoryModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+					</div>
+					<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content pb-5"> 
+								<div class="modal-header">
+									<h1 class="modal-title" id="categoryModalLabel">カテゴリー</h1>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							  			<span aria-hide="true">✖︎</span>
+							  		</button>
+								</div>
+								<div class="mb-3 m-auto">
+							        <%= clothe.collection_radio_buttons :category_id, Category.all, :id, :name do |tag| %>
+								        <%= tag.label do %>
+								            <%= tag.radio_button %>
+								            <%= tag.text %>
+								        <% end %>
+				    				<% end %>
+				    			</div>
+							</div>
+			 			</div>
+					</div>
+		     	</div>
+		     	<div class="field col-3 col-lg-2">
+		     		<%= clothe.label :ブランド %><br />
+		     		<div class="">
+						<h4><a data-toggle="modal" data-target="#blandModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+					</div>
+					<div class="modal fade" id="blandModal" tabindex="-1" role="dialog" aria-labelledby="blandModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content pb-5"> 
+								<div class="modal-header">
+									<h1 class="modal-title" id="blandModalLabel">ブランド</h1>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							  			<span aria-hide="true">✖︎</span>
+							  		</button>
+								</div>
+								<div class="mb-3 m-auto">
+							        <%= clothe.collection_radio_buttons :bland_id, Bland.all, :id, :name do |tag| %>
+								        <%= tag.label do %>
+								            <%= tag.radio_button %>
+								            <%= tag.text %>
+								        <% end %>
+								    <% end %>
+				    			</div>
+							</div>
+			 			</div>
+					</div>
+		     	</div>
+		     	<div class="field col-3 col-lg-2">
+			        <%= clothe.label :サイズ %><br />
+			        <%= clothe.collection_select :size_id, Size.all, :id, :name %>
+		     	</div>
+		     	<div class="field col-3 col-lg-2">
+			        <%= clothe.label :カラー %><br />
+			        <%= clothe.collection_select :color_id, Color.all, :id, :name %>
+		     	</div>
+		     	<div class="field col-6 col-lg-2">
+			        <%= clothe.label :商品名 %><br />
+			        <%= clothe.text_field :name %>
+		     	</div>
+		     	<div class="field col-6 col-lg-2">
+			        <%= clothe.label :プライス %><br />
+			        <%= clothe.number_field :price %>
+		     	</div>
+			<% end %>
+		</div>
+		<div class="row py-5">
+			<% if request.path_info == new_post_path %>
+				<%= f.submit "投稿", data: { disable_with: "投稿中..."}, class: "col-3 m-auto btn btn-warning" %>
+			<% elsif request.path_info == edit_post_path(post) %>
+		 		<%= f.submit "更新", data: { disable_with: "更新中..."}, class: "col-3 m-auto btn btn-warning" %>
+		 	<% end %>
+		</div>
 	<% end %>
-
-
-	<% if request.path_info == new_post_path %>
-		<%= f.submit "投稿", data: { disable_with: "投稿中..."} %>
-	<% elsif request.path_info == edit_post_path(post) %>
- 		<%= f.submit "更新", data: { disable_with: "更新中..."} %>
- 	<% end %>
-<% end %>
+</div>
 

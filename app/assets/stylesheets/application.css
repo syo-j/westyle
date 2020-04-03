@@ -13,6 +13,8 @@
  *= require_tree .
  *= require_self
  */
+ 
+
 
 @charset 'UTF-8';
 
@@ -25,28 +27,18 @@ body {
 }
 /*header*/
 header{
-    height: 90px;
-    margin-top: -16px;
-    box-shadow: 0px 10px 15px -10px;
-    background-color: rgba(255,255,255,0.8);
+  height: 90px;
+  margin-top: -16px;
+  box-shadow: 0px 10px 15px -10px;
+  background-color: rgba(255,255,255,0.8);
 }
 
 .logo-size {
   height: 70px;
 }
-
-/* footer */
-footer {
-  background-image: url(../img/bg-g.png);
-  background-size: cover;
-  padding: 250px 0;
+.s-icon {
+  height: 40px;
 }
-.search-footer {
-  background-image: url(../img/bg-y.png);
-  background-size: cover;
-  padding: 250px 0;
-}
-
 /*posts-index*/
 .posts-nav-bg {
   background-color: #009900;
@@ -70,14 +62,14 @@ footer {
 
 /*ズームイン*/
 .zoomIn img {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition: 1s ease-in-out;
-    transition: 1s ease-in-out;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
 }
 .zoomIn:hover img {
-    -webkit-transform: scale(1.3);
-    transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
 }
 /*画像トリミング(アイコン)*/
 .icon-trim {
@@ -171,6 +163,8 @@ ul,li{
     margin: 2px -13px 2px;
 }
 
+
+
 /*posts-show*/
 .user-img {
     height: 100px;
@@ -198,6 +192,8 @@ ul,li{
   box-sizing: border-box;
   transition: 0.3s ease-out;
 }
+
+
 
 /*レスポンシブ*/
 @media screen and (max-width: 768px) {
@@ -271,35 +267,37 @@ ul,li{
 }
 
 
-/*新規登録画像プレビュー*/
+
+/*新規投稿画像プレビュー*/
 #img_field {
   font-size: 15px;
-  margin-top: 10px;
-  padding: 5px 8px;
-  border: solid 1px #EDBC6C;
+  border: solid 2px #009900;
   color: #666;
   position: relative;
   padding: 0;
   border-radius: 5px;
   cursor: pointer;
-  width: 250px;
-  height: 250px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: #fff;
+  width: 275px;
+  height: 365px;
   overflow: hidden;
-  box-sizing: border-box;
-  transition: 0.3s ease-out;
 }
- 
+/*新規投稿画像プレビュートリミング*/
+#img_field img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ /*フォトアイコン*/
 #img_field i {
   font-size: 100px;
   color: #aaa;
-  line-height: 250px;
+  padding-left: 80px;
+  line-height: 350px;
   transition: 0.3s ease-out;
 }
- 
+  /*ファイルアイコン*/
 #img_field i.add {
   display: none;
   font-size: 50px;
@@ -309,13 +307,63 @@ ul,li{
 }
  
 #img_field:hover {
-  background-color: #EDBC6C;
+  background-color: #009900;
   transition: 0.3s ease-out;
   opacity: 0.9;
 }
  
 #img_field:hover i {
   transition: 0.3s ease-out;
-  display: block;
+  display: inline-block;
+  color: #fff;
+}
+
+/*新規登録画像プレビュー*/
+#user-img_field {
+  font-size: 15px;
+  border: solid 2px #009900;
+  color: #666;
+  position: relative;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+/*新規登録画像プレビュートリミング*/
+#user-img_field img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+ /*フォトアイコン*/
+#user-img_field i {
+  font-size: 100px;
+  color: #aaa;
+  padding-left: 100px;
+  line-height: 300px;
+  transition: 0.3s ease-out;
+}
+  /*ファイルアイコン*/
+#user-img_field i.add {
+  display: none;
+  font-size: 50px;
+  position: absolute;
+  top: -90px;
+  right: 50px;
+}
+ 
+#user-img_field:hover {
+  background-color: #009900;
+  transition: 0.3s ease-out;
+  opacity: 0.9;
+}
+ 
+#user-img_field:hover i {
+  transition: 0.3s ease-out;
+  display: inline-block;
   color: #fff;
 }

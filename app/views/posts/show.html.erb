@@ -1,52 +1,191 @@
 <h1>show</h1>
-	<div class="img"><%= image_tag(@post.image_url) %></div>
-	<h3><%= @post.title %></h3>
-	<h3><%= @post.content %></h3>
-	
-	<h3><%= link_to "編集",edit_post_path(@post) %></h3>
-	<h3><%= link_to "削除",post_path(@post),:method => :delete %></h3>
-	<br/>
-	<h3>いいね件数: <%= @post.likes.count %></h3>
+<!-- コンテンツ -->
+<div class="container border-bottom pb-3 my-4">
+	<!-- user情報 -->
+	<div class="row posts-category-bg">
+		<div class="col-3">
+			<%= link_to image_tag(@post.user.photo_url, :class => "img-fluid rounded-circle"), user_path(@post.user_id) %>
+		</div>
+		<div class="col-9">
+			<h3><%=link_to(@post.user.name, user_path(@post.user_id), class: "mb-1 text-dark")%></h3>
+			<% unless @post.user.shop.blank?  %>
+				<h6 class="mb-1 text-dark">
+					<% unless @post.user.height.blank? %>
+						<%= @post.user.height %>cm / 
+					<% end %>
+					<%= @post.user.gender unless @post.user.gender.blank? %>
+				</h6>
+			<% else %>
+				<h6 class="mb-1 text-dark">
+					<% unless @post.user.height.blank? %>
+						<%= @post.user.height %>cm / 
+					<% end %>
+					<%= @post.user.gender unless @post.user.gender.blank? %>
+				</h6>
+			<% end %>
+		</div>
+	</div>
+</div>
 
-	<%if user_signed_in? && @post.user_id != current_user.id %>
-		<% if current_user.already_liked?(@post) %>
-		  <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
-		<% else %>
-		  <%= button_to 'いいね', post_likes_path(@post) %>
-		<% end %>
-	<% end %>
-	<br/>
-	<h2>この投稿をいいねしてるユーザー</h2>
-		<% @post.liked_users.each do |user| %>
-		  <li><%= user.name %></li>
-		<% end %>
-	<br/>
-	<h3>コメント一覧</h3>
-	<% unless @commented_users.blank? %>
-        <% @comments.each do |comment| %>
-		    <div>
-		    	<% unless comment.user.blank? %>
-            		<%= link_to image_tag(comment.user.photo_url), user_path(comment.user_id) %>
-            	<% end %>
-			    <%= comment.user.name unless comment.user.blank? %>
-			    <%= comment.content %>
-			    <!-- コメントの投稿主の削除権限 -->
-			    <% if user_signed_in? && comment.user_id == current_user.id %>
-			    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id), {method: "delete"}) %>
-			    <!-- post投稿主の削除権限（コメントが存在する場合は全て） -->
-			    <% end %>
-		    </div>
-		    <br/>
-		<% end %>
-	<% else %>
-		<p>コメントの投稿がありません</p>
-	<% end %>
-	<br/>
-	<% if user_signed_in? %>
-	    <%= form_for [@post, @comment] do |f| %>
-		  <%= f.text_field :content, "presence"=> true %>
-		  <%= f.submit 'コメントする' %>
-		<% end %>
-	<% end %>
-	<br/>
-<%= link_to "ホームへ戻る", posts_path %>
+<div class="container-fluid mb-3">
+	<div class="row">
+		<!-- カードimg -->
+		<div class="col-md-6 mb-2">
+			<div class="card">
+				<div class="image-trim">
+					<%= image_tag(@post.image_url, class: "card-img-top ") %>
+				</div>
+				<div class="card-body">
+					<h3 class="my-4">
+						<!-- like -->
+						<%if user_signed_in? && @post.user_id != current_user.id %>
+							<% if current_user.already_liked?(@post) %>
+							  <%= link_to post_like_path(@post, @post.id), class: "btn btn-success m-1", method: :delete do %>
+							  	<i class="fas fa-thumbs-up"></i><h6><%= @post.likes.count %></h6>
+					          <% end %>
+							<% else %>
+								<%= link_to post_likes_path(@post), class: "btn btn-outline-success m-1", method: :post do %>
+						          <i class="fas fa-thumbs-up"></i><h6><%= @post.likes.count %></h6>
+						        <% end %>
+							<% end %>
+						<% else %>
+							<div class="btn btn-outline-success m-1">
+								<i class="fas fa-thumbs-up"></i><h6><%= @post.likes.count %></h6>
+							</div>
+						<% end %>
+
+						<!-- <button type='button' class='btn btn-white-50 mr-3'><i class="fas fa-eye icon-btns"></i> 10000</button> -->
+
+						<!-- follow -->
+						<% if user_signed_in? %>
+							<% if current_user.id != @post.user_id %>
+						        <% if @post.user.followed_by?(current_user) %>
+						        	<%= link_to user_relationships_path(@post.user), class: "btn btn-success m-1 h-25", method: :delete do %>
+							          <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
+							        <% end %>
+						        <% else %>
+						        	<%= link_to user_relationships_path(@post.user), class: "btn btn-outline-success m-1 h-25", method: :post do %>
+							          <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+							        <% end %>
+						        <% end %>
+						    <% end %>
+					    <% end %>
+					</h3>
+				</div>
+				<div class="card-header border-top">
+					<h3><%= @post.title %></h3>
+				</div>
+				<div class="card-body">
+					<div class="card-text py-4">
+						<p><%= @post.content %></p>
+					</div>
+					<p class="border-bottom mb-5">モデル情報: 
+						<% unless @post.user.height.blank? %>
+							<%= @post.user.height %>cm / 
+						<% end %>
+						<%= @post.user.gender unless @post.user.gender.blank? %>
+					</p>
+					<p class="border-bottom">着用アイテム: ブランド / サイズ</p>
+					<p>Jacket: <a href="#">champion...</a> / s</p>
+					<p>Shirt: <a href="#">champion...</a> / s</p>
+					<p>T-shirt: <a href="#">champion...</a> / s </p>
+					<p>Pants: <a href="#">champion...</a>/<a href="#">.....................</a></p>
+					<p>Skirt: <a href="#">champion...</a>/<a href="#">.....................</a></p>
+					<p>Shoes: <a href="#">champion...</a>/<a href="#">.....................</a></p>
+					<p>Accessory: <a href="#">champion...</a>/<a href="#">.....................</a></p>
+				</div>
+			</div>
+		</div>
+		<!-- カードtext -->
+		<div class="col-md-6">
+			<div class="card">	
+				<div class=" card-body">
+					<h5><p class="border-bottom text-center py-3">syou 他の投稿</p></h5>
+				</div>
+				<div class="row">
+					<div class="col-4 mb-3">
+						<a class="zoomIn" href="#"><img src="img/1.jpg" alt='' class='img-fluid p-1'></a>
+					</div>
+					
+				</div>
+
+					
+				<div class=" card-body">
+					<h5><p class="border-bottom text-center py-3">同じブランド着用投稿</p></h5>
+				</div>
+				<div class="row">
+					<div class="col-4 mb-3">
+						<a class="zoomIn" href="#"><img src="img/2.jpg" alt='' class='img-fluid p-1'></a>
+					</div>
+					
+				</div>	
+
+				<!-- コメント -->
+				<div class="border-top">
+					<div class="card-body">
+						<h5 class="border-bottom text-center py-3">
+						<%= @post.user.name %>へのコメント</h5>
+					</div>
+				</div>
+				<div class="card-body">
+					<!-- コメント内容 -->
+					<% unless @commented_users.blank? %>
+				        <% @comments.each do |comment| %>
+				        	<% if @post.user_id == current_user.id %>
+				        	<div class="row my-4">
+					        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
+									<div class="col-4 col-md-2">
+								    	<% unless comment.user.blank? %>
+						            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
+						            	<% end %>
+						            </div>
+						            <div class="col-10 row">
+									    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
+									    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
+									    <!-- コメントの投稿主の削除権限 -->
+									    <% if user_signed_in? && comment.user_id == current_user.id %>
+									    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+									    <% end %>
+									</div>
+								<% end %>
+							</div>
+							<% else %>
+								<div class="row my-4">
+						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
+										<div class="col-4 col-md-2">
+									    	<% unless comment.user.blank? %>
+							            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
+							            	<% end %>
+							            </div>
+							            <div class="col-10 row">
+										    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
+										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
+										    <!-- コメントの投稿主の削除権限 -->
+										    <% if user_signed_in? && comment.user_id == current_user.id %>
+										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+										    <% end %>
+										</div>
+									<% end %>
+								</div>
+							<% end %>
+						<% end %>
+					<% else %>
+						<h6 class="text-center">コメントの投稿がありません</h6>
+					<% end %>
+				</div>
+				<div class="border-top py-3 row">
+					<% if user_signed_in? %>
+					    <%= form_for [@post, @comment] do |f| %>
+						  <%= f.text_field :content, class: "col-9 ml-5 py-5", "presence"=> true %>
+						  <%= f.submit class: "col-3 btn btn-warning mt-3 ml-5" do %>
+						  	<i class="far fa-paper-plane"> 送信</i>
+						  <% end %>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= link_to "ホームへ戻る", posts_path, class: "float-right pr-5" %>

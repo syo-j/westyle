@@ -93,6 +93,3 @@ gem 'seed-fu'
 
 # idが1から始まる
 gem 'activerecord-reset-pk-sequence'
-
-#Font Awesome使うため
-gem 'font-awesome-rails'
