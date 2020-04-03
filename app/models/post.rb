@@ -4,7 +4,7 @@ class Post < ApplicationRecord
 	
 	has_many :likes, dependent: :destroy
 	# 投稿が誰にいいねされているのか
-	has_many :liked_users, through: :likes, source: :user, dependent: :destroy
+	has_many :liked_users, through: :likes, source: :user
 	
 	has_many :comments, dependent: :destroy
 	# コメントが存在するかを見るため

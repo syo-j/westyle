@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'img_prev' %>
 
-<h2>Sign up</h2>
+<h2>shopSign up</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
@@ -13,7 +13,7 @@
   <div class="field image">
     <%= f.label :アイコン画像 %>
     <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
-    <div id="img_field" onClick="$('#file').click()" >
+    <div id="user-img_field" onClick="$('#file').click()" >
  
         <!-- 画像があるときは画像を表示する -->
         <% if @user.photo.url != "default.jpg" && @user.photo.url.present? %>

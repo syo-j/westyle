@@ -8,7 +8,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @like = Like.new
     @comment = @post.comments.new
     @comments = @post.comments
     @commented_users = @post.commented_users
@@ -17,6 +16,8 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @post.clothes.build
+    @clothe_blands = Bland.all
+    @clothe_categries = Category.all
   end
 
   def create
@@ -42,7 +43,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.update (post_params)
+    @post.update (update_post_params)
     if @post.save
       flash[:notice] = "更新しました"
       redirect_to posts_path
@@ -78,6 +79,15 @@ class PostsController < ApplicationController
       :title, :content, :image,
       clothes_attributes: [
         :bland_id, :category_id, :size_id, :color_id, :price, :name
+      ])
+  end
+
+  def update_post_params
+    params.require(:post).permit(
+      :title, :content, :image,
+      clothes_attributes: [
+        :bland_id, :category_id, :size_id, :color_id,
+        :price, :name, :_destroy, :id
       ])
   end
 
