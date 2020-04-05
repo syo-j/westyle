@@ -98,3 +98,7 @@ gem 'seed-fu'
 
 # idが1から始まる
 gem 'activerecord-reset-pk-sequence'
+
+# view数
+gem 'impressionist'
+

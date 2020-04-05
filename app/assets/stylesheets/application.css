@@ -319,7 +319,7 @@ ul,li{
 }
 
 /*新規登録画像プレビュー*/
-#user-img_field {
+#user_img_field {
   font-size: 15px;
   border: solid 2px #009900;
   color: #666;
@@ -332,7 +332,7 @@ ul,li{
   overflow: hidden;
 }
 /*新規登録画像プレビュートリミング*/
-#user-img_field img {
+#user-_mg_field img {
   position: absolute;
   top: 0;
   width: 100%;
@@ -340,7 +340,7 @@ ul,li{
   object-fit: cover;
 }
  /*フォトアイコン*/
-#user-img_field i {
+#user_img_field i {
   font-size: 100px;
   color: #aaa;
   padding-left: 100px;
@@ -348,7 +348,7 @@ ul,li{
   transition: 0.3s ease-out;
 }
   /*ファイルアイコン*/
-#user-img_field i.add {
+#user_img_field i.add {
   display: none;
   font-size: 50px;
   position: absolute;
@@ -356,13 +356,13 @@ ul,li{
   right: 50px;
 }
  
-#user-img_field:hover {
+#user_img_field:hover {
   background-color: #009900;
   transition: 0.3s ease-out;
   opacity: 0.9;
 }
  
-#user-img_field:hover i {
+#user_img_field:hover i {
   transition: 0.3s ease-out;
   display: inline-block;
   color: #fff;
