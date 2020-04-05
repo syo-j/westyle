@@ -50,12 +50,14 @@
 							  			<span aria-hide="true">✖︎</span>
 							  		</button>
 								</div>
-								<div class="mb-3 m-auto">
+								<div class="mb-3 row">
 							        <%= clothe.collection_radio_buttons :category_id, Category.all, :id, :name do |tag| %>
-								        <%= tag.label do %>
-								            <%= tag.radio_button %>
-								            <%= tag.text %>
-								        <% end %>
+							        	<div class="m-3">
+									        <%= tag.label do %>
+									            <%= tag.radio_button %>
+									            <%= tag.text %>
+									        <% end %>
+								        </div>
 				    				<% end %>
 				    			</div>
 							</div>
@@ -76,12 +78,14 @@
 							  			<span aria-hide="true">✖︎</span>
 							  		</button>
 								</div>
-								<div class="mb-3 m-auto">
+								<div class="mb-3 row">
 							        <%= clothe.collection_radio_buttons :bland_id, Bland.all, :id, :name do |tag| %>
-								        <%= tag.label do %>
-								            <%= tag.radio_button %>
-								            <%= tag.text %>
-								        <% end %>
+							        	<div class="m-3">
+									        <%= tag.label do %>
+									            <%= tag.radio_button %>
+									            <%= tag.text %>
+									        <% end %>
+								        </div>
 								    <% end %>
 				    			</div>
 							</div>

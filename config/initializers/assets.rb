@@ -15,4 +15,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # asseteのjs追加分
 Rails.application.config.assets.precompile += %w( img_prev.js )
+Rails.application.config.assets.precompile += %w( photo_prev.js )
 Rails.application.config.assets.precompile += %w( new_posts.js )

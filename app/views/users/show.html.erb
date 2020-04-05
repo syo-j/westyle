@@ -44,8 +44,9 @@
 </div>
 <br/>
 <h2>過去の投稿内容</h2>
-<% @user.posts.each do |post| %>
-  <a href="/posts/<%= post.id %>"><%= post.content %></a>
+<% @posts.each do |post| %>
+  <%= link_to post.title %>
+  <a href="/posts/<%= post.id %>"><%= post.image_url %></a>
   <hr>
 <% end %>
 <br/>

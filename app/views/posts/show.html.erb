@@ -2,6 +2,7 @@
 <!-- コンテンツ -->
 <div class="container border-bottom pb-3 my-4">
 	<!-- user情報 -->
+	<%=  @post.impressionist_count %>
 	<div class="row posts-category-bg">
 		<div class="col-3">
 			<%= link_to image_tag(@post.user.photo_url, :class => "img-fluid rounded-circle"), user_path(@post.user_id) %>
@@ -115,7 +116,7 @@
 				</div>
 				<div class="row">
 					<div class="col-4 mb-3">
-						<a class="zoomIn" href="#"><img src="img/2.jpg" alt='' class='img-fluid p-1'></a>
+						<a class="zoomIn" href="#"><img src="" alt='' class='img-fluid p-1'></a>
 					</div>
 					
 				</div>	
@@ -131,7 +132,7 @@
 					<!-- コメント内容 -->
 					<% unless @commented_users.blank? %>
 				        <% @comments.each do |comment| %>
-				        	<% if user_signed_in? && @post.user_id == current_user.id %>
+				        	<% if @post.user_id == comment.user_id %>
 					        	<div class="row my-4">
 						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
 										<div class="col-4 col-md-2">
@@ -162,6 +163,9 @@
 										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
 										    <!-- コメントの投稿主の削除権限 -->
 										    <% if user_signed_in? && comment.user_id == current_user.id %>
+										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+										    <!-- 投稿主の削除権限 -->
+										    <% elsif user_signed_in? && @post.user.id == current_user.id %>
 										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
 										    <% end %>
 										</div>

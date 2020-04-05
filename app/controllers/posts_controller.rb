@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :new]
-
+  impressionist :actions => [:show]
 
   def index
     @posts = Post.all
@@ -11,13 +11,13 @@ class PostsController < ApplicationController
     @comment = @post.comments.new
     @comments = @post.comments
     @commented_users = @post.commented_users
+    impressionist(@post, "message...") # 2nd argument is optional
   end
 
   def new
     @post = Post.new
     @post.clothes.build
-    @clothe_blands = Bland.all
-    @clothe_categries = Category.all
+    
   end
 
   def create

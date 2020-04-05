@@ -4,11 +4,13 @@
     <title>Westyle</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!-- bootstrapの上にstylesheet上書き -->
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- bootstrap -->
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- css -->
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- fontawesome -->
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
@@ -68,9 +70,9 @@
     <div class='header-mobil d-md-none'>
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12 text-right pt-4">
+          <!-- <div class="col-12 text-right pt-4">
             <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark"></i></a></h4>
-          </div>
+          </div> -->
           <div class='col-12 col-md-5 text-center'>
             <%= link_to image_tag('/assets/logo.png', :class => "img-fluid mt-2 logo-size-mobil"), posts_path %>
           </div>
