@@ -17,7 +17,7 @@
 			        <% end %>
 			    </div>
 			    <!-- id "file"をつけ、「display:none;」で隠す -->
-			    <%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
+			    <%= f.file_field :image, presence: true, class: "image", style: "display:none;", id: "file"%>
 			</div>
 			<div class="col-12 col-lg-3 mt-3">
 				<h6>推奨ファイルサイズ：</h6>

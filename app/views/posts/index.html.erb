@@ -1,4 +1,4 @@
-
+<%= javascript_include_tag 'delighters.min' %>
 <div>
 	<%= link_to("サーチ", search_posts_path) %>
 	<%= link_to("新規投稿", new_post_path) %>
@@ -14,21 +14,68 @@
 <!-- container -->
 <div class="container-fluid pt-4 posts-bg">
 	<div class='row'>
-		<div class="tab-content" id="panel-menus">
-			<!-- shop -->
-			<div class="tab-pane fade show active" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop">
-				<%= render "shop.index" %>
-			</div>
-			<!-- user -->
-			<div class="tab-pane fade" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
-				<%= render "user.index" %>
-			</div>
-			<!-- follower -->
-			<div class="tab-pane fade" id="panel-follower" role="tabpanel" aria-labelledby="tab-follower">
-				<%= render "follower.index" %>
+		<!-- カテゴリー -->
+		<div class="col-md-2 mb-4 d-none d-md-inline">
+			<div class="container py-1 posts-category-bg">
+			<div class="my-5">
+				<a href="#mess" class="text-dark d-flex justify-content-center" data-toggle="collapse">westyleって</a>
+				<div id="mess" class="collapse text-dark text-center"><a href="about.html" class="text-dark">About</a></div>
 			</div>
 
-		</div>		
+			<ul id="accordion_menu">
+			  <li>
+			    <a data-toggle="collapse" href="#menu01" aria-controls="#menu01" aria-expanded="false">Sort</a>
+			  </li>
+			  <ul id="menu01" class="collapse" data-parent="#accordion_menu">
+			    <li><a href="#">New arrival order</a></li>
+			    <li><a href="#">Popularity</a></li>
+			    <li><a href="#">Evaluation order</a></li>
+			  </ul>
+			  <li>
+			    <a data-toggle="collapse" href="#menu02" aria-controls="#menu02" aria-expanded="false">area</a>
+			  </li>
+			  <ul id="menu02" class="collapse" data-parent="#accordion_menu">
+			    <li><a href="#">北海道</a></li>
+			    <li><a href="#">東北</a></li>
+			    <li><a href="#">関東</a></li>
+			    <li><a href="#">中部</a></li>
+			    <li><a href="#">近畿</a></li>
+			    <li><a href="#">中国</a></li>
+			    <li><a href="#">四国</a></li>
+			   	<li><a href="#">九州</a></li>
+			   	<li><a href="#">沖縄</a></li>
+			  </ul>
+			  <li>
+			    <a data-toggle="collapse" href="#menu03" aria-controls="#menu03" aria-expanded="false">Categorie</a>
+			  </li>
+			  <ul id="menu03" class="collapse" data-parent="#accordion_menu">
+			    <li><a href="#">Tops</a></li>
+			    <li><a href="#">Pans</a></li>
+			    <li><a href="#">スカート</a></li>
+			    <li><a href="#">シューズ</a></li>
+			    <li><a href="#">Cap</a></li>
+			    <li><a href="#">Accessorie</a></li>
+			  </ul>
+			</ul>
+			</div>
+		</div>
+		<!-- コンテンツ -->
+		<div class="col-md-10">
+			<div class="tab-content" id="panel-menus">
+				<!-- shop -->
+				<div class="tab-pane fade show active" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop">
+					<%= render "shop.index" %>
+				</div>
+				<!-- user -->
+				<div class="tab-pane fade" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
+					<%= render "user.index" %>
+				</div>
+				<!-- follower -->
+				<div class="tab-pane fade" id="panel-follower" role="tabpanel" aria-labelledby="tab-follower">
+					<%= render "follower.index" %>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 

@@ -1,32 +1,14 @@
-<h1>Users#show</h1>
-<h1>ユーザー詳細ページ</h1>
-<h3><%= @user.name %></h3>
-<div class="img">
-  <%= link_to image_tag(@user.photo_url), user_path(@user) %>
-</div>
-<br/>
-<br/>
-  <% unless current_user.shop.blank? %>
-    <% if current_user != @user %>
-      <% if @user.staffed_by?(current_user) %>
-        <p><%=link_to "スタッフ登録済み", user_staffs_path(@user.id), method: :delete %></p>
-      <% else %>
-        <p><%=link_to "スタッフ登録", user_staffs_path(@user.id), method: :post %></p>
-      <% end %>
-    <% end %>
-  <% end %>
-<br/>
-<br/>
-<div>
-  <% if current_user != @user %>
-    <% if @user.followed_by?(current_user) %>
-      <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
-    <% else %>
-      <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
-    <% end %>
-  <% end %>
-</div>
-<br/>
+
+
+<!-- shopとuser切り替え -->
+<% unless @user.shop.blank? %>
+  <%= render "shop_show" %>
+<% else %>
+  <%= render "user_show" %>
+<% end %>
+
+
+________________________________________________________________________
 <div>
   <h2><%= @user.name %>がフォローしてるユーザー</h2>
   <% @followings.each do |user| %>
@@ -42,14 +24,7 @@
     <p><span>name: </span><%= link_to user.name, user_path(user.id) %></p>
   <% end %>
 </div>
-<br/>
-<h2>過去の投稿内容</h2>
-<% @posts.each do |post| %>
-  <%= link_to post.title %>
-  <a href="/posts/<%= post.id %>"><%= post.image_url %></a>
-  <hr>
-<% end %>
-<br/>
+
 <h3><%= @user.name %>がいいねしている投稿</h3>
 <% @user.liked_posts.each do |post| %>
   <%= post.user.name %>

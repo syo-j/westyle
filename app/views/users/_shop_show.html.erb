@@ -1,0 +1,197 @@
+<!-- コンテンツ -->
+<div class="container my-5">
+  <!-- user情報 -->
+  <div class="row">
+    <div class="col-11 col-lg-4 pb-4 user-img-center zoomIn">
+      <%= link_to image_tag(@user.photo_url, class: "img-fluid rounded-circle icon-trim-user-show d-block mx-auto"), user_path(@user) %>
+    </div>
+    <div class="col-12 col-lg-8 user-text-center">
+      <h3 class="mb-1 text-dark">
+        <%= @user.name %>
+        <% unless @user.age.blank? %>
+          (<%= @user.age %>)
+        <% end %>
+      </h3>
+      <% unless @user.area.blank? %>
+        <h6 class="mb-1 text-dark">地域 : <%= @user.area %></h6>
+      <% end %>
+      <% unless @user.shop.phone.blank? %>
+        <h6 class="mb-1 text-dark">tell : <%= @user.shop.phone %></h6>
+      <% end %>
+      <% unless @user.shop.hp_url.blank? %>
+        <h6 class="mb-1 text-dark">HP : <%= @user.shop.hp_url %></h6>
+      <% end %>
+      <div class="my-3">
+        <h1>
+          <% unless @user.facebook_url.blank? %>
+            <%= link_to @user.facebook_url do %>
+              <i class="fab fa-facebook-square mr-5 text-primary"></i>
+            <% end %>
+          <% end %>
+          <% unless @user.twitta_url.blank? %>
+            <%= link_to @user.twitta_url do %>
+              <i class="fab fa-twitter-square mr-5 text-info"></i>
+            <% end %>
+          <% end %>
+          <% unless @user.instaguram_url.blank? %>
+            <%= link_to @user.instaguram_url do %>
+              <i class="fab fa-instagram mr-5 text-warning"></i>
+            <% end %>
+          <% end %>
+        </h2>
+        <% if user_signed_in? %>
+          <% if current_user.id != @user.id %>
+            <% if @user.staffed_by?(current_user) %>
+              <%= link_to user_relationships_path(@user.id), class: "btn btn-success m-1 h-25", method: :delete do %>
+                <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
+              <% end %>
+            <% else %>
+              <%= link_to user_relationships_path(@user.id), class: "btn btn-outline-success m-1 h-25", method: :post do %>
+                <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <div class="m-1 h-25">
+            <a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
+              <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="card show-card-bg mb-4">
+    <nav class="posts-nav-bg rounded-top mb-4">
+      <div class="nav nav-tabs border-bottom-0 shop-show-tab" id="tab-menus" role="tablist">
+        <a class="nav-item nav-link active text-black-50" id="tab-corde" data-toggle="tab" href="#panel-corde" role="tab" aria-controls="panel-corde" aria-selected="true">コーデ</a>
+        <a class="nav-item nav-link  text-black-50" id="tab-sutaf" data-toggle="tab" href="#panel-sutaf" role="tab" aria-controls="panel-sutaf" aria-selected="false">スタッフ</a>
+        <a class="nav-item nav-link  text-black-50" id="tab-follow" data-toggle="tab" href="#panel-follow" role="tab" aria-controls="panel-follow" aria-selected="false">FOLLOWER</a>
+        <a class="nav-item nav-link  text-black-50" id="tab-off-shot" data-toggle="tab" href="#panel-Off-shot" role="tab" aria-controls="panel-Off-shot" aria-selected="false">オフショット</a>
+      </div>
+    </nav>
+
+
+
+    <div class="tab-content" id="panel-menus">
+      <!-- コーデ -->
+      <div class="tab-pane fade show active" id="panel-corde" role="tabpanel" aria-labelledby="tab-corde">
+        <div class="card-body row">
+          <% if @user.id == current_user.id %>
+            <div class="col-12 border-bottom pb-4 mb-1 text-center">
+              <button type='button' class='btn btn-success'><i class="fas fa-pen-nib"></i> 新規投稿</button>
+            </div>
+          <% end %>
+          <% unless @posts.blank? %>
+            <!-- カード01 -->
+            <% @posts.each do |post| %>
+              <div class='col-6 col-sm-4 col-lg-3 my-1'>
+                <div class="card mb-3">
+                  <div class="img-fluid overflow-hidden zoomIn image-trim">
+                    <% if post.image_url.present? %>
+                      <%= link_to image_tag(post.image_url), post_path(post) %>
+                    <% end %>
+                  </div>
+                  <div class='card-body text-center'>
+                    <!-- ビュー数 -->
+                    <div class='bg-warning text-center rounded py-3 m-2'>
+                      <h6><i class="fas fa-eye"></i> : <%= post.impressionist_count %></h6>
+                    </div>
+                    <!-- like -->
+                    <%if user_signed_in? %>
+                      <% if post.user_id != current_user.id %>
+                        <% if current_user.already_liked?(post) %>
+                          <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
+                            <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+                              <% end %>
+                        <% else %>
+                          <%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
+                                <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+                              <% end %>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <div class="m-1">
+                        <a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
+                          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+                        </a>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="col-12">
+              <h3 class="text-center blank-comment-py">投稿がありません。</h3>
+            </div>
+          <% end %> 
+        </div>
+      </div>
+      <!-- スタッフ -->
+      <div class="tab-pane fade" id="panel-sutaf" role="tabpanel" aria-labelledby="tab-sutaf">
+        <div class="card-body row">
+          <% unless @staffs.blank? %>
+            <div class="col-12 col-lg-6 mb-1">
+              <% @staffs.each do |staff| %>
+                <div class="card">
+                  <dir class="card-body row">
+                    <div class="col-4">
+                      <%= link_to image_tag(staff.photo_url, class: "img-fluid rounded-circle icon-trim-show"), user_path(staff.id) %>
+                    </div>
+                    <div class="col-8">
+                      <h3 class="mb-1 text-dark">
+                        <%= link_to staff.name, user_path(staff.id), class: "text-dark" %>
+                      </h3>
+                      <h6 class="mb-1 text-dark">170cm / Men</h6>
+                    </div>
+                  </dir>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="col-12">
+              <h3 class="text-center blank-comment-py">STAFFは未登録です。</h3>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- フォロー -->
+      <div class="tab-pane fade" id="panel-follow" role="tabpanel" aria-labelledby="tab-follow">
+        <div class="card-body row">
+          <% unless @followers.blank? %>
+            <div class="col-12 col-lg-6 mb-1">
+              <% @followers.each do |user| %>
+                <div class="card">
+                  <dir class="card-body row">
+                    <div class="col-4">
+                      <%= link_to image_tag(user.photo_url, class: "img-fluid rounded-circle icon-trim-show"), user_path(user.id) %>
+                    </div>
+                    <div class="col-8">
+                      <h3 class="mb-1 text-dark">
+                        <%= link_to user.name, user_path(user.id), class: "text-dark" %>
+                      </h3>
+                      <h6 class="mb-1 text-dark">170cm / Men</h6>
+                    </div>
+                  </dir>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="col-12">
+              <h3 class="text-center blank-comment-py">FOLLOWERは未登録です。</h3>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- オフショット -->
+      <div class="tab-pane fade" id="panel-Off-shot" role="tabpanel" aria-labelledby="tab-Off-shot">
+        <div class="row">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
