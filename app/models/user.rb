@@ -4,6 +4,9 @@ class User < ApplicationRecord
   	devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+    # ビュー数
+    is_impressionable
+
     has_many :posts, dependent: :destroy
     has_many :likes, dependent: :destroy
     # userがどの投稿をいいねしているのか
