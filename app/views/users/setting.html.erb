@@ -1,0 +1,185 @@
+
+<h1 class="text-center">セッティングページ</h1>
+
+<div class="container">
+	<div class="row">
+	  <div class="col-3">
+	    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+	      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">プロフィール</a>
+	      <a class="nav-link" id="v-pills-post-tab" data-toggle="pill" href="#v-pills-post" role="tab" aria-controls="v-pills-post" aria-selected="false">投稿の作成,編集</a>
+	      <a class="nav-link" id="v-pills-like-tab" data-toggle="pill" href="#v-pills-like" role="tab" aria-controls="v-pills-like" aria-selected="false">いいね中の投稿</a>
+	      <a class="nav-link" id="v-pills-following-tab" data-toggle="pill" href="#v-pills-following" role="tab" aria-controls="v-pills-following" aria-selected="false">フォロー中</a>
+	      <a class="nav-link" id="v-pills-follower-tab" data-toggle="pill" href="#v-pills-follower" role="tab" aria-controls="v-pills-follower" aria-selected="false">フォロアー</a>
+	      <% unless current_user.shop.blank? %>
+	      	<a class="nav-link" id="v-pills-staff-tab" data-toggle="pill" href="#v-pills-staff" role="tab" aria-controls="v-pills-staff" aria-selected="false">スタッフ一覧</a>
+	      <% end %>
+	    </div>
+	  </div>
+	  <div class="col-9">
+	    <div class="tab-content" id="v-pills-tabContent">
+	      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+	        <%= render "user.info" %>
+	      </div>
+	      <div class="tab-pane fade" id="v-pills-post" role="tabpanel" aria-labelledby="v-pills-post-tab">
+	        <div class="container bg-white">
+	        	<div class="row">
+	        		<div class="col-12 border-bottom text-center py-4 mb-2">
+	        			<%= link_to new_post_path, class: "btn btn-outline-success" do %>
+				          <h6><i class="fas fa-pen-nib"></i> 新規投稿</h6>
+				        <% end %>
+	        		</div>
+	        		<% unless @posts.blank? %>
+	        			<% @posts.each do |post| %>
+			        		<div class='col-6 col-sm-4 col-lg-3 my-1'>
+	                			<div class="card mb-3">
+	                				<div class="img-fluid image-trim">
+					        			<% if post.image_url.present? %>
+					                      <%= link_to image_tag(post.image_url), post_path(post) %>
+					                    <% end %>
+			                    	</div>
+			                    	<div class='card-body text-center row'>
+			                    		<%= link_to("編集", edit_post_path(post),class: "col-12 mb-3 btn btn-warning") %>
+			                    		<%= link_to("削除", post_path(post),class: "col-12 btn btn-danger", method: :delete) %>
+			                    	</div>
+			                	</div>
+			        		</div>
+			        	<% end %> 
+			        <% else %>
+			            <div class="col-12">
+			              <h3 class="text-center blank-comment-py">投稿がありません。</h3>
+			            </div>
+		          <% end %> 
+	        	</div>
+	        </div>
+	      </div>
+	      <!-- like -->
+	      <div class="tab-pane fade" id="v-pills-like" role="tabpanel" aria-labelledby="v-pills-like-tab">
+	        <div class="container">
+	        	<div class="row">
+	        		<% unless @user.liked_posts.blank? %>
+	        			<% @user.liked_posts.each do |post| %>
+			        		<div class="col-12 bg-white mb-1 row">
+			        			<div class="col-3">
+			        				<%= link_to image_tag(post.image_url, class: "img-fluid icon-trim m-2"), post_path(post.id) %>
+			        			</div>
+			        			<h5 class="my-auto col-6">
+			        				<% unless post.title.blank? %>
+			        					<%= link_to post.title, post_path(post.id), class: "text-dark" %>
+			        				<% end %>
+			        			</h5>
+			        			<div class="col-3">
+			        				<% if @user.already_liked?(post) %>
+									  <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
+									  	<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+							          <% end %>
+									<% else %>
+										<%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
+								          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+								        <% end %>
+									<% end %>
+							    </div>
+			        		</div>
+			        	<% end %>
+			        <% else %>
+			            <div class="col-12 bg-white">
+			              <h3 class="text-center blank-comment-py">イイね未登録です。</h3>
+			            </div>
+		        	<% end %>
+	        	</div>
+	        </div>
+	      </div>
+	      <!-- フォローイング -->
+	      <div class="tab-pane fade" id="v-pills-following" role="tabpanel" aria-labelledby="v-pills-following-tab">
+	        <div class="container">
+	        	<div class="row">
+	        		<% unless @followings.blank? %>
+	        			<% @followings.each do |user| %>
+			        		<div class="col-12 bg-white mb-1 row">
+			        			<div class="col-3">
+			        				<%= link_to image_tag(user.photo_url, class: "img-fluid rounded-circle icon-trim m-2"), user_path(user.id) %>
+			        			</div>
+			        			<h5 class="my-auto col-6">
+			        				<%= link_to user.name, user_path(user.id), class: "text-dark" %>
+			        			</h5>
+			        			<div class="col-3">
+			        				<% if user.followed_by?(current_user) %>
+							        	<%= link_to user_relationships_path(user), class: "btn btn-success m-1", method: :delete do %>
+								          <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
+								        <% end %>
+							        <% else %>
+							        	<%= link_to user_relationships_path(user), class: "btn btn-outline-success m-1", method: :post do %>
+								          <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+								        <% end %>
+							        <% end %>
+							    </div>
+			        		</div>
+			        	<% end %>
+			        <% else %>
+			            <div class="col-12 bg-white">
+			              <h3 class="text-center blank-comment-py">FOLLOWINGは未登録です。</h3>
+			            </div>
+		        	<% end %>
+	        	</div>
+	        </div>
+	      </div>
+	      <!-- フォロアー -->
+	      <div class="tab-pane fade" id="v-pills-follower" role="tabpanel" aria-labelledby="v-pills-follower-tab">
+	        <div class="container">
+	        	<div class="row">
+	        		<% unless @followers.blank? %>
+	        			<% @followers.each do |user| %>
+			        		<div class="col-12 bg-white mb-1 row">
+			        			<div class="col-3">
+			        				<%= link_to image_tag(user.photo_url, class: "img-fluid rounded-circle icon-trim m-2"), user_path(user.id) %>
+			        			</div>
+			        			<h5 class="my-auto col-9">
+			        				<%= link_to user.name, user_path(user.id), class: "text-dark" %>
+			        			</h5>
+			        		</div>
+			        	<% end %>
+			        <% else %>
+			            <div class="col-12 bg-white">
+			              <h3 class="text-center blank-comment-py">FOLLOWERは未登録です。</h3>
+			            </div>
+		        	<% end %>
+	        	</div>
+	        </div>
+	      </div>
+	      <!-- スタッフ -->
+	      <div class="tab-pane fade" id="v-pills-staff" role="tabpanel" aria-labelledby="v-pills-staff-tab">
+	        <div class="container">
+	        	<div class="row">
+	        		<% unless @staffs.blank? %>
+	        			<% @staffs.each do |staff| %>
+			        		<div class="col-12 bg-white mb-1 row">
+			        			<div class="col-3">
+			        				<%= link_to image_tag(staff.photo_url, class: "img-fluid rounded-circle icon-trim m-2"), user_path(staff.id) %>
+			        			</div>
+			        			<h5 class="my-auto col-6">
+			        				<%= link_to staff.name, user_path(staff.id), class: "text-dark" %>
+			        			</h5>
+			        			<div class="col-3">
+			        				<% if staff.staffed_by?(current_user) %>
+						              <%= link_to user_staffs_path(staff.id), class: "btn btn-success m-1", method: :delete do %>
+						                <i class="fas fa-id-card"></i><h6><%= current_user.name %> スタッフ</h6>
+						              <% end %>
+						            <% else %>
+						              <%= link_to user_staffs_path(staff.id), class: "btn btn-outline-success m-1", method: :post do %>
+						                <i class="fas fa-id-card"></i><h6>スタッフ登録</h6>
+						              <% end %>
+						            <% end %>
+			        			</div>
+			        		</div>
+			        	<% end %>
+			        <% else %>
+			            <div class="col-12 bg-white">
+			              <h3 class="text-center blank-comment-py">STAFFは未登録です。</h3>
+			            </div>
+		        	<% end %>
+	        	</div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

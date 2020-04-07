@@ -84,6 +84,7 @@ gem 'devise'
 #devise 日本語化
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem 'devise-bootstrap-views', '~> 1.0'
 
 #bootstrap,jquery
 # gem 'sassc', '~> 2.0.0'

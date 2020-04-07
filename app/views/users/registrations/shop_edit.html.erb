@@ -1,8 +1,8 @@
 <%= javascript_include_tag 'photo_prev' %>
 <div class="container-login">
-  <h1><%= t('.title', resource: resource_name.to_s.humanize) %></h1>
+  <h1><%= t('.sign_up') %></h1>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= bootstrap_devise_error_messages! %>
     <div class="form-group">
       <%= f.label :ユーザーネーム %><br />
@@ -23,23 +23,26 @@
       <!-- id "file"をつけ、「display:none;」で隠す -->
       <%= f.file_field :photo, class: "image", style: "display:none;", id: "file"%>
     </div>
-    
+    <div class="form-group">
+      <%= f.label :ターゲット性別 %><br />
+      <%= f.text_field :gender, autofocus: true, class: 'form-control' %>
+    </div>
     <div class="form-group">
       <%= f.label :エリア %>
       <%= f.collection_select :area_id, Area.all, :id, :prefecture, :include_blank => true, class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= f.label :性別 %><br />
-      <%= f.text_field :gender, presence: true, autofocus: true, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :年齢 %><br />
-      <%= f.number_field :age, autofocus: true, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.label :身長 %><br />
-      <%= f.number_field :height, autofocus: true, class: 'form-control' %>
-    </div>
+    <!-- ショプモデル -->
+    <%= f.fields_for :shop do |shop| %>
+      <div class="form-group">
+        <%= shop.label :電話番号 %><br />
+        <%= shop.telephone_field :phone, required: true, autocomplete: "off", class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= shop.label :ホームページURL %><br />
+        <%= shop.url_field :hp_url, autofocus: true, class: 'form-control' %>
+      </div>
+    <% end %>
+  
     <div class="form-group">
       <%= f.label :フェースブックURL %><br />
       <%= f.url_field :facebook_url, autofocus: true, class: 'form-control' %>
