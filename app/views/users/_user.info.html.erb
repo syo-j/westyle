@@ -1,0 +1,122 @@
+
+<div class="container bg-white p-3">
+  <div class="row">
+    <% unless @user.shop.blank? %>
+      <div class="col-11 pb-4 user-img-center">
+        <%= link_to image_tag(@user.photo_url, class: "img-fluid rounded-circle icon-trim-user-show d-block mx-auto"), user_path(@user) %>
+      </div>
+      <div class="col-12">
+        <h4 class="mb-2 text-dark">
+          名前 : <%= @user.name %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          年齢 : 
+          <% unless @user.age.blank? %>
+            <%= @user.age %>歳
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          地域 : 
+          <% unless @user.area.blank? %>
+           <%= @user.area.prefecture %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          性別 : 
+          <% unless @user.gender.blank? %>
+            <%= @user.gender %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          身長 : 
+          <% unless @user.height.blank? %>
+            <%= @user.height %>cm
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          fecebook : 
+          <% unless @user.height.blank? %>
+            <% unless @user.facebook_url.blank? %>
+              <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          twitta : 
+          <% unless @user.height.blank? %>
+            <% unless @user.twitta_url.blank? %>
+              <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          instaguram : 
+          <% unless @user.instaguram_url.blank? %>
+            <%= link_to @user.instaguram_url, class: "text-warning" do %><i class="fab fa-instagram"></i> <-click<% end %>
+          <% end %>
+        </h4>
+        <div class="col-12 py-5 text-center">
+          <h2><%= link_to "SHOP情報編集はこちら",  edit_shop_path,class: "btn btn-outline-success p-3" %></h2>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-11 pb-4 user-img-center">
+        <%= link_to image_tag(@user.photo_url, class: "img-fluid rounded-circle icon-trim-user-show d-block mx-auto"), user_path(@user) %>
+      </div>
+      <div class="col-12">
+        <h4 class="mb-2 text-dark">
+          名前 : <%= @user.name %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          年齢 : 
+          <% unless @user.age.blank? %>
+            <%= @user.age %>歳
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          地域 : 
+          <% unless @user.area.blank? %>
+           <%= @user.area.prefecture %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          性別 : 
+          <% unless @user.gender.blank? %>
+            <%= @user.gender %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          身長 : 
+          <% unless @user.height.blank? %>
+            <%= @user.height %>cm
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          fecebook : 
+          <% unless @user.height.blank? %>
+            <% unless @user.facebook_url.blank? %>
+              <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          twitta : 
+          <% unless @user.height.blank? %>
+            <% unless @user.twitta_url.blank? %>
+              <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
+            <% end %>
+          <% end %>
+        </h4>
+        <h4 class="mb-2 text-dark">
+          instaguram : 
+          <% unless @user.instaguram_url.blank? %>
+            <%= link_to @user.instaguram_url, class: "text-warning" do %><i class="fab fa-instagram"></i> <-click<% end %>
+          <% end %>
+        </h4>
+        <div class="col-12 py-5 text-center">
+          <h2><%= link_to "USER情報編集はこちら", edit_user_registration_path,class: "btn btn-outline-success p-3" %></h2>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

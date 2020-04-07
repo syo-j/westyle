@@ -8,12 +8,9 @@
     <div class="col-12 col-lg-8 user-text-center">
       <h3 class="mb-1 text-dark">
         <%= @user.name %>
-        <% unless @user.age.blank? %>
-          (<%= @user.age %>)
-        <% end %>
       </h3>
       <% unless @user.area.blank? %>
-        <h6 class="mb-1 text-dark">地域 : <%= @user.area %></h6>
+        <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
       <% end %>
       <% unless @user.shop.phone.blank? %>
         <h6 class="mb-1 text-dark">tell : <%= @user.shop.phone %></h6>
@@ -24,24 +21,18 @@
       <div class="my-3">
         <h1>
           <% unless @user.facebook_url.blank? %>
-            <%= link_to @user.facebook_url do %>
-              <i class="fab fa-facebook-square mr-5 text-primary"></i>
-            <% end %>
+            <%= link_to @user.facebook_url, class: "mr-5  text-primary" do %><i class="fab fa-facebook-square"></i><% end %>
           <% end %>
           <% unless @user.twitta_url.blank? %>
-            <%= link_to @user.twitta_url do %>
-              <i class="fab fa-twitter-square mr-5 text-info"></i>
-            <% end %>
+            <%= link_to @user.twitta_url, class: "mr-5 text-info" do %><i class="fab fa-twitter-square"></i><% end %>
           <% end %>
           <% unless @user.instaguram_url.blank? %>
-            <%= link_to @user.instaguram_url do %>
-              <i class="fab fa-instagram mr-5 text-warning"></i>
-            <% end %>
+            <%= link_to @user.instaguram_url, class: "mr-5 text-warning" do %><i class="fab fa-instagram"></i><% end %>
           <% end %>
         </h2>
         <% if user_signed_in? %>
           <% if current_user.id != @user.id %>
-            <% if @user.staffed_by?(current_user) %>
+            <% if @user.followed_by?(current_user) %>
               <%= link_to user_relationships_path(@user.id), class: "btn btn-success m-1 h-25", method: :delete do %>
                 <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
               <% end %>
@@ -80,11 +71,6 @@
       <!-- コーデ -->
       <div class="tab-pane fade show active" id="panel-corde" role="tabpanel" aria-labelledby="tab-corde">
         <div class="card-body row">
-          <% if @user.id == current_user.id %>
-            <div class="col-12 border-bottom pb-4 mb-1 text-center">
-              <button type='button' class='btn btn-success'><i class="fas fa-pen-nib"></i> 新規投稿</button>
-            </div>
-          <% end %>
           <% unless @posts.blank? %>
             <!-- カード01 -->
             <% @posts.each do |post| %>
@@ -133,12 +119,12 @@
       </div>
       <!-- スタッフ -->
       <div class="tab-pane fade" id="panel-sutaf" role="tabpanel" aria-labelledby="tab-sutaf">
-        <div class="card-body row">
+        <div class="row">
           <% unless @staffs.blank? %>
-            <div class="col-12 col-lg-6 mb-1">
-              <% @staffs.each do |staff| %>
+            <% @staffs.each do |staff| %>
+              <div class="col-12 col-lg-6 mb-1">
                 <div class="card">
-                  <dir class="card-body row">
+                  <div class="card-body row">
                     <div class="col-4">
                       <%= link_to image_tag(staff.photo_url, class: "img-fluid rounded-circle icon-trim-show"), user_path(staff.id) %>
                     </div>
@@ -148,10 +134,10 @@
                       </h3>
                       <h6 class="mb-1 text-dark">170cm / Men</h6>
                     </div>
-                  </dir>
+                  </div>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% else %>
             <div class="col-12">
               <h3 class="text-center blank-comment-py">STAFFは未登録です。</h3>
@@ -163,10 +149,10 @@
       <div class="tab-pane fade" id="panel-follow" role="tabpanel" aria-labelledby="tab-follow">
         <div class="card-body row">
           <% unless @followers.blank? %>
-            <div class="col-12 col-lg-6 mb-1">
-              <% @followers.each do |user| %>
+            <% @followers.each do |user| %>
+              <div class="col-12 col-lg-6 mb-1">
                 <div class="card">
-                  <dir class="card-body row">
+                  <div class="card-body row">
                     <div class="col-4">
                       <%= link_to image_tag(user.photo_url, class: "img-fluid rounded-circle icon-trim-show"), user_path(user.id) %>
                     </div>
@@ -176,10 +162,10 @@
                       </h3>
                       <h6 class="mb-1 text-dark">170cm / Men</h6>
                     </div>
-                  </dir>
+                  </div>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% else %>
             <div class="col-12">
               <h3 class="text-center blank-comment-py">FOLLOWERは未登録です。</h3>

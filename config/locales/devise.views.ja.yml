@@ -30,7 +30,7 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザ
-  devise:
+  users:
     confirmations:
       confirmed: アカウントを登録しました。
       new:

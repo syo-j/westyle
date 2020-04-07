@@ -39,7 +39,7 @@
           <div class="col-4 row pt-1 text-center d-none d-md-inline">
             <%if user_signed_in? %>
               <div class="col-12 pb-3 col-md-6 text-dark">
-                <%= link_to user_path(current_user.id), class: "text-dark" do %>
+                <%= link_to setting_users_path, class: "text-dark" do %>
                   <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %> <%= current_user.name %>
                 <% end %>
               </div>

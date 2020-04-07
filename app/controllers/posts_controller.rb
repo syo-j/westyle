@@ -29,7 +29,7 @@ class PostsController < ApplicationController
     end
     if @post.save
       flash[:notice] = "投稿しました"
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       flash[:alert] = "投稿できませんでした"
       redirect_back(fallback_location: root_path)
@@ -46,7 +46,7 @@ class PostsController < ApplicationController
     @post.update (update_post_params)
     if @post.save
       flash[:notice] = "更新しました"
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       flash[:alert] = "更新できませんでした"
       redirect_back(fallback_location: root_path)
@@ -56,8 +56,8 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    flash[:success] = "投稿を削除しました"
-    redirect_to posts_path
+    flash[:notice] = "投稿を削除しました"
+    redirect_back(fallback_location: root_path)
   end
 
   def search
@@ -70,7 +70,6 @@ class PostsController < ApplicationController
   end
 
 
-  
 
   private
 

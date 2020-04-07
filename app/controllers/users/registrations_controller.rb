@@ -16,6 +16,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.build_shop
   end
 
+  def shop_edit
+    @user = User.new
+    @user.build_shop
+  end
+
   # POST /resource
   def create
     super

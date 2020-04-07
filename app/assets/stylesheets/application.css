@@ -25,6 +25,7 @@ body {
 .body-1 {
   background-color: #e8f044;
 }
+
 /*header*/
 header{
   height: 90px;
@@ -328,16 +329,19 @@ ul,li{
 /*新規登録画像プレビュー*/
 #user_img_field {
   font-size: 15px;
+  margin: 0 auto;
   border: solid 2px #009900;
   color: #666;
   position: relative;
   padding: 0;
   border-radius: 50%;
   cursor: pointer;
+  overflow: hidden;
   width: 300px;
   height: 300px;
-  overflow: hidden;
+  object-fit: cover;
 }
+
 /*新規登録画像プレビュートリミング*/
 #user-_mg_field img {
   position: absolute;

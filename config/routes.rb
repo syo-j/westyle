@@ -21,9 +21,13 @@ Rails.application.routes.draw do
   # /shop/newを習得
   devise_scope :user do
     get '/shop/new' => 'users/registrations#shop', as: :new_shop
+    get '/shop/edit' => 'users/registrations#shop_edit', as: :edit_shop
   end
 
   resources :users, only: [:show] do
+    collection do
+      get :setting
+    end
     resource :relationships, only: [:create, :destroy]
     resource :staffs, only: [:create, :destroy]
   end
