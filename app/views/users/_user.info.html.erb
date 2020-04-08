@@ -10,43 +10,33 @@
           名前 : <%= @user.name %>
         </h4>
         <h4 class="mb-2 text-dark">
-          年齢 : 
-          <% unless @user.age.blank? %>
-            <%= @user.age %>歳
-          <% end %>
-        </h4>
-        <h4 class="mb-2 text-dark">
           地域 : 
           <% unless @user.area.blank? %>
            <%= @user.area.prefecture %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
-          性別 : 
-          <% unless @user.gender.blank? %>
-            <%= @user.gender %>
+          tell : 
+          <% unless @user.shop.phone.blank? %>
+           <%= @user.shop.phone %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
-          身長 : 
-          <% unless @user.height.blank? %>
-            <%= @user.height %>cm
+          HP : 
+          <% unless @user.shop.hp_url.blank? %>
+           <%= link_to @user.shop.hp_url do %><%= @user.shop.hp_url %><% end %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
           fecebook : 
-          <% unless @user.height.blank? %>
-            <% unless @user.facebook_url.blank? %>
-              <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
-            <% end %>
+          <% unless @user.facebook_url.blank? %>
+            <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
           twitta : 
-          <% unless @user.height.blank? %>
-            <% unless @user.twitta_url.blank? %>
-              <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
-            <% end %>
+          <% unless @user.twitta_url.blank? %>
+            <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
@@ -93,18 +83,14 @@
         </h4>
         <h4 class="mb-2 text-dark">
           fecebook : 
-          <% unless @user.height.blank? %>
-            <% unless @user.facebook_url.blank? %>
-              <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
-            <% end %>
+          <% unless @user.facebook_url.blank? %>
+            <%= link_to @user.facebook_url, class: "text-primary" do %><i class="fab fa-facebook-square"></i> <-click<% end %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">
           twitta : 
-          <% unless @user.height.blank? %>
-            <% unless @user.twitta_url.blank? %>
-              <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
-            <% end %>
+          <% unless @user.twitta_url.blank? %>
+            <%= link_to @user.twitta_url, class: "text-info" do %><i class="fab fa-twitter-square"></i> <-click<% end %>
           <% end %>
         </h4>
         <h4 class="mb-2 text-dark">

@@ -17,8 +17,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def shop_edit
-    @user = User.new
-    @user.build_shop
+    @user = current_user
+    @user.shop.id
   end
 
   # POST /resource

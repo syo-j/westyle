@@ -4,6 +4,15 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+
+  #   @posts.each do |post|
+  #     post.current_user.followers.each do |follower| 
+  #       if follower.id == post.user_id
+  # 　　    @post_followers = follower.posts
+  #       end
+  #     end
+  #   end
+
   end
 
   def show
@@ -16,7 +25,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.clothes.build
     
   end
 
@@ -28,8 +36,8 @@ class PostsController < ApplicationController
       @post.shop_id = current_user.shop.id
     end
     if @post.save
-      flash[:notice] = "投稿しました"
-      redirect_to post_path(@post)
+      flash[:notice] = "保存しました"
+      redirect_to new2_post_path(@post)
     else
       flash[:alert] = "投稿できませんでした"
       redirect_back(fallback_location: root_path)
@@ -38,15 +46,14 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    
   end
 
   def update
     @post = Post.find(params[:id])
-    @post.update (update_post_params)
+    @post.update(update_post_params)
     if @post.save
-      flash[:notice] = "更新しました"
-      redirect_to post_path(@post)
+      flash[:notice] = "更新しました。"
+      redirect_to new2_post_path(@post)
     else
       flash[:alert] = "更新できませんでした"
       redirect_back(fallback_location: root_path)
@@ -61,12 +68,21 @@ class PostsController < ApplicationController
   end
 
   def search
-    puts "---------------------"
-    puts Post.ransackable_associations
-    puts "---------------------"
     @posts = Post.all
     @q = Post.ransack(params[:q])
     @post_images = @q.result(distinct: true)
+  end
+
+  def new2
+    @post = Post.find(params[:id])
+    @clothe = @post.clothes.new
+
+    @clothes = @post.clothes
+
+    @colors = @post.colored_posts.all
+    @blands = @post.blanded_posts.all
+    @categories = @post.categoryed_posts.all
+    @sizes =  @post.sized_posts.all
   end
 
 
@@ -75,19 +91,14 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(
-      :title, :content, :image,
-      clothes_attributes: [
-        :bland_id, :category_id, :size_id, :color_id, :price, :name
-      ])
+      :title, :content, :image, :shop_gender, :shop_height
+      )
   end
 
   def update_post_params
     params.require(:post).permit(
-      :title, :content, :image,
-      clothes_attributes: [
-        :bland_id, :category_id, :size_id, :color_id,
-        :price, :name, :_destroy, :id
-      ])
+      :title, :content, :image, :shop_gender, :shop_height
+      )
   end
 
 end

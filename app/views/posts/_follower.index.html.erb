@@ -1,73 +1,71 @@
 <div class="row">
-	<% @posts.each do |post| %>
+	<%  @posts.each do |post| %>
 		<% if user_signed_in? %>
 			<% current_user.followers.each do |follower| %>
-			<%= follower.inspect %>
-				<% if follower == @post %>
-
-			<div class='col-6 col-sm-4 col-lg-3'>
-				<!-- カード01 -->
-				<div class='card mb-3'>
-					<div class="img-fluid overflow-hidden zoomIn img-firu image-trim">
-						<% if post.image_url.present? %>
-							<%= link_to image_tag(post.image_url), post_path(post) %>
-						<% end %>
-					</div>
-					<!-- カードエリアの本文 -->
-					<div class='text-center firu con' data-delighter>
-						<div class="row justify-content-center mt-2">
-							<div class="col-12 mb-2 row align-items-baseline">
-								<div class="col-6">
-									<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle icon-trim"), user_path(post.user_id) %>
-								</div>
-								<h6 class="col-6 mb-1 text-dark">
-									<%=link_to(post.user.name, user_path(post.user_id))%>
-								</h6>
-							</div>
-							<%if user_signed_in? %>
-								<% if post.user_id != current_user.id %>
-									<% if current_user.already_liked?(post) %>
-									  <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
-									  	<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-							          <% end %>
-									<% else %>
-										<%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
-								          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-								        <% end %>
-									<% end %>
+				<% if follower.id == post.user_id %>
+					<div class='col-6 col-sm-4 col-lg-3'>
+						<!-- カード01 -->
+						<div class='card mb-3'>
+							<div class="img-fluid overflow-hidden zoomIn img-firu image-trim">
+								<% if post.image_url.present? %>
+									<%= link_to image_tag(post.image_url), post_path(post) %>
 								<% end %>
-							<% else %>
-								<div class="m-1">
-								<a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
-									<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-								</a>
 							</div>
-							<% end %>
-							<% if user_signed_in? %>
-								<% if current_user.id != post.user_id %>
-							        <% if post.user.followed_by?(current_user) %>
-							        	<%= link_to user_relationships_path(post.user), class: "btn btn-success m-1 h-25", method: :delete do %>
-								          <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
-								        <% end %>
-							        <% else %>
-							        	<%= link_to user_relationships_path(post.user), class: "btn btn-outline-success m-1 h-25", method: :post do %>
-								          <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
-								        <% end %>
-							        <% end %>
-							    <% end %>
-							<% else %>
-								<div class="m-1 h-25">
-									<a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
-										<i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
-									</a>
+							<!-- カードエリアの本文 -->
+							<div class='text-center firu con' data-delighter>
+								<div class="row justify-content-center mt-2">
+									<div class="col-12 mb-2 row align-items-baseline">
+										<div class="col-6">
+											<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle icon-trim"), user_path(post.user_id) %>
+										</div>
+										<h6 class="col-6 mb-1 text-dark">
+											<%=link_to(post.user.name, user_path(post.user_id))%>
+										</h6>
+									</div>
+									<%if user_signed_in? %>
+										<% if post.user_id != current_user.id %>
+											<% if current_user.already_liked?(post) %>
+											  <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
+											  	<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+									          <% end %>
+											<% else %>
+												<%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
+										          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+										        <% end %>
+											<% end %>
+										<% end %>
+									<% else %>
+										<div class="m-1">
+										<a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
+											<i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
+										</a>
+									</div>
+									<% end %>
+									<% if user_signed_in? %>
+										<% if current_user.id != post.user_id %>
+									        <% if post.user.followed_by?(current_user) %>
+									        	<%= link_to user_relationships_path(post.user), class: "btn btn-success m-1 h-25", method: :delete do %>
+										          <i class="fas fa-user-tag"></i><h6>FOLLOW中</h6>
+										        <% end %>
+									        <% else %>
+									        	<%= link_to user_relationships_path(post.user), class: "btn btn-outline-success m-1 h-25", method: :post do %>
+										          <i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+										        <% end %>
+									        <% end %>
+									    <% end %>
+									<% else %>
+										<div class="m-1 h-25">
+											<a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
+												<i class="fas fa-user-tag"></i><h6>FOLLOW</h6>
+											</a>
+										</div>
+								    <% end %>
 								</div>
-						    <% end %>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		<% end %>
-		<% end %>
+				<% end %>
+			<% end %>
 		<% end %>
 	<% end %>
 </div>
