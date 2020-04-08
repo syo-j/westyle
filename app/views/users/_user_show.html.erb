@@ -17,12 +17,13 @@
       <% end %>
       <% unless @user.gender.blank? && @user.height.blank? %>
         <h6 class="mb-1 text-dark"><%= @user.height %>cm / <%= @user.gender %></h6>
-      <% end %>
-      <% unless @user.height.blank? %>
-        <h6 class="mb-1 text-dark"><%= @user.height %>cm</h6>
-      <% end %>
-      <% unless @user.gender.blank? %>
-        <h6 class="mb-1 text-dark"><%= @user.gender %></h6>
+      <% else %>
+        <% unless @user.height.blank? %>
+          <h6 class="mb-1 text-dark"><%= @user.height %>cm</h6>
+        <% end %>
+        <% unless @user.gender.blank? %>
+          <h6 class="mb-1 text-dark"><%= @user.gender %></h6>
+        <% end %>
       <% end %>
       <div class="my-3">
         <h1>

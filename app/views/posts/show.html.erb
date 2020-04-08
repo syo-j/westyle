@@ -1,4 +1,4 @@
-<h1>show</h1>
+
 <!-- コンテンツ -->
 <div class="container border-bottom pb-3 my-4">
 	<!-- user情報 -->
@@ -6,21 +6,26 @@
 		<div class="col-4">
 			<%= link_to image_tag(@post.user.photo_url, :class => "img-fluid rounded-circle icon-trim-show"), user_path(@post.user_id) %>
 		</div>
-		<div class="col-8">
-			<h3><%=link_to(@post.user.name, user_path(@post.user_id), class: "mb-1 text-dark")%></h3>
+		<div class="col-8 my-auto">
+			<h3 class="pb-3"><%=link_to(@post.user.name, user_path(@post.user_id), class: "text-dark")%></h3>
 			<% unless @post.user.shop.blank?  %>
 				<h6 class="mb-1 text-dark">
-					<% unless @post.user.height.blank? %>
-						<%= @post.user.height %>cm / 
-					<% end %>
-					<%= @post.user.gender unless @post.user.gender.blank? %>
+					<% unless @post.user.area.blank? %>
+				    	地域 : <%= @post.user.area.prefecture %>
+				    <% end %>
 				</h6>
 			<% else %>
-				<h6 class="mb-1 text-dark">
-					<% unless @post.user.height.blank? %>
-						<%= @post.user.height %>cm / 
-					<% end %>
-					<%= @post.user.gender unless @post.user.gender.blank? %>
+				<h6 class="text-dark">
+					<% unless @post.user.gender.blank? && @post.user.height.blank? %>
+				    	<%= @post.user.height %>cm / <%= @post.user.gender %>
+				    <% else %>
+				        <% unless @post.user.height.blank? %>
+				          <%= @post.user.height %>cm
+				        <% end %>
+				        <% unless @post.user.gender.blank? %>
+				          <%= @post.user.gender %>
+				        <% end %>
+				    <% end %>
 				</h6>
 			<% end %>
 		</div>
@@ -90,20 +95,54 @@
 					<div class="card-text py-4">
 						<p><%= @post.content %></p>
 					</div>
+					<!-- shopとuserで引き出し別 -->
 					<p class="border-bottom mb-5">モデル情報: 
-						<% unless @post.user.height.blank? %>
-							<%= @post.user.height %>cm / 
-						<% end %>
-						<%= @post.user.gender unless @post.user.gender.blank? %>
+						<% unless @post.user.shop.blank? %>
+							<% unless @post.shop_gender.blank? && @post.shop_height.blank? %>
+						    	<%= @post.shop_height %>cm / <%= @post.shop_gender %>
+						    <% else %>
+						        <% unless @post.shop_height.blank? %>
+						          <%= @post.shop_height %>cm
+						        <% end %>
+						        <% unless @post.shop_gender.blank? %>
+						          <%= @post.shop_gender %>
+						        <% end %>
+						    <% end %>
+						<% else %>
+							<% unless @post.user.gender.blank? && @post.user.height.blank? %>
+						    	<%= @post.user.height %>cm / <%= @post.user.gender %>
+						    <% else %>
+						        <% unless @post.user.height.blank? %>
+						          <%= @post.user.height %>cm
+						        <% end %>
+						        <% unless @post.user.gender.blank? %>
+						          <%= @post.user.gender %>
+						        <% end %>
+						    <% end %>
+					    <% end %>
 					</p>
+					
+					
 					<p class="border-bottom">着用アイテム: ブランド / サイズ</p>
+					<div class="bg-info">
+					<% @post.clothes.each do |clothe| %>
+						<% @post.categoryed_posts.each do |category| %>
+							<%= category.name %>
+						<% end %>
+						<%= clothe.name %>
+						<% @post.blanded_posts.each do |bland| %>
+							<%= bland.name %>
+						<% end %>
+						<% @post.sized_posts.each do |size| %>
+							<%= size.name %>
+						<% end %>
+						<% @post.colored_posts.each do |color| %>
+							<%= color.name %>
+						<% end %>
+						<%= clothe.price %>
+					<% end %>
+					</div>
 					<p>Jacket: <a href="#">champion...</a> / s</p>
-					<p>Shirt: <a href="#">champion...</a> / s</p>
-					<p>T-shirt: <a href="#">champion...</a> / s </p>
-					<p>Pants: <a href="#">champion...</a>/<a href="#">.....................</a></p>
-					<p>Skirt: <a href="#">champion...</a>/<a href="#">.....................</a></p>
-					<p>Shoes: <a href="#">champion...</a>/<a href="#">.....................</a></p>
-					<p>Accessory: <a href="#">champion...</a>/<a href="#">.....................</a></p>
 				</div>
 			</div>
 		</div>
@@ -173,10 +212,10 @@
 										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
 										    <!-- コメントの投稿主の削除権限 -->
 										    <% if user_signed_in? && comment.user_id == current_user.id %>
-										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-warning", method: :delete) %>
 										    <!-- 投稿主の削除権限 -->
 										    <% elsif user_signed_in? && @post.user.id == current_user.id %>
-										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
+										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-warning", method: :delete) %>
 										    <% end %>
 										</div>
 									<% end %>

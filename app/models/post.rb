@@ -12,9 +12,14 @@ class Post < ApplicationRecord
 	# コメントが存在するかを見るため
 	has_many :commented_users, through: :comments, source: :user
 
-	has_many :clothes, inverse_of: :post, dependent: :destroy
-	#postのフォームでclotheを保存
-	accepts_nested_attributes_for :clothes, allow_destroy: true
+	has_many :clothes, dependent: :destroy
+
+	# どのpostにどのblandなどのclothe情報
+	has_many :blanded_posts, through: :clothes, source: :bland
+	has_many :categoryed_posts, through: :clothes, source: :category
+	has_many :colored_posts, through: :clothes, source: :color
+	has_many :sized_posts, through: :clothes, source: :size
+
 
 	mount_uploader :image, ImageUploader
 
