@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'delighters.min' %>
 
 <!-- ナビゲーションバー -->
-<nav class="posts-nav-bg boder-bottom-0 pt-1">
+<nav class="posts-nav-bg boder-bottom-0">
 	<div class="nav nav-tabs justify-content-center" id="tab-menus" role="tablist">
 		<a class="nav-item nav-link active mr-3 text-black-50" id="tab-shop" data-toggle="tab" href="#panel-shop" role="tab" aria-controls="panel-shop" aria-selected="true">SHOP</a>
 		<a class="nav-item nav-link mr-3 text-black-50" id="tab-user" data-toggle="tab" href="#panel-user" role="tab" aria-controls="panel-user" aria-selected="false">USER</a>
@@ -13,47 +13,43 @@
 	<div class='row'>
 		<!-- カテゴリー -->
 		<div class="col-md-2 mb-4 d-none d-md-inline">
-			<div class="container py-1 posts-category-bg">
-			<div class="my-5">
-				<a href="#mess" class="text-dark d-flex justify-content-center" data-toggle="collapse">westyleって</a>
-				<div id="mess" class="collapse text-dark text-center"><a href="about.html" class="text-dark">About</a></div>
-			</div>
-
-			<ul id="accordion_menu">
-			  <li>
-			    <a data-toggle="collapse" href="#menu01" aria-controls="#menu01" aria-expanded="false">Sort</a>
-			  </li>
-			  <ul id="menu01" class="collapse" data-parent="#accordion_menu">
-			    <li><a href="#">New arrival order</a></li>
-			    <li><a href="#">Popularity</a></li>
-			    <li><a href="#">Evaluation order</a></li>
-			  </ul>
-			  <li>
-			    <a data-toggle="collapse" href="#menu02" aria-controls="#menu02" aria-expanded="false">area</a>
-			  </li>
-			  <ul id="menu02" class="collapse" data-parent="#accordion_menu">
-			    <li><a href="#">北海道</a></li>
-			    <li><a href="#">東北</a></li>
-			    <li><a href="#">関東</a></li>
-			    <li><a href="#">中部</a></li>
-			    <li><a href="#">近畿</a></li>
-			    <li><a href="#">中国</a></li>
-			    <li><a href="#">四国</a></li>
-			   	<li><a href="#">九州</a></li>
-			   	<li><a href="#">沖縄</a></li>
-			  </ul>
-			  <li>
-			    <a data-toggle="collapse" href="#menu03" aria-controls="#menu03" aria-expanded="false">Categorie</a>
-			  </li>
-			  <ul id="menu03" class="collapse" data-parent="#accordion_menu">
-			    <li><a href="#">Tops</a></li>
-			    <li><a href="#">Pans</a></li>
-			    <li><a href="#">スカート</a></li>
-			    <li><a href="#">シューズ</a></li>
-			    <li><a href="#">Cap</a></li>
-			    <li><a href="#">Accessorie</a></li>
-			  </ul>
-			</ul>
+			<div class="container-flid py-1 posts-category-bg">
+		        <div class="row">
+		          <div class="col-12">
+		            <h5>
+		              <%= link_to posts_path, class: "text-dark btn" do %>
+		                <i class="fas fa-home"></i>ホーム
+		              <% end %>
+		            </h5>
+		          </div>
+		          <div class="col-12">
+		              <%= link_to search_posts_path, class: "text-dark btn" do %>
+		               <i class="fas fa-search"></i>サーチ
+		              <% end %>
+		          </div>
+		          <div class="col-12">
+		            <%if user_signed_in? %>
+		              <%= link_to setting_users_path, class: "text-dark btn" do %>
+		                <i class="fas fa-user-cog"></i>マイページ
+		              <% end %>
+		            <% end %>
+		          </div>
+		          <div class="col-12">
+		            <%if user_signed_in? %>
+		              <h6>
+		                <%= link_to destroy_user_session_path, method: :delete, class: "text-dark btn" do %>
+		                  <i class="fas fa-user"></i>ログアウト
+		                <% end %>
+		              </h6>
+		            <% else %>
+		              <h6>
+		                <%= link_to new_user_session_path, class: "text-dark btn" do %>
+		                  <i class="fas fa-user"></i>ログイン
+		                <% end %>
+		              </h6>
+		            <% end %>
+		          </div>
+		        </div>
 			</div>
 		</div>
 		<!-- コンテンツ -->

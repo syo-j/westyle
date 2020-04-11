@@ -28,7 +28,8 @@
           <div class='col-3 text-center pt-4'>
             <h5>
               <%= link_to search_posts_path, class: "text-dark" do %>
-                <i class="fas fa-search">サーチ</i>
+                <i class="fas fa-search"></i>
+                <p>サーチ</p>
               <% end %>
             </h5>
           </div>
@@ -67,14 +68,11 @@
     </header>
 
     <!-- スマホのヘッダー -->
-    <div class='header-mobil d-md-none'>
+    <div class='d-md-none'>
       <div class="container-fluid">
         <div class="row">
-          <!-- <div class="col-12 text-right pt-4">
-            <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark"></i></a></h4>
-          </div> -->
           <div class='col-12 col-md-5 text-center'>
-            <%= link_to image_tag('/assets/logo.png', :class => "img-fluid mt-2 logo-size-mobil"), posts_path %>
+            <%= link_to image_tag('/assets/logo_bg.png', :class => "img-fluid mt-2"), posts_path %>
           </div>
         </div>
       </div>
@@ -115,39 +113,8 @@
 
 
     <!-- pcフッター -->
-    <% if request.path_info == search_posts_path %>
-      <footer class='search-footer'>
-    <% else %>
-      <footer>
-    <% end %>
-      <div class='container'>   
-        <div class="row justify-content-center py-2">
-          <!-- ナビゲーション1 -->
-          <ul class='navbar-nav text-center col-4'>
-            <li class='nav-item'>
-              <a class='nav-link' href="#">WE STYLE</a>
-            </li>
-          </ul>
-          <!-- /ナビゲーション1 -->
-          <!-- ナビゲーション2 -->
-          <ul class='navbar-nav text-center col-4'>
-
-            
-          </ul>
-          <!-- /ナビゲーション2-->
-          <!-- ナビゲーション3 -->
-          <ul class='navbar-nav text-center col-4'>
-            <li class='nav-item'>
-              <a class='nav-link' href="#">初めての方へ</a>
-            </li>
-            <li class='nav-item'>
-              <a class='nav-link' href="#">お問い合わせ</a>
-            </li>
-          </ul>
-          <!-- /ナビゲーション3 -->  
-        </div>
-      </div>
-      <p class="text-center"><small>Copyright &copy;2020 WE STYLE,All Rights Reserved.</small></p>
+    <footer>
+      <p class="text-center text-white py-5"><small>Copyright &copy;2020 WE STYLE,All Rights Reserved.</small></p>
     </footer>
 
     <!-- モバイルフッター -->
@@ -156,23 +123,41 @@
         <div class="row text-center justify-content-center">
           <div class="col-3">
             <h5>
-              <%= link_to posts_path do %>
-                <i class="fas fa-home"></i>ホーム
+              <%= link_to posts_path, class: "text-dark btn" do %>
+                <i class="fas fa-home"></i>
+                <p>ホーム</p>
               <% end %>
             </h5>
           </div>
           <div class="col-3">
-            <h5>
-              <%= link_to search_posts_path do %>
-               <i class="fas fa-search"></i>サーチ
+              <%= link_to search_posts_path, class: "text-dark btn" do %>
+               <i class="fas fa-search"></i>
+               <p>サーチ</p>
               <% end %>
-            </h5>
           </div>
           <div class="col-3">
-            <h5><a href="#"><i class="fas fa-user-edit"></i></a></h5>
+            <%if user_signed_in? %>
+              <%= link_to setting_users_path, class: "text-dark btn" do %>
+                <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %>
+              <% end %>
+            <% end %>
           </div>
           <div class="col-3">
-            <h5><a href="#"><i class="fas fa-user-edit"></i></a></h5>
+            <%if user_signed_in? %>
+              <h6>
+                <%= link_to destroy_user_session_path, method: :delete, class: "text-dark btn" do %>
+                  <i class="fas fa-user"></i>
+                  <p>ログアウト</p>
+                <% end %>
+              </h6>
+            <% else %>
+              <h6>
+                <%= link_to new_user_session_path, class: "text-dark btn" do %>
+                  <i class="fas fa-user"></i>
+                  <p>ログイン</p>
+                <% end %>
+              </h6>
+            <% end %>
           </div>
         </div>
       </div>

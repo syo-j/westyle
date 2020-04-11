@@ -7,7 +7,7 @@
     </div>
     <div class="col-12 col-lg-8 user-text-center">
       <h3 class="mb-1 text-dark">
-        名前<%= @user.name %>
+        <%= @user.name %>
         <% unless @user.age.blank? %>
           (<%= @user.age %>歳)
         <% end %>
@@ -15,15 +15,11 @@
       <% unless @user.area.blank? %>
         <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
       <% end %>
-      <% unless @user.gender.blank? && @user.height.blank? %>
-        <h6 class="mb-1 text-dark"><%= @user.height %>cm / <%= @user.gender %></h6>
-      <% else %>
-        <% unless @user.height.blank? %>
-          <h6 class="mb-1 text-dark"><%= @user.height %>cm</h6>
-        <% end %>
-        <% unless @user.gender.blank? %>
-          <h6 class="mb-1 text-dark"><%= @user.gender %></h6>
-        <% end %>
+      <% unless @user.gender.blank? %>
+        <%= @user.gender %> / 
+      <% end %>
+      <% unless @user.height.blank? %>
+        <%= @user.height %>cm 
       <% end %>
       <div class="my-3">
         <h1>
@@ -56,15 +52,17 @@
             </a>
           </div>
         <% end %>
-        <% unless current_user.shop.blank? %>
-          <% if current_user != @user %>
-            <% if @user.staffed_by?(current_user) %>
-              <%= link_to user_staffs_path(@user.id), class: "btn btn-success m-1 h-25", method: :delete do %>
-                <i class="fas fa-id-card"></i><h6><%= current_user.name %> スタッフ</h6>
-              <% end %>
-            <% else %>
-              <%= link_to user_staffs_path(@user.id), class: "btn btn-outline-success m-1 h-25", method: :post do %>
-                <i class="fas fa-id-card"></i><h6>スタッフ登録</h6>
+        <% if user_signed_in? %>
+          <% unless current_user.shop.blank? %>
+            <% if current_user != @user %>
+              <% if @user.staffed_by?(current_user) %>
+                <%= link_to user_staffs_path(@user.id), class: "btn btn-success m-1 h-25", method: :delete do %>
+                  <i class="fas fa-id-card"></i><h6><%= current_user.name %> スタッフ</h6>
+                <% end %>
+              <% else %>
+                <%= link_to user_staffs_path(@user.id), class: "btn btn-outline-success m-1 h-25", method: :post do %>
+                  <i class="fas fa-id-card"></i><h6>スタッフ登録</h6>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
@@ -91,38 +89,37 @@
           <% unless @posts.blank? %>
             <!-- カード01 -->
             <% @posts.each do |post| %>
-              <div class='col-6 col-sm-4 col-lg-3 my-1'>
-                <div class="card mb-3">
+              <div class='col-6 col-sm-4 col-lg-3'>
+                <!-- カード01 -->
+                <div class='mb-4'>
                   <div class="img-fluid overflow-hidden zoomIn image-trim">
                     <% if post.image_url.present? %>
                       <%= link_to image_tag(post.image_url), post_path(post) %>
                     <% end %>
                   </div>
-                  <div class='card-body text-center'>
-                    <!-- ビュー数 -->
-                    <div class='bg-warning text-center rounded py-3 m-2'>
-                      <h6><i class="fas fa-eye"></i> : <%= post.impressionist_count %></h6>
-                    </div>
-                    <!-- like -->
-                    <%if user_signed_in? %>
-                      <% if post.user_id != current_user.id %>
-                        <% if current_user.already_liked?(post) %>
-                          <%= link_to post_like_path(post, post.id), class: "btn btn-success m-1", method: :delete do %>
-                            <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-                              <% end %>
-                        <% else %>
-                          <%= link_to post_likes_path(post), class: "btn btn-outline-success m-1", method: :post do %>
-                                <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-                              <% end %>
-                        <% end %>
-                      <% end %>
-                    <% else %>
-                      <div class="m-1">
-                        <a class="btn btn-outline-success aria-expanded" data-toggle="modal" data-target="#menuModal" href="#">
-                          <i class="fas fa-thumbs-up"></i><h6><%= post.likes.count %></h6>
-                        </a>
+                  <!-- カードエリアの本文 -->
+                  <div class="row pt-2">
+                    <div class="col-12 row">
+                      <div class="col-5">
+                        <%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle icon-trim"), user_path(post.user_id) %>
                       </div>
-                    <% end %>
+                      <div class="col-7 row">
+                        <p class="col-12 text-center pt-3 text-dark">
+                          <span><%= time_ago_in_words(post.created_at) %>前</span>
+                        </p>
+                      </div>
+                    </div>
+                    <h6 class="col-12 pt-2 text-dark text-truncate">
+                      <%= post.title %>
+                    </h6>
+                    <div class="col-12 row text-center pt-2">
+                      <p class="col-6 text-dark text-truncate">
+                        <span><i class="fas fa-thumbs-up"></i> : <%= post.likes.count %></span> 
+                      </p>
+                      <p class="col-6 text-dark text-truncate">
+                        <span><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></span>
+                      </p>
+                    </div>  
                   </div>
                 </div>
               </div>

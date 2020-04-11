@@ -4,7 +4,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-
+    
+    @posts.each do |post|
+      impressionist(post, "message...")
+    end
   #   @posts.each do |post|
   #     post.current_user.followers.each do |follower| 
   #       if follower.id == post.user_id
@@ -15,11 +18,30 @@ class PostsController < ApplicationController
 
   end
 
-  def show
+  def show  
+    
     @post = Post.find(params[:id])
+    @clothes = @post.clothes.all
+
+    # 過去の投稿
+    @posts = @post.user.posts.all
+
+    # 同じブランドの投稿
+    @clothe_all = Clothe.all
+    @bland = @post.blanded_posts.all
+    @bland_posts = []
+    @bland.each do |bland|
+      @clothe_all.each do |clothe|
+        if clothe.bland_id == bland.id
+          @bland_posts << clothe.post
+        end
+      end
+    end
+    
     @comment = @post.comments.new
     @comments = @post.comments
     @commented_users = @post.commented_users
+
     impressionist(@post, "message...") # 2nd argument is optional
   end
 
@@ -36,10 +58,10 @@ class PostsController < ApplicationController
       @post.shop_id = current_user.shop.id
     end
     if @post.save
-      flash[:notice] = "保存しました"
+      flash[:notice] = "入力を保存しました"
       redirect_to new2_post_path(@post)
     else
-      flash[:alert] = "投稿できませんでした"
+      flash[:alert] = "保存できませんでした"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -52,7 +74,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.update(update_post_params)
     if @post.save
-      flash[:notice] = "更新しました。"
+      flash[:notice] = "入力を更新しました。"
       redirect_to new2_post_path(@post)
     else
       flash[:alert] = "更新できませんでした"
@@ -76,13 +98,7 @@ class PostsController < ApplicationController
   def new2
     @post = Post.find(params[:id])
     @clothe = @post.clothes.new
-
-    @clothes = @post.clothes
-
-    @colors = @post.colored_posts.all
-    @blands = @post.blanded_posts.all
-    @categories = @post.categoryed_posts.all
-    @sizes =  @post.sized_posts.all
+    @clothes = @post.clothes.all
   end
 
 

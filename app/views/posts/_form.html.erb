@@ -54,11 +54,7 @@
 		<% end %>
 		
 		<div class="row py-5">
-			<% if request.path_info == new_post_path %>
-				<%= f.submit "投稿", data: { disable_with: "投稿中..."}, class: "col-3 m-auto btn btn-info" %>
-			<% elsif request.path_info == edit_post_path %>
-		 		<%= f.submit "更新", data: { disable_with: "更新中..."}, class: "col-3 m-auto btn btn-info" %>
-		 	<% end %>
+			<%= f.submit "次へ", data: { disable_with: "移動中..."}, class: "col-3 m-auto btn btn-success" %>
 		</div>
 	<% end %>
 </div>

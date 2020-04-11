@@ -10,8 +10,12 @@
 	<div class="row justify-content-center">
 		<% if @post_images.any? %>
 			<% @post_images.each do |article| %>
-				<div class="col-3 col-md-2 search-img">
-					<%= link_to image_tag(article.image_url, class: "img-fluid"),  "/posts/#{article.id}" %>
+				<div class="col-4 col-md-3 search-img">
+					<div class="image-trim">
+						<%= link_to "/posts/#{article.id}" do %>
+							<%= image_tag(article.image_url, class: "img-fluid" ) %>
+						<% end %>
+					</div>
 				</div>
 			<% end %>
 		<% end %>
