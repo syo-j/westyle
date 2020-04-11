@@ -16,35 +16,33 @@
 				</h6>
 			<% else %>
 				<h6 class="text-dark">
-					<% unless @post.user.gender.blank? && @post.user.height.blank? %>
-				    	<%= @post.user.height %>cm / <%= @post.user.gender %>
-				    <% else %>
-				        <% unless @post.user.height.blank? %>
-				          <%= @post.user.height %>cm
-				        <% end %>
-				        <% unless @post.user.gender.blank? %>
-				          <%= @post.user.gender %>
-				        <% end %>
-				    <% end %>
+					<% unless @post.user.gender.blank? %>
+			          <%= @post.user.gender %> / 
+			        <% end %>
+			        <% unless @post.user.height.blank? %>
+			          <%= @post.user.height %>cm 
+			        <% end %>
 				</h6>
 			<% end %>
 		</div>
 	</div>
 </div>
-
 <div class="container-fluid mb-3">
 	<div class="row">
 		<!-- カードimg -->
-		<div class="col-md-6 mb-2">
+		<div class="col-md-5 mb-2">
 			<div class="card">
 				<div class="image-trim">
 					<%= image_tag(@post.image_url, class: "card-img-top ") %>
 				</div>
 				<div class="card-body">
+					<div class="text-center py-3">
+						<span><%= time_ago_in_words(@post.created_at) %>前の投稿</span>
+					</div>
 					<h3 class="my-4">
 						<!-- view -->
-						<div class='bg-warning text-center rounded py-3 m-2'>
-							<h6><i class="fas fa-eye"></i> : <%=  @post.impressionist_count %></h6>
+						<div class='bg-light text-center rounded py-3 m-2'>
+							<h6><i class="fas fa-eye"></i> : <%=  @post.impressionist_count %>回閲覧</h6>
 						</div>
 						<!-- like -->
 						<%if user_signed_in? %>
@@ -88,88 +86,6 @@
 					    <% end %>
 					</h3>
 				</div>
-				<div class="card-header border-top">
-					<h3><%= @post.title %></h3>
-				</div>
-				<div class="card-body">
-					<div class="card-text py-4">
-						<p><%= @post.content %></p>
-					</div>
-					<!-- shopとuserで引き出し別 -->
-					<p class="border-bottom mb-5">モデル情報: 
-						<% unless @post.user.shop.blank? %>
-							<% unless @post.shop_gender.blank? && @post.shop_height.blank? %>
-						    	<%= @post.shop_height %>cm / <%= @post.shop_gender %>
-						    <% else %>
-						        <% unless @post.shop_height.blank? %>
-						          <%= @post.shop_height %>cm
-						        <% end %>
-						        <% unless @post.shop_gender.blank? %>
-						          <%= @post.shop_gender %>
-						        <% end %>
-						    <% end %>
-						<% else %>
-							<% unless @post.user.gender.blank? && @post.user.height.blank? %>
-						    	<%= @post.user.height %>cm / <%= @post.user.gender %>
-						    <% else %>
-						        <% unless @post.user.height.blank? %>
-						          <%= @post.user.height %>cm
-						        <% end %>
-						        <% unless @post.user.gender.blank? %>
-						          <%= @post.user.gender %>
-						        <% end %>
-						    <% end %>
-					    <% end %>
-					</p>
-					
-					
-					<p class="border-bottom">着用アイテム: ブランド / サイズ</p>
-					<div class="bg-info">
-					<% @post.clothes.each do |clothe| %>
-						<% @post.categoryed_posts.each do |category| %>
-							<%= category.name %>
-						<% end %>
-						<%= clothe.name %>
-						<% @post.blanded_posts.each do |bland| %>
-							<%= bland.name %>
-						<% end %>
-						<% @post.sized_posts.each do |size| %>
-							<%= size.name %>
-						<% end %>
-						<% @post.colored_posts.each do |color| %>
-							<%= color.name %>
-						<% end %>
-						<%= clothe.price %>
-					<% end %>
-					</div>
-					<p>Jacket: <a href="#">champion...</a> / s</p>
-				</div>
-			</div>
-		</div>
-		<!-- カードtext -->
-		<div class="col-md-6">
-			<div class="card">	
-				<div class=" card-body">
-					<h5><p class="border-bottom text-center py-3">syou 他の投稿</p></h5>
-				</div>
-				<div class="row">
-					<div class="col-4 mb-3">
-						<a class="zoomIn" href="#"><img src="" alt='' class='img-fluid p-1'></a>
-					</div>
-					
-				</div>
-
-					
-				<div class=" card-body">
-					<h5><p class="border-bottom text-center py-3">同じブランド着用投稿</p></h5>
-				</div>
-				<div class="row">
-					<div class="col-4 mb-3">
-						<a class="zoomIn" href="#"><img src="" alt='' class='img-fluid p-1'></a>
-					</div>
-					
-				</div>	
-
 				<!-- コメント -->
 				<div class="border-top">
 					<div class="card-body">
@@ -181,66 +97,178 @@
 					<!-- コメント内容 -->
 					<% unless @commented_users.blank? %>
 				        <% @comments.each do |comment| %>
-				        	<% if @post.user_id == comment.user_id %>
-					        	<div class="row my-4">
-						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
-										<div class="col-4 col-md-2">
-									    	<% unless comment.user.blank? %>
-							            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
-							            	<% end %>
-							            </div>
-							            <div class="col-10 row">
-										    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
-										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
-										    <!-- コメントの投稿主の削除権限 -->
-										    <% if user_signed_in? && comment.user_id == current_user.id %>
-										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id,),class: "col-3 text-warning", method: :delete) %>
-										    <% end %>
-										</div>
-									<% end %>
-								</div>
-							<% else %>
-								<div class="row my-4">
-						        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
-										<div class="col-4 col-md-2">
-									    	<% unless comment.user.blank? %>
-							            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
-							            	<% end %>
-							            </div>
-							            <div class="col-10 row">
-										    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
-										    <p class="col-9 py-2 border rounded-right rounded-bottom"><%= comment.content %></p>
-										    <!-- コメントの投稿主の削除権限 -->
-										    <% if user_signed_in? && comment.user_id == current_user.id %>
-										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-warning", method: :delete) %>
-										    <!-- 投稿主の削除権限 -->
-										    <% elsif user_signed_in? && @post.user.id == current_user.id %>
-										    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-warning", method: :delete) %>
-										    <% end %>
-										</div>
-									<% end %>
-								</div>
-							<% end %>
+							<div class="row my-4">
+					        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
+									<div class="col-4 col-md-2">
+								    	<% unless comment.user.blank? %>
+						            		<%= link_to image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle"), user_path(comment.user_id) %>
+						            	<% end %>
+						            </div>
+						            <div class="col-10 row">
+									    <h5 class="col-12"><%= comment.user.name unless comment.user.blank? %></h5>
+									    <% if comment.user.id == @post.user_id %>
+									    	<div class="col-9 py-2 border rounded-right rounded-bottom">
+									    		<p><%= comment.content %></p>
+									    		<span><%= time_ago_in_words(comment.created_at) %>前</span>
+									    	</div>
+									    <% else %>
+									    	<div class="col-9 py-2 border rounded-right rounded-bottom bg-light">
+									    		<p><%= comment.content %></p>
+									    		<span><%= time_ago_in_words(comment.created_at) %>前</span>
+									    	</div>
+									    <% end %>
+									    <!-- コメントの投稿主の削除権限 -->
+									    <% if user_signed_in? && comment.user_id == current_user.id %>
+									    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-danger", method: :delete) %>
+									    <!-- 投稿主の削除権限 -->
+									    <% elsif user_signed_in? && @post.user.id == current_user.id %>
+									    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-3 text-danger", method: :delete) %>
+									    <% end %>
+									</div>
+								<% end %>
+							</div>
 						<% end %>
 					<% else %>
 						<h6 class="text-center">コメントの投稿がありません</h6>
 					<% end %>
 				</div>
 				<div class="card-body">
-					<div class="border-top py-3 row">
-						<% if user_signed_in? %>
-						    <%= form_for [@post, @comment] do |f| %>
-							  <%= f.text_field :content, class: "col-12 col-md-10 text-center ml-5 py-5", "presence"=> true %>
-							  <%= f.submit class: "col-3 btn btn-warning mt-3 ml-5" do %>
-							  	<i class="far fa-paper-plane"> 送信</i>
-							  <% end %>
-							<% end %>
+					<% if user_signed_in? %>
+					    <%= form_for [@post, @comment] do |f| %>
+						    <div class="border-top py-3 row justify-content-center">
+							  <%= f.text_field :content, class: "col-11 col-md-10 text-center py-4", "presence"=> true %>
+							  <%= f.submit "コメント", class: "col-5 btn btn-success mt-3" %>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<!-- カードtext -->
+		<div class="col-md-7">
+			<div class="card">
+				<div class="card-header border-top">
+					<h3><%= @post.title %></h3>
+				</div>
+				<div class="card-body">
+					<div class="card-text py-4">
+						<p><%= @post.content %></p>
+					</div>
+					<!-- shopとuserで引き出し別 -->
+					<p class="border-bottom mb-5">モデル情報: 
+						<% unless @post.user.shop.blank? %>
+					        <% unless @post.shop_gender.blank? %>
+					          <%= @post.shop_gender %> / 
+					        <% end %>
+					        <% unless @post.shop_height.blank? %>
+					          <%= @post.shop_height %>cm
+					        <% end %>
+						<% else %>
+							<% unless @post.user.gender.blank? %>
+					          <%= @post.user.gender %> / 
+					        <% end %>
+					        <% unless @post.user.height.blank? %>
+					          <%= @post.user.height %>cm 
+					        <% end %>
+					    <% end %>
+					</p>
+					<!-- アイテム -->
+					<p class="border-bottom">着用アイテム</p>
+					<div class="row">
+						<% @clothes.each do |clothe| %>
+							<div class="col-6 py-1 mb-2">
+								<div class=" justify-content-center">
+									<% unless clothe.category.blank? %>
+										<p class="text-break bg-light border rounded p-1 m-1">
+											カテゴリー: <%= clothe.category.name %>
+										</p>
+									<% else %>
+										<p class="text-break bg-light border rounded p-1 m-1">カテゴリー: </p>
+									<% end %>
+									<% unless clothe.bland.blank? %>
+										<p class="text-break bg-light border rounded p-1 m-1">
+											ブランド: <%= clothe.bland.name %>
+										</p>
+									<% else %>
+										<p class="text-break bg-light border rounded p-1 m-1">ブランド: </p>
+									<% end %>
+									<% unless clothe.size.blank? %>
+										<p class="text-break bg-light border rounded p-1 m-1">
+											サイズ: <%= clothe.size.name %>
+										</p>
+									<% else %>
+										<p class="text-break bg-light border rounded p-1 m-1">サイズ: </p>
+									<% end %>
+									<% unless clothe.color.blank? %>
+										<p class="text-break bg-light border rounded p-1 m-1">
+											カラー: <%= clothe.color.name %>
+										</p>
+									<% else %>
+										<p class="text-break bg-light border rounded p-1 m-1">カラー: </p>
+									<% end %>
+									<% unless @post.user.shop.blank? %>
+										<% unless clothe.name.blank? %>
+											<p class="text-break bg-light border rounded p-1 m-1">
+												商品名: <%= clothe.name %>
+											</p>
+										<% else %>
+											<p class="text-break bg-light border rounded p-1 m-1">商品名: </p>
+										<% end %>
+										<% unless clothe.price.blank? %>
+											<p class="text-break bg-light border rounded p-1 m-1">
+												値段: ¥ <%= clothe.price %>
+											</p>
+										<% else %>
+											<p class="text-break bg-light border rounded p-1 m-1">値段: </p>
+										<% end %>
+									<% end %>
+								</div>
+							</div>
 						<% end %>
 					</div>
+				</div>
+				<div class=" card-body">
+					<h5><p class="border-bottom text-center py-3"><%= @post.user.name %>の他の投稿</p></h5>
+				</div>
+				<div class="row">
+					<% unless @posts.blank? %>
+						<% @posts.shuffle.first(3).each do |post| %>
+							<div class="col-4 mb-3">
+								<% if post.image_url.present? %>
+			                      <%= link_to  post_path(post), class: "zoomIn" do %>
+				                      <div class="img-fluid image-trim">
+				                      	<%= image_tag(post.image_url) %>
+				                      </div>
+			                      <% end %>
+			                    <% end %>
+							</div>
+						<% end %>
+					<% else %>
+						<h6 class="col-12 text-center py-5">過去の投稿がありません。</h6>
+					<% end %>
+				</div>
+
+				<div class=" card-body">
+					<h5><p class="border-bottom text-center py-3">同じブランド着用投稿</p></h5>
+				</div>
+				<div class="row">
+					<% unless @bland_posts.blank? %>
+						<% @bland_posts.shuffle.first(3).each do |post| %>
+							<div class="col-4 mb-3">
+								<% if post.image_url.present? %>
+			                      <%= link_to  post_path(post), class: "zoomIn" do %>
+				                      <div class="img-fluid image-trim">
+				                      	<%= image_tag(post.image_url) %>
+				                      </div>
+			                      <% end %>
+			                    <% end %>
+							</div>
+						<% end %>
+					<% else %>
+						<h6 class="col-12 text-center py-5">同じブランドの投稿がありません。</h6>
+					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<%= link_to "ホームへ戻る", posts_path, class: "float-right pr-5" %>

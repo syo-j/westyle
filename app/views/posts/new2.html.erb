@@ -1,105 +1,199 @@
-
-<div class="container row">
-	<%= image_tag(@post.image_url) %>
-	<%= @post.title %>
-	<%= @post.content %>
-	
+<div class="container bg-white py-4 my-4">
+	<h4 class="text-center">アイテム追加</h4>
+	<%= form_for [@post, @clothe] do |clothe| %>
+		<div class="row justify-content-center">
+			<div class="field col-3 col-lg-2">
+		        <%= clothe.label :カテゴリー %><br />
+		        <div class="">
+					<h4><a data-toggle="modal" data-target="#categoryModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+				</div>
+				<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content pb-5"> 
+							<div class="modal-header">
+								<h1 class="modal-title" id="categoryModalLabel">カテゴリー</h1>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  			<span aria-hide="true">✖︎</span>
+						  		</button>
+							</div>
+							<div class="mb-3 row">
+						        <%= clothe.collection_radio_buttons :category_id, Category.all, :id, :name do |tag| %>
+						        	<div class="m-3">
+								        <%= tag.label do %>
+								            <%= tag.radio_button %>
+								            <%= tag.text %>
+								        <% end %>
+							        </div>
+			    				<% end %>
+			    			</div>
+						</div>
+		 			</div>
+				</div>
+	     	</div>
+	     	<div class="field col-3 col-lg-2">
+	     		<%= clothe.label :ブランド %><br />
+	     		<div class="">
+					<h4><a data-toggle="modal" data-target="#blandModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+				</div>
+				<div class="modal fade" id="blandModal" tabindex="-1" role="dialog" aria-labelledby="blandModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content pb-5"> 
+							<div class="modal-header">
+								<h1 class="modal-title" id="blandModalLabel">ブランド</h1>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  			<span aria-hide="true">✖︎</span>
+						  		</button>
+							</div>
+							<div class="mb-3 row">
+						        <%= clothe.collection_radio_buttons :bland_id, Bland.all, :id, :name do |tag| %>
+						        	<div class="m-3">
+								        <%= tag.label do %>
+								            <%= tag.radio_button %>
+								            <%= tag.text %>
+								        <% end %>
+							        </div>
+							    <% end %>
+			    			</div>
+						</div>
+		 			</div>
+				</div>
+	     	</div>
+	     	<div class="field col-3 col-lg-2">
+		        <%= clothe.label :サイズ %><br />
+		        <%= clothe.collection_select :size_id, Size.all, :id, :name, :include_blank => true %>
+	     	</div>
+	     	<div class="field col-3 col-lg-2">
+		        <%= clothe.label :カラー %><br />
+		        <%= clothe.collection_select :color_id, Color.all, :id, :name, :include_blank => true %>
+	     	</div>
+	     	<% unless @post.user.shop.blank? %>
+		     	<div class="field col-6 col-lg-2">
+			        <%= clothe.label :商品名 %><br />
+			        <%= clothe.text_field :name %>
+		     	</div>
+		     	<div class="field col-6 col-lg-2">
+			        <%= clothe.label :プライス %><br />
+			        <%= clothe.number_field :price %>
+		     	</div>
+		    <% end %>
+	     	<div class="field pt-5">
+				<%= clothe.submit "+ 追加", data: { disable_with: "追加中..."}, class: "btn btn-success" %>
+			</div>
+		</div>
+		<p class="text-center pt-1">複数のアイテムを追加できます。</p>
+	<% end %>
 </div>
-<% @clothes.each do |clothe| %>
-	<div class="container row">
-		<div class="bg-info col-12 my-2">
-			<%= clothe.name %>
-			<%= clothe.price %>
-			<%= clothe.color_id %>
-			<%= clothe.bland_id %>
-			<%= clothe.size_id %>
-			<%= clothe.category_id %>
-			<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
-				<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "text-warning", method: :delete) %>
-			<% end %>
+<div class="container py-4 bg-white rounded">
+	<h4 class="text-center pb-5">投稿プレビュー</h4>
+	<div class="row justify-content-center">
+		<div class="col-12 col-lg-5">
+			<div id="img_field" class="d-block mx-auto mb-3">
+				<%= image_tag(@post.image_url) %>
+			</div>
+		</div>
+		<div class="col-12 col-lg-7">
+			<h5 class="">コーディネートタイトル</h5>
+			<div class="text-break py-3 border bg-light rounded">
+				<%= @post.title %>
+			</div>
+			<h5 class="pt-5">コーディネート詳細</h5>
+			<div class="text-break py-3 border bg-light rounded">
+				<%= @post.content %>
+			</div>
+			<h5 class="pt-5">モデル情報</h5>
+			<div class="text-break py-3 border bg-light text-center rounded">
+				<% unless @post.user.shop.blank? %>
+			        <% unless @post.shop_gender.blank? %>
+			          <%= @post.shop_gender %> / 
+			        <% end %>
+			        <% unless @post.shop_height.blank? %>
+			          <%= @post.shop_height %>cm
+			        <% end %>
+			    <% end %>
+			</div>	
+		</div>	
+	</div>
+	<div class="row justify-content-center mt-3" >
+		<%= link_to("編集", edit_post_path(@post),class: "col-5 btn btn-outline-danger") %>
+	</div>	
+</div>
+<div class="container my-5">
+	<div class="row">
+		<div class="col-12 py-1 mb-2 bg-white rounded">
+			<div class="row justify-content-center">
+				<h4 class="col-12 py-2 text-center">アイテムプレビュー</h4>
+				<p class="text-break bg-light border rounded p-1 m-1">カテゴリー</p>
+				<p class="text-break bg-light border rounded p-1 m-1">ブランド</p>
+				<p class="text-break bg-light border rounded p-1 m-1">サイズ</p>
+				<p class="text-break bg-light border rounded p-1 m-1">カラー</p>
+				<% unless @post.user.shop.blank? %>
+					<p class="text-break bg-light border rounded p-1 m-1">商品名</p>
+					<p class="text-break bg-light border rounded p-1 m-1">値段</p>
+				<% end %>
+			</div>
 		</div>
 	</div>
-<% end %>
-<h4 class="pb-2">アイテム追加一覧</h4>
-<%= form_for [@post, @clothe] do |clothe| %>
-	<div class="row container mb-4">
-		<div class="field col-3 col-lg-2">
-	        <%= clothe.label :カテゴリー %><br />
-	        <div class="">
-				<h4><a data-toggle="modal" data-target="#categoryModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+	<% @clothes.each do |clothe| %>
+		<div class="row">
+			<div class="col-12 py-1 mb-2 bg-white rounded">
+				<div class="row justify-content-center">
+					<% unless clothe.category.blank? %>
+						<p class="text-break bg-light border rounded p-1 m-1">
+							<%= clothe.category.name %>
+						</p>
+					<% else %>
+						<p class="text-break bg-light border rounded p-1 m-1"> </p>
+					<% end %>
+					<% unless clothe.bland.blank? %>
+						<p class="text-break bg-light border rounded p-1 m-1">
+							<%= clothe.bland.name %>
+						</p>
+					<% else %>
+						<p class="text-break bg-light border rounded p-1 m-1"> </p>
+					<% end %>
+					<% unless clothe.size.blank? %>
+						<p class="text-break bg-light border rounded p-1 m-1">
+							<%= clothe.size.name %>
+						</p>
+					<% else %>
+						<p class="text-break bg-light border rounded p-1 m-1"> </p>
+					<% end %>
+					<% unless clothe.color.blank? %>
+						<p class="text-break bg-light border rounded p-1 m-1">
+							<%= clothe.color.name %>
+						</p>
+					<% else %>
+						<p class="text-break bg-light border rounded p-1 m-1"> </p>
+					<% end %>
+					<% unless @post.user.shop.blank? %>
+						<% unless clothe.name.blank? %>
+							<p class="text-break bg-light border rounded p-1 m-1">
+								<%= clothe.name %>
+							</p>
+						<% else %>
+							<p class="text-break bg-light border rounded p-1 m-1"> </p>
+						<% end %>
+						<% unless clothe.price.blank? %>
+							<p class="text-break bg-light border rounded p-1 m-1">
+								¥ <%= clothe.price %>
+							</p>
+						<% else %>
+							<p class="text-break bg-light border rounded p-1 m-1"> </p>
+						<% end %>
+					<% end %>
+					<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
+						<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "ml-5 btn btn-outline-danger", method: :delete) %>
+					<% end %>
+				</div>
 			</div>
-			<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content pb-5"> 
-						<div class="modal-header">
-							<h1 class="modal-title" id="categoryModalLabel">カテゴリー</h1>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					  			<span aria-hide="true">✖︎</span>
-					  		</button>
-						</div>
-						<div class="mb-3 row">
-					        <%= clothe.collection_radio_buttons :category_id, Category.all, :id, :name do |tag| %>
-					        	<div class="m-3">
-							        <%= tag.label do %>
-							            <%= tag.radio_button %>
-							            <%= tag.text %>
-							        <% end %>
-						        </div>
-		    				<% end %>
-		    			</div>
-					</div>
-	 			</div>
-			</div>
-     	</div>
-     	<div class="field col-3 col-lg-2">
-     		<%= clothe.label :ブランド %><br />
-     		<div class="">
-				<h4><a data-toggle="modal" data-target="#blandModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
-			</div>
-			<div class="modal fade" id="blandModal" tabindex="-1" role="dialog" aria-labelledby="blandModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content pb-5"> 
-						<div class="modal-header">
-							<h1 class="modal-title" id="blandModalLabel">ブランド</h1>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					  			<span aria-hide="true">✖︎</span>
-					  		</button>
-						</div>
-						<div class="mb-3 row">
-					        <%= clothe.collection_radio_buttons :bland_id, Bland.all, :id, :name do |tag| %>
-					        	<div class="m-3">
-							        <%= tag.label do %>
-							            <%= tag.radio_button %>
-							            <%= tag.text %>
-							        <% end %>
-						        </div>
-						    <% end %>
-		    			</div>
-					</div>
-	 			</div>
-			</div>
-     	</div>
-     	<div class="field col-3 col-lg-2">
-	        <%= clothe.label :サイズ %><br />
-	        <%= clothe.collection_select :size_id, Size.all, :id, :name %>
-     	</div>
-     	<div class="field col-3 col-lg-2">
-	        <%= clothe.label :カラー %><br />
-	        <%= clothe.collection_select :color_id, Color.all, :id, :name %>
-     	</div>
-     	<div class="field col-6 col-lg-2">
-	        <%= clothe.label :商品名 %><br />
-	        <%= clothe.text_field :name %>
-     	</div>
-     	<div class="field col-6 col-lg-2">
-	        <%= clothe.label :プライス %><br />
-	        <%= clothe.number_field :price %>
-     	</div>
-     	<div class="py-5">
-			<%= clothe.submit "投稿", data: { disable_with: "投稿中..."}, class: "btn btn-info" %>
 		</div>
+	<% end %>
+</div>
+<div class="container-furuid my-1 py-5 bg-light">
+	<p class="text-center">この内容で投稿？</p>
+	<div class="container my-2 py-4 bg-white">
+		<div class="row justify-content-center">
+			<%= link_to "投稿する", post_path(@post), class: "btn btn-success col-4" %>
+		</div>	
 	</div>
-<% end %>
-
-
-<%= link_to "この投稿へ", post_path(@post) %>
+</div>
