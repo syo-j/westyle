@@ -22,18 +22,22 @@
 body {
   background-color: #EEEEEE;
 }
-/*サーチ*/
-.body-1 {
-  background-color: #e8f044;
-}
+
 
 /*header*/
 header{
-  height: 90px;
+  height: 60px;
   margin-top: -16px;
   box-shadow: 0px 10px 15px -10px;
   background-color: rgba(255,255,255,0.8);
 }
+.mobil-header {
+  height: 70px;
+  margin-top: -16px;
+  box-shadow: 0px 10px 15px -10px;
+  background-color: rgba(255,255,255,0.8);
+}
+
 /*footer*/
 footer {
   background-color: #c3f584;
@@ -41,7 +45,7 @@ footer {
   padding: 40px 0;
 }
 .logo-size {
-  height: 70px;
+  height: 50px;
 }
 .s-icon {
   overflow: hidden;
@@ -71,6 +75,12 @@ footer {
 .blank-comment-py {
   padding: 200px 0;
 }
+
+.search-img {
+   margin: 15px 0;
+  }
+
+
 /*ズームイン*/
 .zoomIn img {
   -webkit-transform: scale(1);
@@ -82,6 +92,7 @@ footer {
   -webkit-transform: scale(1.3);
   transform: scale(1.3);
 }
+
 /*画像トリミング(アイコン)*/
 .icon-trim {
   overflow: hidden;
@@ -97,11 +108,11 @@ footer {
 }
 .icon-trim-user-show {
   overflow: hidden;
-  width: 300px;
-  height: 300px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
 }
-/* 画像トリミング(投稿) */
+/* 画像トリミング(縦長) */
 .image-trim {
   position: relative;
   overflow: hidden;
@@ -114,47 +125,89 @@ footer {
   height: 100%;
   object-fit: cover;
 }
+/* 画像トリミング(縦長) */
+.image-trim-110 {
+  position: relative;
+  overflow: hidden;
+  padding-top: 110%; /* 比率 */
+}
+.image-trim-110 img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* 画像トリミング(正方形) */
+.image-trim-square {
+  position: relative;/* 相対位置指定 */
+  overflow: hidden;
+  padding-top: 100%; /* 比率 */
+}
+.image-trim-square img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* フィルター */
+.image-trim-square .caption {
+  font-size:    130%;
+  position: absolute;
+  top: 50%; /*親要素を起点に上から50%*/
+  left: 50%;  /*親要素を起点に左から50%*/
+  transform: translateY(-50%) translateX(-50%); /*要素の大きさの半分ずつを戻す*/
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  color:      #fff;
+}
+.image-trim-square .mask {
+  width:      100%;
+  height:     100%;
+  position:   absolute; /* 絶対位置指定 */
+  top:      0;
+  left:     0;
+  opacity:    0;  /* マスクを表示しない */
+  background-color: rgba(0,0,0,0.5);  /* マスクは半透明 */
+  -webkit-transition: all 0.2s ease;
+  transition:   all 0.2s ease;
+}
+.image-trim-square:hover .mask {
+  opacity:    1;  /* マスクを表示する */
+}
 
-/*serach*/
-.search-img {
-    margin: 2px -13px 2px;
+/*btn*/
+.iine {
+  color: black;
+}
+.notiine{
+  color: #FF3399;
 }
 
 /*posts-show*/
-.user-img {
-    height: 100px;
+.scroll-content {
+  height: 515px;
 }
-
-/*posts-new*/
-/*.img_field {
-  font-size: 15px;
-  margin-top: 10px;
-  margin:0 auto;
-  padding: 5px 8px;
-  border: dotted 3px #EDBC6C;
-  color: #666;
-  position: relative;
-  padding: 0;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 273px;
-  height: 365px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: #eeeeee;
-  overflow: hidden;
-  box-sizing: border-box;
-  transition: 0.3s ease-out;
-}*/
-
 
 
 /*レスポンシブ*/
+@media screen and (max-width: 1200px) {
+  .scroll-content {
+    height: 410px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .scroll-content {
+    height: 305px;
+  }
+}
 @media screen and (max-width: 768px) {
   header div a {
       font-size: 85%;
       font-weight: bold;
+  }
+  .mobil-font {
+    font-size: 80%;
   }
   .footer-menu {
     height: 80px;
@@ -169,18 +222,24 @@ footer {
     width: 100px;
     height: 100px;
   }
+  .scroll-content {
+    height: 190px;
+  }
+
   /*user-show*/
   .user-img-center {
       margin:0 auto;
-  }
-  .user-text-center{
-      text-align: center;
   }
   /*shop-show*/
   .shop-show-tab .nav-item{
       font-size: 70%;
   }
-
+  .icon-trim-user-show {
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
   /* スクロール */
   .con.delighter {
     transition: all .4s ease-out;
@@ -199,12 +258,17 @@ footer {
      opacity: 1;
      visibility: visible;
   }
+  /*serach*/
+  .search-img {
+    padding: 2px;
+    margin: 0;
+  }
 }
 @media screen and (max-width: 480px) {
-    header div a {
-        font-size: 70%;
-        font-weight: bold;
-    }
+  header div a {
+      font-size: 70%;
+      font-weight: bold;
+  }
 }
 
 
