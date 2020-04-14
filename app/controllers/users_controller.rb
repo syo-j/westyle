@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   	@posts = @user.posts.all
   	@followers = @user.followers
+    @followings = @user.followings
   	@staffs = @user.registerings
     
   	@posts.each do |post|

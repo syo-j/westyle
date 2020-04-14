@@ -3,16 +3,47 @@
 <!-- ナビゲーションバー -->
 <nav class="posts-nav-bg boder-bottom-0">
 	<div class="nav nav-tabs justify-content-center" id="tab-menus" role="tablist">
-		<a class="nav-item nav-link active mr-3 text-black-50" id="tab-shop" data-toggle="tab" href="#panel-shop" role="tab" aria-controls="panel-shop" aria-selected="true">SHOP</a>
-		<a class="nav-item nav-link mr-3 text-black-50" id="tab-user" data-toggle="tab" href="#panel-user" role="tab" aria-controls="panel-user" aria-selected="false">USER</a>
-		<a class="nav-item nav-link mr-3 text-black-50" id="tab-follower" data-toggle="tab" href="#panel-follower" role="tab" aria-controls="panel-follower" aria-selected="false">FOLLOWER</a>
+		<% if user_signed_in? %>
+			<% unless @followings.blank? %>
+				<a class="nav-item nav-link active mr-3 text-black-50" id="tab-follower" data-toggle="tab" href="#panel-follower" role="tab" aria-controls="panel-follower" aria-selected="true">FOLLOWER</a>
+			<% end %>
+		<% else %>
+			<a class="nav-item nav-link active mr-3 text-black-50" id="tab-shop" data-toggle="tab" href="#panel-shop" role="tab" aria-controls="panel-shop" aria-selected="true">SHOP</a>
+			<a class="nav-item nav-link mr-3 text-black-50" id="tab-user" data-toggle="tab" href="#panel-user" role="tab" aria-controls="panel-user" aria-selected="false">USER</a>
+			<a class="nav-item nav-link mr-3 text-black-50" id="tab-follower" data-toggle="tab" href="#panel-follower" role="tab" aria-controls="panel-follower" aria-selected="false">FOLLOWER</a>
+		<% end %>
 	</div>
 </nav>
 <!-- container -->
-<div class="container-fluid pt-4 posts-bg">
-	<div class='row'>
+<div class="container pt-4 posts-bg">
+	<div class='row justify-content-center'>
+		<!-- コンテンツ -->
+		<div class="col-12 col-md-10 col-lg-7">
+			<div class="tab-content" id="panel-menus">
+				<% if user_signed_in? %>
+					<% unless @followings.blank? %>
+						<!-- follower -->
+						<div class="tab-pane show active" id="panel-follower" role="tabpanel" aria-labelledby="tab-follower">
+							<%= render "follower.index" %>
+						</div>
+					<% end %>
+				<% else %>
+					<!-- shop -->
+					<div class="tab-pane fade show active" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop">
+						<%= render "shop.index" %>
+					</div>
+					<!-- user -->
+					<div class="tab-pane fade" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
+						<%= render "user.index" %>
+					</div>
+					<!-- follower -->
+					<div class="tab-pane fade" id="panel-follower" role="tabpanel" aria-labelledby="tab-follower">
+						<%= render "follower.index" %>
+				<% end %>
+			</div>
+		</div>
 		<!-- カテゴリー -->
-		<div class="col-md-2 mb-4 d-none d-md-inline">
+		<div class="col-4 d-none d-lg-inline-block">
 			<div class="container-flid py-1 posts-category-bg">
 		        <div class="row">
 		          <div class="col-12">
@@ -50,23 +81,6 @@
 		            <% end %>
 		          </div>
 		        </div>
-			</div>
-		</div>
-		<!-- コンテンツ -->
-		<div class="col-md-10">
-			<div class="tab-content" id="panel-menus">
-				<!-- shop -->
-				<div class="tab-pane fade show active" id="panel-shop" role="tabpanel" aria-labelledby="tab-shop">
-					<%= render "shop.index" %>
-				</div>
-				<!-- user -->
-				<div class="tab-pane fade" id="panel-user" role="tabpanel" aria-labelledby="tab-user">
-					<%= render "user.index" %>
-				</div>
-				<!-- follower -->
-				<div class="tab-pane fade" id="panel-follower" role="tabpanel" aria-labelledby="tab-follower">
-					<%= render "follower.index" %>
-				</div>
 			</div>
 		</div>
 	</div>

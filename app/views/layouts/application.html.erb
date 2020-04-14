@@ -14,77 +14,78 @@
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   </head>
 
-  <!-- body背景 -->
-  <% if request.path_info == search_posts_path %>
-    <body class="body-1">
-  <% else %>
-    <body>
-  <% end %>
+  <body>
 
     <!-- pcヘッダー -->
     <header class='sticky-top mb-3 d-none d-md-block'>
-      <div class="container-fluid">
+      <div class="container">
         <div class="row">
-          <div class='col-3 text-center pt-4'>
-            <h5>
-              <%= link_to search_posts_path, class: "text-dark" do %>
-                <i class="fas fa-search"></i>
-                <p>サーチ</p>
-              <% end %>
-            </h5>
-          </div>
-          <div class='col-5 text-center logo_img'>
+          <!-- ロゴ -->
+          <div class='col-2 logo_img'>
             <%= link_to image_tag('/assets/logo.png', class: "img-fluid mt-2 logo-size"), posts_path %>
           </div>
-
-          <div class="col-4 row pt-1 text-center d-none d-md-inline">
-            <%if user_signed_in? %>
-              <div class="col-12 pb-3 col-md-6 text-dark">
-                <%= link_to setting_users_path, class: "text-dark" do %>
-                  <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %> <%= current_user.name %>
+          <div class="col-10 row justify-content-end">
+            <!-- ホーム -->
+            <div class='col-1 mt-3'>
+              <h5>
+                <%= link_to posts_path, class: "text-dark" do %>
+                  <i class="fas fa-home"></i>
                 <% end %>
-              </div>
-              <h6 class="col-12 col-md-6">
-                <%= link_to "ログアウト", destroy_user_session_path,class: "text-dark", method: :delete %>  
-              </h6>
-            <%else%>
-              <h6 class="col-12 pb-1 pt-4 col-md-6">
-                <a class="aria-expanded text-dark" data-toggle="modal" data-target="#menuModal" href="#">
-                  <i class="fas fa-bars">新規登録</i>
-                </a>
-              </h6>
-              <h6 class="col-12 col-md-6 text-dark">
-                <%= link_to new_user_session_path, class: "text-dark" do %>
-                  <i class="fas fa-user">ログイン</i>
+              </h5>
+            </div>
+            <!-- サーチ -->
+            <div class='col-1 mt-3'>
+              <h5>
+                <%= link_to search_posts_path, class: "text-dark" do %>
+                  <i class="fas fa-search"></i>
                 <% end %>
-              </h6>
-            <% end %>
-          </div>
-          <div class="col-3 text-center d-sm-none pt-4">
-            <h4><a data-toggle="modal" data-target="#menuModal" href="#"><i class="fas fa-bars aria-expanded text-dark"></i></a></h4>
+              </h5>
+            </div>
+            <!-- 新規投稿 -->
+            <div class='col-1 mt-3'>
+              <h5>
+                <%= link_to new_post_path, class: "text-dark" do %>
+                  <i class="fas fa-pen-nib"></i>
+                <% end %>
+              </h5>
+            </div>
+            <!--user -->
+            <div class="col-2 mt-2">
+              <%if user_signed_in? %>
+                <%= link_to setting_users_path do %>
+                  <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %>
+                <% end %>
+              <%else%>
+                <h6 class="pt-2">
+                  <a class="aria-expanded text-dark" data-toggle="modal" data-target="#menuModal" href="#">
+                    <i class="fas fa-user"></i>
+                  </a>
+                </h6>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
     <!-- スマホのヘッダー -->
-    <div class='d-md-none'>
+    <div class='d-md-none mobil-header'>
       <div class="container-fluid">
         <div class="row">
-          <div class='col-12 col-md-5 text-center'>
-            <%= link_to image_tag('/assets/logo_bg.png', :class => "img-fluid mt-2"), posts_path %>
+          <div class='col-12 text-center'>
+            <%= link_to image_tag('/assets/logo.png', class: "img-fluid mt-3 logo-size"), posts_path %>
           </div>
         </div>
       </div>
     </div>
 
     <!-- メッセージ -->
-    <div class="text-center pt-4">
+    <div class="text-center row justify-content-center pt-4">
       <% if notice %>
-        <h6 class="bg-warning py-3"><%= notice %></h6>
+        <h6 class="bg-warning rounded col-10 py-3"><%= notice %></h6>
       <% end %>
       <% if alert %>
-        <h6 class="bg-danger py-3"><%= alert %></h6>
+        <h6 class="bg-danger rounded col-10 py-3"><%= alert %></h6>
       <% end %>
     </div>
 
@@ -94,15 +95,16 @@
         <div class="modal-content pb-5"> 
           <div class="modal-header">
             <h1 class="modal-title" id="menuModalLabel">MENU</h1>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal" aria-label="close">
               <span aria-hide="true">✖︎</span>
             </button>
           </div>
-          <div class="mb-3 text-center">
-            <h5 class="py-5"><%= link_to "user新規登録", new_user_registration_path %></h5>
-            <h5 class="pb-5"><%= link_to "shop新規登録", new_shop_path %></h5>
-            <h6 class="pb-3">or</h6>
-            <h5><%= link_to "ログイン", new_user_session_path %></h5>
+          <div class="mb-3 text-center border-bottom pb-5">
+            <h5 class="border-bottom py-5">
+              <%= link_to "ログイン", new_user_session_path, class: "btn btn-light" %>
+            </h5>
+            <h5 class="py-5"><%= link_to "USER新規登録", new_user_registration_path, class: "btn btn-secondary" %></h5>
+            <h5><%= link_to "SHOP新規登録", new_shop_path, class: "btn btn-secondary" %></h5>
           </div>
         </div>
       </div>
@@ -121,6 +123,7 @@
     <div class="footer-menu fixed-bottom d-md-none">
       <div class="container-fluid">
         <div class="row text-center justify-content-center">
+          <!-- ホーム -->
           <div class="col-3">
             <h5>
               <%= link_to posts_path, class: "text-dark btn" do %>
@@ -129,6 +132,7 @@
               <% end %>
             </h5>
           </div>
+          <!-- サーチ -->
           <div class="col-3">
               <%= link_to search_posts_path, class: "text-dark btn" do %>
                <i class="fas fa-search"></i>
@@ -136,26 +140,23 @@
               <% end %>
           </div>
           <div class="col-3">
+            <%= link_to new_post_path, class: "text-dark btn" do %>
+              <i class="fas fa-pen-nib"></i>
+              <p>投稿</p>
+            <% end %>
+          </div>
+          <!-- user -->
+          <div class="col-3">
             <%if user_signed_in? %>
               <%= link_to setting_users_path, class: "text-dark btn" do %>
                 <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %>
               <% end %>
-            <% end %>
-          </div>
-          <div class="col-3">
-            <%if user_signed_in? %>
-              <h6>
-                <%= link_to destroy_user_session_path, method: :delete, class: "text-dark btn" do %>
-                  <i class="fas fa-user"></i>
-                  <p>ログアウト</p>
-                <% end %>
-              </h6>
             <% else %>
               <h6>
-                <%= link_to new_user_session_path, class: "text-dark btn" do %>
+                <a class="aria-expanded text-dark btn" data-toggle="modal" data-target="#menuModal" href="#">
                   <i class="fas fa-user"></i>
-                  <p>ログイン</p>
-                <% end %>
+                  <p>user</p>
+                </a>
               </h6>
             <% end %>
           </div>

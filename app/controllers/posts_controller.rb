@@ -8,13 +8,14 @@ class PostsController < ApplicationController
     @posts.each do |post|
       impressionist(post, "message...")
     end
-  #   @posts.each do |post|
-  #     post.current_user.followers.each do |follower| 
-  #       if follower.id == post.user_id
-  # 　　    @post_followers = follower.posts
-  #       end
-  #     end
-  #   end
+    @followings =[]
+    if user_signed_in?
+      current_user.followings.each do |following|
+        following.posts.order(created_at: :desc).each do |post| 
+          @followings << post
+        end
+      end
+    end
 
   end
 
