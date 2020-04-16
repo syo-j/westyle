@@ -103,3 +103,5 @@ gem 'activerecord-reset-pk-sequence'
 # view数
 gem 'impressionist'
 
+# ページペネレーション
+gem 'kaminari'

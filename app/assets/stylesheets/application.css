@@ -184,6 +184,11 @@ footer {
   color: #FF3399;
 }
 
+/* jscrol */
+nav.pagination {
+  display: none;
+}
+
 /*posts-show*/
 .scroll-content {
   height: 515px;
@@ -263,6 +268,24 @@ footer {
     padding: 2px;
     margin: 0;
   }
+
+  /* スクロールフィルター */
+  .mask.delighter {
+    transition: all .4s ease-out;
+    transform: none;
+    opacity: 1; 
+  }
+  /* スタート時のスタイル */
+  .mask.delighter.started {
+    transform: none;
+    opacity: 0;
+  } 
+  /* エンド時のスタイル */
+  .mask.delighter.started.ended {
+     opacity: 1;
+  }
+
+
 }
 @media screen and (max-width: 480px) {
   header div a {
@@ -336,11 +359,10 @@ footer {
   overflow: hidden;
   width: 300px;
   height: 300px;
-  object-fit: cover;
 }
 
 /*新規登録画像プレビュートリミング*/
-#user-_mg_field img {
+#user_img_field img {
   position: absolute;
   top: 0;
   width: 100%;
