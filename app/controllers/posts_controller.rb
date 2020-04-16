@@ -3,21 +3,21 @@ class PostsController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @posts = Post.all
-    
-    @posts.each do |post|
-      impressionist(post, "message...")
-    end
+    @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(6)
+
+    # タイムライン表示
     @followings =[]
     if user_signed_in?
       current_user.followings.each do |following|
-        following.posts.order(created_at: :desc).each do |post| 
+        following.posts.each do |post| 
           @followings << post
         end
       end
     end
-
+    @followings_sort = @followings.sort_by {|f| f.created_at}.reverse
+    @followings_page = @followings_sort.page(params[:page]).per(3)
   end
+
 
   def show  
     
@@ -91,9 +91,8 @@ class PostsController < ApplicationController
   end
 
   def search
-    @posts = Post.all
     @q = Post.ransack(params[:q])
-    @post_images = @q.result(distinct: true)
+    @post_images = @q.result(distinct: true).page(params[:page]).per(30)
   end
 
   def new2

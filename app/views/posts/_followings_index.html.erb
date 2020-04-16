@@ -1,6 +1,6 @@
-<div class="row">
-	<% if user_signed_in? %>
-		<% @followings.each do |post| %>
+<div class="page-list jscroll" >
+	<div class="row">
+		<% @followings_sort.each do |post| %>
 			<div class='col-12'>
 				<!-- カード01 -->
 				<div class='card row mb-4 bg-light'>
@@ -40,13 +40,14 @@
 								<%= post.content %>
 							</p>
 							<p class="col-12 row pt-3">
-								<span class="small col-6"><%= time_ago_in_words(post.created_at) %>前</span>
+								<span class="small col-6">
+									<%= time_ago_in_words(post.created_at) %>前</span>
 								<span class=" col-6 text-right"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></span>
 							</p>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>	
 		<% end %>
-	<% end %>
+	</div>
 </div>

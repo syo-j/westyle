@@ -2,14 +2,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:setting]
   def show
   	@user = User.find(params[:id])
-  	@posts = @user.posts.all
+  	@posts = @user.posts.all.page(params[:user_post_page]).per(12)
+    @likes = @user.liked_posts.all.page(params[:like_post_page]).per(12)
   	@followers = @user.followers
     @followings = @user.followings
   	@staffs = @user.registerings
     
-  	@posts.each do |post|
-  		impressionist(post, "message...") # 2nd argument is optional
-  	end
+  	
   end
 
 
@@ -20,9 +19,7 @@ class UsersController < ApplicationController
     @followers = @user.followers
     @staffs = @user.registerings
     
-    @posts.each do |post|
-      impressionist(post, "message...") # 2nd argument is optional
-    end
+  
   end
 
 end

@@ -1,0 +1,37 @@
+
+<div class="page-list jscroll">
+	<div class="row">
+		<% @posts.each do |post| %>
+			<div class='col-6 col-sm-4'>
+				<!-- カード01 -->
+				<div class='mb-5'>
+					<div class="image-trim-square">
+						<%= link_to post_path(post) do %>
+							<%= image_tag(post.image_url, class: "img-fluid" ) %>
+							<div class="mask" data-delighter>
+								<div class="caption">
+									<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
+									<p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
+								</div>
+							</div>
+						<% end %>
+					</div>
+					<!-- カードエリアの本文 -->
+					<div class="row pt-2">
+						<div class="col-12">
+							<div>
+								<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle s-icon"), user_path(post.user_id) %>
+							</div>
+							<div class="col-12">
+								<p class="text-dark text-center">
+									<span><%= time_ago_in_words(post.created_at) %>前</span>
+								</p>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+	<%= paginate @posts, :param_name => 'post_page' %>
+</div>

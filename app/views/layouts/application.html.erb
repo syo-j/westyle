@@ -12,6 +12,12 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <!-- fontawesome -->
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <!-- js -->
+    <%= javascript_include_tag 'photo_prev' %>
+    <%= javascript_include_tag 'img_prev' %>
+    <%= javascript_include_tag 'jquery.jscroll.min' %>
+    <%= javascript_include_tag 'page_scroll' %>
+    <%= javascript_include_tag 'delighters.min' %>
   </head>
 
   <body>
@@ -101,7 +107,7 @@
           </div>
           <div class="mb-3 text-center border-bottom pb-5">
             <h5 class="border-bottom py-5">
-              <%= link_to "ログイン", new_user_session_path, class: "btn btn-light" %>
+              <%= link_to "ログイン", new_user_session_path, class: "btn btn-secondary" %>
             </h5>
             <h5 class="py-5"><%= link_to "USER新規登録", new_user_registration_path, class: "btn btn-secondary" %></h5>
             <h5><%= link_to "SHOP新規登録", new_shop_path, class: "btn btn-secondary" %></h5>
