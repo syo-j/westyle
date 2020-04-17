@@ -17,6 +17,13 @@
                 (<%= @user.age %>歳)
               <% end %>
             </h4>
+            <% if user_signed_in? && @user.id == current_user.id %>
+              <div class="my-4">
+                <%= link_to setting_users_path do %>
+                  <i class="fas fa-user-cog">プロフィール編集</i>
+                <% end %>
+              </div>
+            <% end %>
           </div>
           <div class="col-12 col-md-6">
             <!-- フォロー -->

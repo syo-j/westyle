@@ -1,4 +1,4 @@
-
+<%= javascript_include_tag 'img_prev' %>
 <div class="container mt-5">
 	<%= form_for @post do |f| %>
 		<div class="row mb-5">
@@ -17,7 +17,11 @@
 			        <% end %>
 			    </div>
 			    <!-- id "file"をつけ、「display:none;」で隠す -->
-			    <%= f.file_field :image, required: true, class: "image mt-1", id: "file"%>
+			    <% if request.path_info == new_post_path %>
+			 		<%= f.file_field :image, required: true, class: "image mt-2", id: "file"%>
+			 	<% elsif request.path_info == edit_post_path %>
+			  		<%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
+			  	<% end %>
 			</div>
 			<div class="col-12 col-lg-3 mt-3">
 				<h6>推奨ファイルサイズ：</h6>
