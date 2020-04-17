@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(6)
+    @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(30)
 
     # タイムライン表示
     @followings =[]
@@ -15,7 +15,8 @@ class PostsController < ApplicationController
       end
     end
     @followings_sort = @followings.sort_by {|f| f.created_at}.reverse
-    @followings_page = @followings_sort.page(params[:page]).per(3)
+    # arrayエラーの場合
+    @followings_sort = Kaminari.paginate_array(@followings_sort).page(params[:page]).per(10)
   end
 
 

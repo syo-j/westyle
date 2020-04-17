@@ -4,6 +4,9 @@
     <title>Westyle</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= favicon_link_tag('favicon.ico') %>
+    <!-- ogp -->
+    <%= display_meta_tags(default_meta_tags) %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- bootstrap -->
@@ -13,8 +16,6 @@
     <!-- fontawesome -->
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <!-- js -->
-    <%= javascript_include_tag 'photo_prev' %>
-    <%= javascript_include_tag 'img_prev' %>
     <%= javascript_include_tag 'jquery.jscroll.min' %>
     <%= javascript_include_tag 'page_scroll' %>
     <%= javascript_include_tag 'delighters.min' %>
@@ -58,7 +59,7 @@
             <!--user -->
             <div class="col-2 mt-2">
               <%if user_signed_in? %>
-                <%= link_to setting_users_path do %>
+                <%= link_to user_path(current_user) do %>
                   <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %>
                 <% end %>
               <%else%>
@@ -154,7 +155,7 @@
           <!-- user -->
           <div class="col-3">
             <%if user_signed_in? %>
-              <%= link_to setting_users_path, class: "text-dark btn" do %>
+              <%= link_to user_path(current_user), class: "text-dark btn" do %>
                 <%= image_tag current_user.photo_url, class: "img-fluid rounded-circle s-icon" %>
               <% end %>
             <% else %>

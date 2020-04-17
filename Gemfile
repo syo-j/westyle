@@ -105,3 +105,6 @@ gem 'impressionist'
 
 # ページペネレーション
 gem 'kaminari'
+
+# oge
+gem 'meta-tags'

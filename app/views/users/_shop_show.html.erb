@@ -11,12 +11,23 @@
       <div class="col-8 row">
         <div class="col-12 row py-3 ">
           <div class="col-12 pb-2 col-md-6">
+
             <h4><%= @user.name %></h4>
+
+            <% if user_signed_in? && @user.id == current_user.id %>
+              <div class="my-4">
+                <%= link_to setting_users_path do %>
+                  <i class="fas fa-user-cog">プロフィール編集</i>
+                <% end %>
+              </div>
+            <% end %>
+
             <% unless @staffs.blank? %>
-              <a class="col-12" data-toggle="modal" data-target="#staffsModal" href="#">
+              <a data-toggle="modal" data-target="#staffsModal" href="#">
                 <p>スタッフ数<strong><%= @staffs.count %></strong>人</p>
               </a>
             <% end %>
+            
           </div>
           <div class="col-12 col-md-6">
             <% if user_signed_in? %>
