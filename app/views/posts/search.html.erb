@@ -16,7 +16,7 @@
 					<div class="col-4 search-img">
 						<div class="image-trim-square">
 							<%= link_to "/posts/#{article.id}" do %>
-								<%= image_tag(article.image_url, class: "img-fluid" ) %>
+								<%= image_tag(article.image.to_s, class: "img-fluid" ) %>
 								<div class="mask" data-delighter>
 									<div class="caption">
 										<p class="mobil-font"><i class="far fa-heart"></i> : <%= article.likes.count %></p>

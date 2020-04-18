@@ -7,7 +7,7 @@
 				<div class='mb-5'>
 					<div class="image-trim-square">
 						<%= link_to post_path(post) do %>
-							<%= image_tag(post.image_url, class: "img-fluid" ) %>
+							<%= image_tag(post.image.to_s, class: "img-fluid" ) %>
 							<div class="mask" data-delighter>
 								<div class="caption">
 									<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>

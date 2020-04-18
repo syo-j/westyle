@@ -88,7 +88,7 @@
 	<div class="row justify-content-center">
 		<div class="col-12 col-lg-5">
 			<div id="img_field" class="d-block mx-auto mb-3">
-				<%= image_tag(@post.image_url) %>
+				<%= image_tag(@post.image.to_s) %>
 			</div>
 		</div>
 		<div class="col-12 col-lg-7">
