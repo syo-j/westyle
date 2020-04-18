@@ -4,27 +4,27 @@
 		<div class="row justify-content-center">
 			<div class="field col-3 col-lg-2">
 		        <%= clothe.label :カテゴリー %><br />
-		        <div class="">
-					<h4><a data-toggle="modal" data-target="#categoryModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
+		        <div>
+					<h4><a data-toggle="modal" data-target="#categoryModal" href="#"><button class="btn btn-outline-success page-1">選択</button></a></h4>
 				</div>
 				<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 						<div class="modal-content pb-5"> 
-							<div class="modal-header">
-								<h1 class="modal-title" id="categoryModalLabel">カテゴリー</h1>
+							<div class="modal-header sticky-top bg-light">
+								<h5 class="modal-title" id="categoryModalLabel">カテゴリー</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="close">
 						  			<span aria-hide="true">✖︎</span>
 						  		</button>
 							</div>
-							<div class="mb-3 row">
-						        <%= clothe.collection_radio_buttons :category_id, Category.all, :id, :name do |tag| %>
-						        	<div class="m-3">
+							<div class="modal-body mb-3 row">
+						        <%= clothe.collection_radio_buttons :category_id, @categories, :id, :name do |tag| %>
+						        	<div class="m-3 border-bottom">
 								        <%= tag.label do %>
 								            <%= tag.radio_button %>
 								            <%= tag.text %>
 								        <% end %>
 							        </div>
-			    				<% end %>
+			    				<% end %>	
 			    			</div>
 						</div>
 		 			</div>
@@ -36,17 +36,17 @@
 					<h4><a data-toggle="modal" data-target="#blandModal" href="#"><button class="btn btn-outline-success">選択</button></a></h4>
 				</div>
 				<div class="modal fade" id="blandModal" tabindex="-1" role="dialog" aria-labelledby="blandModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 						<div class="modal-content pb-5"> 
-							<div class="modal-header">
-								<h1 class="modal-title" id="blandModalLabel">ブランド</h1>
+							<div class="modal-header sticky-top bg-light">
+								<h5 class="modal-title" id="blandModalLabel">ブランド</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="close">
 						  			<span aria-hide="true">✖︎</span>
 						  		</button>
 							</div>
-							<div class="mb-3 row">
-						        <%= clothe.collection_radio_buttons :bland_id, Bland.all, :id, :name do |tag| %>
-						        	<div class="m-3">
+							<div class="modal-body mb-3 row">
+						        <%= clothe.collection_radio_buttons :bland_id, @blands, :id, :name do |tag| %>
+						        	<div class="m-3 border-bottom">
 								        <%= tag.label do %>
 								            <%= tag.radio_button %>
 								            <%= tag.text %>
