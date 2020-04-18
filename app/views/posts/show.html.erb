@@ -1,6 +1,6 @@
 
 <!-- ogp上書き -->
-<% set_meta_tags title: @post.title , description: @post.content.to_s.gsub(/\r\n|\r|\n|\s|\t/, ""), og:{image: image_url(url_for(@post.image_url))}, twitter:{image: image_url(url_for(@post.image_url))} %>
+<% set_meta_tags title: @post.title , description: @post.content.to_s.gsub(/\r\n|\r|\n|\s|\t/, ""), og:{image: image.to_s(url_for(@post.image.to_s))}, twitter:{image: image.to_s(url_for(@post.image.to_s))} %>
 <!-- コンテンツ -->
 <div class="container mb-3">
 	<div class="row justify-content-center">
@@ -10,7 +10,7 @@
 				<div class="row no-gutters">
 					<div class="col-12 col-sm-6">
 						<div class="image-trim">
-							<%= image_tag(@post.image_url, class: "card-img") %>
+							<%= image_tag(@post.image.to_s, class: "card-img") %>
 						</div>
 						<div class="row pt-3">
 							<div class="col-6 text-center">
@@ -81,8 +81,8 @@
 								        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
 												<div class="col-12">	
 											    	<% unless comment.user.blank? %>
-									            		<%= link_to user_path(@post.user_id) do %>
-															<%= image_tag(@post.user.photo_url, :class => "img-fluid rounded-circle s-icon") %>
+									            		<%= link_to user_path(comment.user_id) do %>
+															<%= image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle s-icon") %>
 															<span><%= comment.user.name unless comment.user.blank? %></span>
 														<% end %>
 									            	<% end %>
@@ -231,9 +231,9 @@
 						<% @posts.shuffle.first(3).each do |post| %>
 							<div class="col-4 search-img">
 								<div class="image-trim-square">
-									<% if post.image_url.present? %>
+									<% if post.image.to_s.present? %>
 				                      <%= link_to  post_path(post) do %>
-						                    <%= image_tag(post.image_url, class: "img-fluid") %>
+						                    <%= image_tag(post.image.to_s, class: "img-fluid") %>
 						                    <div class="mask" data-delighter>
 												<div class="caption">
 													<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
@@ -258,9 +258,9 @@
 						<% @bland_posts.shuffle.first(3).each do |post| %>
 							<div class="col-4 search-img">
 								<div class="image-trim-square">
-									<% if post.image_url.present? %>
+									<% if post.image.to_s.present? %>
 				                      <%= link_to  post_path(post) do %>
-						                    <%= image_tag(post.image_url, class: "img-fluid") %>
+						                    <%= image_tag(post.image.to_s, class: "img-fluid") %>
 						                    <div class="mask" data-delighter>
 													<div class="caption">
 														<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>

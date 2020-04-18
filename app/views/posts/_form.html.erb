@@ -10,8 +10,8 @@
 			    <div id="img_field" onClick="$('#file').click()" >
 			 
 			        <!-- 画像があるときは画像を表示する -->
-			        <% if @post.image.url.present? %>
-			          <%= image_tag(@post.image.url) %>
+			        <% if @post.image.to_s.present? %>
+			          <%= image_tag(@post.image.to_s) %>
 			        <% else %>
 			          <i class="fas fa-image text-center"></i><i class="fas fa-file-upload add"></i>
 			        <% end %>

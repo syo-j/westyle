@@ -72,7 +72,7 @@ group :production do
 end
 
 #image_uploade
-gem 'carrierwave'
+gem 'carrierwave', '~> 1.3.1'
 
 #検索バー
 gem 'ransack'
@@ -108,3 +108,7 @@ gem 'kaminari'
 
 # oge
 gem 'meta-tags'
+
+# 画像サーバー
+gem 'cloudinary', '1.11.1'
+gem 'fog-aws'
