@@ -1,6 +1,6 @@
 
 <!-- ogp上書き -->
-<% set_meta_tags title: @post.title , description: @post.content.to_s.gsub(/\r\n|\r|\n|\s|\t/, ""), og:{image: image.to_s(url_for(@post.image.to_s))}, twitter:{image: image.to_s(url_for(@post.image.to_s))} %>
+<% set_meta_tags title: @post.title , description: @post.content.to_s.gsub(/\r\n|\r|\n|\s|\t/, ""), og:{image: image_url(url_for(@post.image.to_s))}, twitter:{image: image_url(url_for(@post.image.to_s))} %>
 <!-- コンテンツ -->
 <div class="container mb-3">
 	<div class="row justify-content-center">
