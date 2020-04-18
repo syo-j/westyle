@@ -100,6 +100,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @clothe = @post.clothes.new
     @clothes = @post.clothes.all
+
+    @categories = Category.all
+    @blands = Bland.all
+
   end
 
 
