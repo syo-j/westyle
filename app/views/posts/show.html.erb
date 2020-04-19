@@ -107,7 +107,7 @@
 											    		<div class="row">
 											    			<span class="col-8 small"><%= time_ago_in_words(comment.created_at) %>前</span>
 											    			<!-- 投稿主の削除権限 -->
-														    <% if @post.user.id == current_user.id %>
+														    <% if user_signed_in? && @post.user.id == current_user.id %>
 														    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
 														    <% end %>
 														</div>
