@@ -78,34 +78,50 @@
           </div>
         </div>
       </div>
+      <!-- メッセージ -->
+      <div class="container messege-abusolute">
+        <div class="row ml-5 time-limit">
+          <% if notice %>
+            <div class="text-center messege-border">
+              <p class="py-3"><strong><%= notice %></strong></p>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="text-center alart-messege-border">
+              <p class="py-3"><strong><%= alert %></strong></p>
+            </div>
+          <% end %>
+        </div>
+      </div> 
     </header>
 
     <!-- スマホのヘッダー -->
     <div class='d-md-none mobil-header'>
       <div class="container-fluid">
         <div class="row">
-          <div class='col-12 text-center'>
+          <div class='col-12'>
             <%= link_to image_tag('/assets/logo.png', class: "img-fluid mt-3 logo-size"), posts_path %>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- メッセージ -->
-    <div class="container sticky-top">
-      <div class="row ml-5 time-limit">
-        <% if notice %>
-          <div class="text-center messege-border">
-            <p class="py-3"><strong><%= notice %></strong></p>
-          </div>
-        <% end %>
-        <% if alert %>
-          <div class="text-center alart-messege-border">
-            <p class="py-3"><strong><%= alert %></strong></p>
-          </div>
-        <% end %>
+      <!-- メッセージ -->
+      <div class="sticky-top">
+        <div class="row time-limit mobil-messege-abusolute">
+          <% if notice %>
+            <div class="text-center messege-border">
+              <p class="py-3"><strong><%= notice %></strong></p>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="text-center alart-messege-border">
+              <p class="py-3"><strong><%= alert %></strong></p>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div> 
+
+    
     <!-- 新規登録モーダル -->
     <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
