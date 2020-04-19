@@ -26,6 +26,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  width: 100%;
   background-color: #EEEEEE;
 }
 
@@ -203,7 +204,23 @@ footer {
 .notiine{
   color: #FF3399;
 }
-
+/* タグ */
+.bg-tag {
+  font-size: 225px;
+  position: relative;;
+}
+.clothe-tab {
+  position: absolute;
+  top: 83px;
+  left: 73px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.tag-delete {
+  position: absolute;
+  top: 0;
+}
 
 /*レスポンシブ*/
 @media screen and (max-width: 1200px) {

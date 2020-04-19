@@ -1,5 +1,5 @@
 <div class="container bg-white py-4 my-4">
-	<h4 class="text-center">アイテム追加</h4>
+	<h4 class="text-center">タグ追加</h4>
 	<%= form_for [@post, @clothe] do |clothe| %>
 		<div class="row justify-content-center">
 			<div class="field col-3 col-lg-2">
@@ -83,6 +83,66 @@
 		<p class="text-center pt-3">複数のアイテムを追加できます。</p>
 	<% end %>
 </div>
+<div class="container-furuid">
+	<div class="card border-0 posts-bg">
+		<div class="card-body">
+			<!-- タグ -->
+			<p class="border-bottom">タグ一覧</p>
+			<div class="row">
+				<% @clothes.each do |clothe| %>
+					<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
+						<div>
+							<i class="fas fa-tag bg-tag"></i>
+						</div>
+						<div class="clothe-tab">
+							<!--<% unless clothe.category.blank? %>
+								<h6 class="text-white m-1">
+									<%= clothe.category.name %>
+								</h6>
+							<% else %>
+								<h6 class="text-white m-1">カテゴリー: </h6>
+							<% end %>-->
+							<div >
+								<% unless clothe.bland.blank? %>
+									<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.bland.name %></h6>
+								<% end %>
+							</div>
+							<!--<% unless clothe.color.blank? %>
+								<h6 class="text-white m-1">
+									<%= clothe.color.name %>
+								</h6>
+							<% else %>
+								<h6 class="text-white m-1">カラー: </h6>
+							<% end %>-->
+							<% unless @post.user.shop.blank? %>
+								<div>
+									<% unless clothe.name.blank? %>
+										<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+									<% end %>
+								</div>
+								<div>
+									<% unless clothe.price.blank? %>
+										<h6 class="text-white text-wrap mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+									<% end %>
+								</div>	
+							<% end %>
+							<div>
+								<% unless clothe.size.blank? %>
+									<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+								<% end %>
+							</div>
+						</div>
+						<div class="tag-delete">
+							<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
+								<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "ml-5 btn btn-outline-danger", method: :delete) %>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="container py-4 bg-white rounded">
 	<h4 class="text-center pb-5">投稿プレビュー</h4>
 	<div class="row justify-content-center">
@@ -116,78 +176,6 @@
 	<div class="row justify-content-center mt-3" >
 		<%= link_to("編集", edit_post_path(@post),class: "col-5 btn btn-outline-danger") %>
 	</div>	
-</div>
-<div class="container my-5">
-	<div class="row">
-		<div class="col-12 py-1 mb-2 bg-white rounded">
-			<div class="row justify-content-center">
-				<h4 class="col-12 py-2 text-center">アイテムプレビュー</h4>
-				<p class="text-break bg-light border rounded p-1 m-1">カテゴリー</p>
-				<p class="text-break bg-light border rounded p-1 m-1">ブランド</p>
-				<p class="text-break bg-light border rounded p-1 m-1">サイズ</p>
-				<p class="text-break bg-light border rounded p-1 m-1">カラー</p>
-				<% unless @post.user.shop.blank? %>
-					<p class="text-break bg-light border rounded p-1 m-1">商品名</p>
-					<p class="text-break bg-light border rounded p-1 m-1">値段</p>
-				<% end %>
-			</div>
-		</div>
-	</div>
-	<% @clothes.each do |clothe| %>
-		<div class="row">
-			<div class="col-12 py-1 mb-2 bg-white rounded">
-				<div class="row justify-content-center">
-					<% unless clothe.category.blank? %>
-						<p class="text-break bg-light border rounded p-1 m-1">
-							<%= clothe.category.name %>
-						</p>
-					<% else %>
-						<p class="text-break bg-light border rounded p-1 m-1"> </p>
-					<% end %>
-					<% unless clothe.bland.blank? %>
-						<p class="text-break bg-light border rounded p-1 m-1">
-							<%= clothe.bland.name %>
-						</p>
-					<% else %>
-						<p class="text-break bg-light border rounded p-1 m-1"> </p>
-					<% end %>
-					<% unless clothe.size.blank? %>
-						<p class="text-break bg-light border rounded p-1 m-1">
-							<%= clothe.size.name %>
-						</p>
-					<% else %>
-						<p class="text-break bg-light border rounded p-1 m-1"> </p>
-					<% end %>
-					<% unless clothe.color.blank? %>
-						<p class="text-break bg-light border rounded p-1 m-1">
-							<%= clothe.color.name %>
-						</p>
-					<% else %>
-						<p class="text-break bg-light border rounded p-1 m-1"> </p>
-					<% end %>
-					<% unless @post.user.shop.blank? %>
-						<% unless clothe.name.blank? %>
-							<p class="text-break bg-light border rounded p-1 m-1">
-								<%= clothe.name %>
-							</p>
-						<% else %>
-							<p class="text-break bg-light border rounded p-1 m-1"> </p>
-						<% end %>
-						<% unless clothe.price.blank? %>
-							<p class="text-break bg-light border rounded p-1 m-1">
-								¥ <%= clothe.price %>
-							</p>
-						<% else %>
-							<p class="text-break bg-light border rounded p-1 m-1"> </p>
-						<% end %>
-					<% end %>
-					<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
-						<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "ml-5 btn btn-outline-danger", method: :delete) %>
-					<% end %>
-				</div>
-			</div>
-		</div>
-	<% end %>
 </div>
 <div class="container-furuid my-1 py-5 bg-light">
 	<p class="text-center">この内容で投稿？</p>

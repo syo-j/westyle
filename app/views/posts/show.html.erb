@@ -165,55 +165,50 @@
 					    <% end %>
 					</p>
 					<!-- アイテム -->
-					<p class="border-bottom">着用アイテム</p>
+					<p class="border-bottom">タグ</p>
 					<div class="row">
 						<% @clothes.each do |clothe| %>
-							<div class="col-6 py-1 mb-2">
-								<div class=" justify-content-center">
-									<% unless clothe.category.blank? %>
-										<p class="text-break bg-light border rounded p-1 m-1">
-											カテゴリー: <%= clothe.category.name %>
-										</p>
+							<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
+								<div>
+									<i class="fas fa-tag bg-tag"></i>
+								</div>
+								<div class="clothe-tab">
+									<!--<% unless clothe.category.blank? %>
+										<h6 class="text-white m-1">
+											<%= clothe.category.name %>
+										</h6>
 									<% else %>
-										<p class="text-break bg-light border rounded p-1 m-1">カテゴリー: </p>
-									<% end %>
-									<% unless clothe.bland.blank? %>
-										<p class="text-break bg-light border rounded p-1 m-1">
-											ブランド: <%= clothe.bland.name %>
-										</p>
+										<h6 class="text-white m-1">カテゴリー: </h6>
+									<% end %>-->
+									<div >
+										<% unless clothe.bland.blank? %>
+											<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.bland.name %></h6>
+										<% end %>
+									</div>
+									<!--<% unless clothe.color.blank? %>
+										<h6 class="text-white m-1">
+											<%= clothe.color.name %>
+										</h6>
 									<% else %>
-										<p class="text-break bg-light border rounded p-1 m-1">ブランド: </p>
-									<% end %>
-									<% unless clothe.size.blank? %>
-										<p class="text-break bg-light border rounded p-1 m-1">
-											サイズ: <%= clothe.size.name %>
-										</p>
-									<% else %>
-										<p class="text-break bg-light border rounded p-1 m-1">サイズ: </p>
-									<% end %>
-									<% unless clothe.color.blank? %>
-										<p class="text-break bg-light border rounded p-1 m-1">
-											カラー: <%= clothe.color.name %>
-										</p>
-									<% else %>
-										<p class="text-break bg-light border rounded p-1 m-1">カラー: </p>
-									<% end %>
+										<h6 class="text-white m-1">カラー: </h6>
+									<% end %>-->
 									<% unless @post.user.shop.blank? %>
-										<% unless clothe.name.blank? %>
-											<p class="text-break bg-light border rounded p-1 m-1">
-												商品名: <%= clothe.name %>
-											</p>
-										<% else %>
-											<p class="text-break bg-light border rounded p-1 m-1">商品名: </p>
-										<% end %>
-										<% unless clothe.price.blank? %>
-											<p class="text-break bg-light border rounded p-1 m-1">
-												値段: ¥ <%= clothe.price %>
-											</p>
-										<% else %>
-											<p class="text-break bg-light border rounded p-1 m-1">値段: </p>
-										<% end %>
+										<div>
+											<% unless clothe.name.blank? %>
+												<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+											<% end %>
+										</div>
+										<div>
+											<% unless clothe.price.blank? %>
+												<h6 class="text-white text-wrap mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+											<% end %>
+										</div>	
 									<% end %>
+									<div>
+										<% unless clothe.size.blank? %>
+											<h6 class="text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+										<% end %>
+									</div>
 								</div>
 							</div>
 						<% end %>
