@@ -79,45 +79,40 @@
 							        <% @comments.each do |comment| %>
 										<div class="col-12 row mb-4">
 								        	<% unless comment.user_id.blank? %><!-- 空のバグを弾く -->
-												<div class="col-12">	
-											    	<% unless comment.user.blank? %>
-									            		<%= link_to user_path(comment.user_id) do %>
-															<%= image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle s-icon") %>
-															<span><%= comment.user.name unless comment.user.blank? %></span>
-														<% end %>
-									            	<% end %>
-									            </div>
-									            <div class="col-12 row justify-content-center">
-												    <% if comment.user.id == @post.user_id %>
-												    	<div class="col-12 border rounded-right rounded-bottom">
-												    		<p class="small"><%= comment.content %></p>
-												    		<div class="row">
-												    			<span class="col-8 small"><%= time_ago_in_words(comment.created_at) %>前</span>
-													    		<!-- コメントの投稿主の削除権限 -->
-															    <% if user_signed_in? && comment.user_id == current_user.id %>
-															    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
-															    <!-- 投稿主の削除権限 -->
-															    <% elsif user_signed_in? && @post.user.id == current_user.id %>
-															    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
-															    <% end %>
-															</div>
-												    	</div>
-												    <% else %>
-												    	<div class="col-12 border rounded-right rounded-bottom bg-light">
-												    		<p class="small"><%= comment.content %></p>
-												    		<div class="row">
-												    			<span class="col-8 small"><%= time_ago_in_words(comment.created_at) %>前</span>
-													    		<!-- コメントの投稿主の削除権限 -->
-															    <% if user_signed_in? && comment.user_id == current_user.id %>
-															    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
-															    <!-- 投稿主の削除権限 -->
-															    <% elsif user_signed_in? && @post.user.id == current_user.id %>
-															    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
-															    <% end %>
-															</div>
-												    	</div>
-												    <% end %>
-												</div>
+											    <% if user_signed_in? && comment.user.id == current_user.id %>
+											    	<div class="col-12 text-right mycomment-messege-border">
+											    		<p class="small"><%= comment.content %></p>
+											    		<div class="row">
+											    			<!-- コメントの投稿主の削除権限 -->
+												    		<% if comment.user_id == current_user.id %>
+														    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
+														    <!-- 投稿主の削除権限 -->
+														    <% elsif @post.user.id == current_user.id %>
+														    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
+														    <% end %>
+											    			<span class="col-8 small"><%= time_ago_in_words(comment.created_at) %>前</span>
+														</div>
+											    	</div>
+											    <% else %>
+											    	<div class="col-12">	
+												    	<% unless comment.user.blank? %>
+										            		<%= link_to user_path(comment.user_id) do %>
+																<%= image_tag(comment.user.photo_url, :class => "img-fluid rounded-circle s-icon") %>
+																<span><%= comment.user.name unless comment.user.blank? %></span>
+															<% end %>
+										            	<% end %>
+										            </div>
+											    	<div class="col-12 comment-messege-border">
+											    		<p class="small"><%= comment.content %></p>
+											    		<div class="row">
+											    			<span class="col-8 small"><%= time_ago_in_words(comment.created_at) %>前</span>
+											    			<!-- 投稿主の削除権限 -->
+														    <% if @post.user.id == current_user.id %>
+														    	<%= link_to("削除", post_comment_path(comment.post_id, comment.id),class: "col-4 small text-danger", method: :delete) %>
+														    <% end %>
+														</div>
+											    	</div>
+											    <% end %>
 											<% end %>
 										</div>
 									<% end %>
