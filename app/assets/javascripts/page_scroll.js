@@ -1,7 +1,7 @@
 
 $(function() {
 
-
+	// page-scroll
 	$('.jscroll').jscroll({
 	   contentSelector: '.page-list',
 	   nextSelector: 'span.next:last a',
@@ -25,5 +25,10 @@ $(function() {
 		});
 	});
 
+
+	// notice-messege
+	$(function(){
+	  setTimeout("$('.time-limit').fadeOut('slow')", 2000) 
+	})
 });
 

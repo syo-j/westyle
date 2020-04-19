@@ -92,15 +92,20 @@
     </div>
 
     <!-- メッセージ -->
-    <div class="text-center row justify-content-center pt-4">
-      <% if notice %>
-        <h6 class="bg-warning rounded col-10 py-3"><%= notice %></h6>
-      <% end %>
-      <% if alert %>
-        <h6 class="bg-danger rounded col-10 py-3"><%= alert %></h6>
-      <% end %>
-    </div>
-
+    <div class="container sticky-top">
+      <div class="row ml-5 time-limit">
+        <% if notice %>
+          <div class="text-center messege-border">
+            <p class="py-3"><strong><%= notice %></strong></p>
+          </div>
+        <% end %>
+        <% if alert %>
+          <div class="text-center alart-messege-border">
+            <p class="py-3"><strong><%= alert %></strong></p>
+          </div>
+        <% end %>
+      </div>
+    </div> 
     <!-- 新規登録モーダル -->
     <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
