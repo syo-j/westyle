@@ -204,6 +204,7 @@ footer {
 .notiine{
   color: #FF3399;
 }
+
 /* タグ */
 .bg-tag {
   font-size: 225px;
@@ -220,6 +221,78 @@ footer {
 .tag-delete {
   position: absolute;
   top: 0;
+}
+
+/*吹き出し*/
+.messege-border {
+  position: relative;
+  margin: 2em 0 2em 40px;
+  padding: 15px;
+  background: #fff0c6;
+  border-radius: 30px;
+}
+
+.messege-border:before {  
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -38px;
+  width: 13px;
+  height: 12px;
+  bottom: 0;
+  background: #fff0c6;
+  border-radius: 50%;
+}
+
+.messege-border:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: -24px;
+  width: 20px;
+  height: 18px;
+  bottom: 3px;
+  background: #fff0c6;
+  border-radius: 50%;
+}
+.messege-border p {
+  margin: 0; 
+  padding: 0;
+}
+.alart-messege-border {
+  position: relative;
+  margin: 2em 0 2em 40px;
+  padding: 15px;
+  background: #FFE4E1;
+  border-radius: 30px;
+}
+
+.alart-messege-border:before {  
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -38px;
+  width: 13px;
+  height: 12px;
+  bottom: 0;
+  background: #FFE4E1;
+  border-radius: 50%;
+}
+
+.alart-messege-border:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: -24px;
+  width: 20px;
+  height: 18px;
+  bottom: 3px;
+  background: #FFE4E1;
+  border-radius: 50%;
+}
+.alart-messege-border p {
+  margin: 0; 
+  padding: 0;
 }
 
 /*レスポンシブ*/
