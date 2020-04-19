@@ -231,7 +231,6 @@ footer {
   background: #fff0c6;
   border-radius: 30px;
 }
-
 .messege-border:before {  
   content: "";
   position: absolute;
@@ -243,7 +242,6 @@ footer {
   background: #fff0c6;
   border-radius: 50%;
 }
-
 .messege-border:after {
   content: "";
   position: absolute;
@@ -259,6 +257,7 @@ footer {
   margin: 0; 
   padding: 0;
 }
+
 .alart-messege-border {
   position: relative;
   margin: 2em 0 2em 40px;
@@ -266,7 +265,6 @@ footer {
   background: #FFE4E1;
   border-radius: 30px;
 }
-
 .alart-messege-border:before {  
   content: "";
   position: absolute;
@@ -278,7 +276,6 @@ footer {
   background: #FFE4E1;
   border-radius: 50%;
 }
-
 .alart-messege-border:after {
   content: "";
   position: absolute;
@@ -294,6 +291,76 @@ footer {
   margin: 0; 
   padding: 0;
 }
+
+.comment-messege-border {
+  position: relative;
+  margin: 1em 0 0 6px;
+  padding: 0 15px;
+  background: #edf1ee;
+  border-radius: 30px;
+}
+.comment-messege-border:before {  
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  width: 8px;
+  height: 7px;
+  bottom: 0;
+  background: #edf1ee;
+  border-radius: 50%;
+}
+.comment-messege-border:after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0px;
+  width: 15px;
+  height: 13px;
+  bottom: 3px;
+  background: #edf1ee;
+  border-radius: 50%;
+}
+.comment-messege-border p {
+  margin: 0; 
+  padding: 0;
+}
+
+.mycomment-messege-border {
+  position: relative;
+  margin: 1em 0 0 6px;
+  padding: 0 15px;
+  background: #7da4cd;
+  border-radius: 30px;
+}
+.mycomment-messege-border:before {  
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: -25px;
+  width: 8px;
+  height: 7px;
+  bottom: 0;
+  background: #7da4cd;
+  border-radius: 50%;
+}
+.mycomment-messege-border:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: -15px;
+  width: 15px;
+  height: 13px;
+  bottom: 3px;
+  background: #7da4cd;
+  border-radius: 50%;
+}
+.mycomment-messege-border p {
+  margin: 0; 
+  padding: 0;
+}
+
+
 
 /*レスポンシブ*/
 @media screen and (max-width: 1200px) {
