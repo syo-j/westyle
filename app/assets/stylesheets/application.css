@@ -224,6 +224,19 @@ footer {
 }
 
 /*吹き出し*/
+.messege-abusolute {
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  z-index: 99;
+}
+.mobil-messege-abusolute {
+  position: absolute;
+  top: 0px;
+  left: 10%;
+  z-index: 99;
+}
+
 .messege-border {
   position: relative;
   margin: 2em 0 2em 40px;
