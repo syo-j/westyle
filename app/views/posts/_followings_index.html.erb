@@ -20,17 +20,9 @@
 						<div class="col-12 row">
 							<div class="col-12 my-2 row justify-content-end">
 								<p class="col-2">
-									<% if post.user_id != current_user.id %>
-										<% if current_user.already_liked?(post) %>
-										  <%= link_to post_like_path(post, post.id),  method: :delete do %>
-										  	<h3><i class="fas fa-heart notiine"></i></h3>
-								          <% end %>
-										<% else %>
-											<%= link_to post_likes_path(post), method: :post do %>
-									          <h3><i class="far fa-heart iine"></i></h3>
-									        <% end %>
-										<% end %>
-									<% end %>
+									<div id="likes_buttons_<%= post.id %>">
+							            <%= render partial: 'likes/like', locals: { post: post} %>
+							        </div>
 								</p>
 							</div>
 							<h6 class="col-12 pt-2 text-truncate">
