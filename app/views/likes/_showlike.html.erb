@@ -1,0 +1,11 @@
+<% if @post.user_id != current_user.id %>
+	<% if current_user.already_liked?(@post) %>
+	  <%= link_to post_like_path(@post, @post.id),  method: :delete, remote: :true do %>
+	  	<h3><i class="fas fa-heart notiine"></i></h3>
+      <% end %>
+	<% else %>
+		<%= link_to post_likes_path(@post), method: :@post, remote: :true do %>
+          <h3><i class="far fa-heart iine"></i></h3>
+        <% end %>
+	<% end %>
+<% end %>

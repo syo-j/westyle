@@ -14,19 +14,9 @@
 						</div>
 						<div class="row pt-3">
 							<div class="col-6 text-center">
-								<% if user_signed_in? %>
-									<% if @post.user_id != current_user.id %>
-										<% if current_user.already_liked?(@post) %>
-										  <%= link_to post_like_path(@post, @post.id),  method: :delete do %>
-										  	<h4><i class="fas fa-heart notiine"> : <%= @post.likes.count %></i></h4>
-								          <% end %>
-										<% else %>
-											<%= link_to post_likes_path(@post), method: :post do %>
-									          <h4><i class="far fa-heart iine"> : <%= @post.likes.count %></i></h4>
-									        <% end %>
-										<% end %>
-									<% end %>
-								<% end %>
+								<div id="likes_buttons_<%= @post.id %>">
+						            <%= render partial: 'likes/showlike', locals: { post: @post} %>
+						        </div>
 							</div>
 							<div class="col-6 text-center">
 								<h4><i class="fas fa-eye"></i> : <%=  @post.impressionist_count %></h4>
