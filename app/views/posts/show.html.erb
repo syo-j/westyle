@@ -167,7 +167,7 @@
 									<% end %>-->
 									<div >
 										<% unless clothe.bland.blank? %>
-											<h6 class="text-white text-wrap mb-2" style="width: 7rem;"><%= clothe.bland.name %></h6>
+											<h6 class="clothes-text text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.bland.name %></h6>
 										<% end %>
 									</div>
 									<!--<% unless clothe.color.blank? %>
@@ -180,18 +180,18 @@
 									<% unless @post.user.shop.blank? %>
 										<div>
 											<% unless clothe.name.blank? %>
-												<h6 class="text-white text-wrap mb-2" style="width: 7rem;"><%= clothe.name %></h6>
+												<h6 class="clothes-text text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.name %></h6>
 											<% end %>
 										</div>
 										<div>
 											<% unless clothe.price.blank? %>
-												<h6 class="text-white text-wrap mb-2" style="width: 7rem;">¥<%= clothe.price %></h6>
+												<h6 class="clothes-text text-white text-wrap mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
 											<% end %>
 										</div>	
 									<% end %>
 									<div>
 										<% unless clothe.size.blank? %>
-											<h6 class="text-white text-wrap mb-2" style="width: 8rem;"><%= clothe.size.name %></h6>
+											<h6 class="clothes-text text-white text-wrap mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
 										<% end %>
 									</div>
 								</div>
