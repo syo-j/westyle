@@ -20,12 +20,15 @@
 
 html {
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
 }
 
 body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   width: 100%;
   background-color: #EEEEEE;
 }
