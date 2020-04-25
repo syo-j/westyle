@@ -207,13 +207,13 @@ footer {
 
 /* タグ */
 .bg-tag {
-  font-size: 225px;
+  font-size: 205px;
   position: relative;;
 }
 .clothe-tab {
   position: absolute;
-  top: 83px;
-  left: 73px;
+  top: 68px;
+  left: 68px;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
