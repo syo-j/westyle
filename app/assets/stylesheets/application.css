@@ -207,13 +207,13 @@ footer {
 
 /* タグ */
 .bg-tag {
-  font-size: 205px;
+  font-size: 225px;
   position: relative;;
 }
 .clothe-tab {
   position: absolute;
-  top: 68px;
-  left: 68px;
+  top: 83px;
+  left: 73px;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -404,6 +404,26 @@ footer {
   /*post-show*/
   .scroll-content {
     height: 260px;
+  }
+  /* タグ */
+  .bg-tag {
+    font-size: 150px;
+    position: relative;;
+  }
+  .clothe-tab {
+    position: absolute;
+    top: 65px;
+    left: 55px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .clothes-text {
+    font-size: 70%;
+  }
+  .tag-delete {
+    position: absolute;
+    top: 0;
   }
 
   /*shop-show*/
