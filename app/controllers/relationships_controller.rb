@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
 
+  # before_action :set_user
 
   def create
   	follow = current_user.active_relationships.build(follower_id: params[:user_id])
@@ -18,5 +19,9 @@ class RelationshipsController < ApplicationController
     flash[:notice] = "フォローを解除しました"
     redirect_back(fallback_location: root_path)
   end
+
+  # def set_user
+  #   @user = User.find(params[:user_id])
+  # end
 
 end

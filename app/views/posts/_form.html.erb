@@ -18,7 +18,7 @@
 			    </div>
 			    <!-- id "file"をつけ、「display:none;」で隠す -->
 			    <% if request.path_info == new_post_path %>
-			 		<%= f.file_field :image, required: true, class: "image mt-2", id: "file"%>
+			 		<%= f.file_field :image, required: true, class: "image mt-2 text-truncate", style: "width:280px;", id: "file"%>
 			 	<% elsif request.path_info == edit_post_path %>
 			  		<%= f.file_field :image, class: "image", style: "display:none;", id: "file"%>
 			  	<% end %>
