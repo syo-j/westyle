@@ -73,9 +73,9 @@ Rails.application.configure do
     domain: 'gmail.com',
     port:587,
     #gmailのユーザアカウント（xxxx@gmail.com)※念のため、credentials.yml.enc行き
-    user_name: ENV['SENDGRID_USERNAME'],
+    user_name: Rails.application.credentials.mail[:SENDGRID_USERNAME],
     #gmail２段階認証回避のためにアプリケーションでの利用パスワードを取得、必ずcredentials.yml.endに設定を！！
-    password: ENV['SENDGRID_PASSWORD'],
+    password: Rails.application.credentials.mail[:SENDGRID_PASSWORD],
     #パスワードをBase64でエンコード
     authentication: :login
   }
@@ -142,4 +142,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+
+  config.require_master_key = true
 end
