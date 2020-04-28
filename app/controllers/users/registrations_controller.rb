@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super
-    resource.update(confirmed_at: Time .now.utc)# Welcomeメールを送信した上で、skip_confirmation!と同一処理を行い自動で認証クローズさせる
+    # resource.update(confirmed_at: Time .now.utc)# Welcomeメールを送信した上で、skip_confirmation!と同一処理を行い自動で認証クローズさせる
     @user = User.new(configure_sign_up_params)
     @user.save
   end
