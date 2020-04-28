@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_003012) do
+ActiveRecord::Schema.define(version: 2020_04_26_020253) do
 
   create_table "areas", force: :cascade do |t|
     t.string "prefecture"
@@ -154,6 +154,10 @@ ActiveRecord::Schema.define(version: 2020_04_08_003012) do
     t.string "instaguram_url"
     t.integer "shop_id"
     t.integer "area_id"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
