@@ -16,7 +16,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -62,21 +62,15 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  #deviseが認証用のURLなどを生成するのに必要になる（らしい）
   config.action_mailer.default_url_options = {  :host => 'http://westyle.herokuapp.com' }
-  #送信方法を指定（この他に:sendmail/:file/:testなどがあります)
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  #送信方法として:smtpを指定した場合は、このconfigを使って送信詳細の設定を行います
   config.action_mailer.smtp_settings = {
-    #gmail利用時はaddress,domain,portは下記で固定
     address:"smtp.gmail.com",
     domain: 'gmail.com',
     port:587,
-    #gmailのユーザアカウント（xxxx@gmail.com)※念のため、credentials.yml.enc行き
-    user_name: Rails.application.credentials.mail[:SENDGRID_USERNAME],
-    #gmail２段階認証回避のためにアプリケーションでの利用パスワードを取得、必ずcredentials.yml.endに設定を！！
-    password: Rails.application.credentials.mail[:SENDGRID_PASSWORD],
-    #パスワードをBase64でエンコード
+    user_name: Rails.application.credentials.mail[:USERNAME],
+    password: Rails.application.credentials.mail[:PASSWORD],
     authentication: :login
   }
 
@@ -143,6 +137,4 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-
-  config.require_master_key = true
 end
