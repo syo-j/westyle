@@ -44,8 +44,8 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :domain => 'smtp.gmail.com',
-    :user_name => ENV['SENDGRID_USERNAME'],
-    :password => ENV['SENDGRID_PASSWORD'],
+    :user_name => Rails.application.credentials.mail[:SENDGRID_USERNAME],
+    :password => Rails.application.credentials.mail[:SENDGRID_PASSWORD],
     :authentication => 'login'
   }
 
