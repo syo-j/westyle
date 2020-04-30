@@ -1,10 +1,10 @@
 
+<div class="my-5">
+	<!-- shopとuser切り替え -->
+	<% unless @user.shop.blank? %>
+	  <%= render "shop_show" %>
+	<% else %>
+	  <%= render "user_show" %>
+	<% end %>
 
-<!-- shopとuser切り替え -->
-<% unless @user.shop.blank? %>
-  <%= render "shop_show" %>
-<% else %>
-  <%= render "user_show" %>
-<% end %>
-
-
+</div>

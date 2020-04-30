@@ -3,7 +3,7 @@
 <nav class="my-5">
 	<form class="form-inline justify-content-center">
 		<%= search_form_for @q, url: "/posts/search" do |f| %>
-		  <%= f.search_field :clothes_name_or_clothes_bland_name_or_clothes_category_name_or_title_or_content_cont, label: false, placeholder: '2文字以上での入力を', class: "mr-2 w-50" %>
+		  <%= f.search_field :clothes_name_or_clothes_bland_or_clothes_category_name_or_title_or_content_cont, label: false, placeholder: '2文字以上での入力を', class: "mr-2 w-50" %>
 		  <%= f.submit "検索", class: "btn btn-outline-success my-2 my-sm-0" %>
 		<% end %>
 	</form>

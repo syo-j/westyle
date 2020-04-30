@@ -25,8 +25,8 @@ html {
 }
 
 body {
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  /*overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;*/
   margin: 0;
   padding: 0;
   width: 100%;
@@ -36,14 +36,13 @@ body {
 /*header*/
 header{
   height: 60px;
-  margin-top: -16px;
+  margin: -16px ;
   box-shadow: 0px 10px 15px -10px;
   background-color: rgba(255,255,255,0.8);
 }
 .mobil-header {
   height: 70px;
   margin-top: -16px;
-  box-shadow: 0px 10px 15px -10px;
   background-color: rgba(255,255,255,0.8);
 }
 
@@ -225,6 +224,15 @@ footer {
   position: absolute;
   top: 0;
 }
+.tab-categoey {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.tag-color {
+  position: absolute;
+  bottom: 10px;
+}
 
 /*吹き出し*/
 .messege-abusolute {
@@ -376,101 +384,6 @@ footer {
   padding: 0;
 }
 
-
-
-/*レスポンシブ*/
-@media screen and (max-width: 1200px) {
-  .scroll-content {
-    height: 460px;
-  }
-}
-@media screen and (max-width: 992px) {
-  .scroll-content {
-    height: 360px;
-  }
-}
-@media screen and (max-width: 768px) {
-  header div a {
-      font-size: 85%;
-      font-weight: bold;
-  }
-  /*モバイルfooter*/
-  .footer-menu {
-    height: 80px;
-    background-color: rgba(255,255,255,0.7);
-    box-shadow: 10px 10px 15px 10px;
-  }
-  .footer-menu p {
-    font-size: 80%;
-  }
-
-  /*post-show*/
-  .scroll-content {
-    height: 260px;
-  }
-  /* タグ */
-  .bg-tag {
-    font-size: 150px;
-    position: relative;;
-  }
-  .clothe-tab {
-    position: absolute;
-    top: 65px;
-    left: 55px;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .clothes-text {
-    font-size: 70%;
-  }
-  .tag-delete {
-    position: absolute;
-    top: 0;
-  }
-
-  /*shop-show*/
-  .shop-show-tab .nav-item{
-      font-size: 70%;
-  }
-  .icon-trim-user-show {
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }
-
-  
-  /*serach*/
-  .search-img {
-    padding: 2px;
-    margin: 0;
-  }
-
-  /* スクロールフィルター */
-  .mobil-font {
-    font-size: 80%;
-  }
-  .mask.delighter {
-    transition: all .4s ease-out;
-    transform: none;
-    opacity: 1; 
-  }
-  /* スタート時のスタイル */
-  .mask.delighter.started {
-    transform: none;
-    opacity: 0;
-  } 
-  /* エンド時のスタイル */
-  .mask.delighter.started.ended {
-     opacity: 1;
-  }
-
-
-}
-
-
-
 /* new*/
 /*新規投稿画像プレビュー*/
 #img_field {
@@ -573,3 +486,98 @@ footer {
   display: inline-block;
   color: #fff;
 }
+
+
+/*レスポンシブ*/
+@media screen and (max-width: 1200px) {
+  .scroll-content {
+    height: 460px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .scroll-content {
+    height: 360px;
+  }
+}
+@media screen and (max-width: 768px) {
+  header div a {
+      font-size: 85%;
+      font-weight: bold;
+  }
+  /*モバイルfooter*/
+  .footer-menu {
+    height: 80px;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 10px 10px 15px 10px;
+  }
+  .footer-menu p {
+    font-size: 80%;
+  }
+
+  /*post-show*/
+  .scroll-content {
+    height: 260px;
+  }
+  /* タグ */
+  .bg-tag {
+    font-size: 150px;
+    position: relative;;
+  }
+  .clothe-tab {
+    position: absolute;
+    top: 65px;
+    left: 55px;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .clothes-text {
+    font-size: 70%;
+  }
+  .tag-delete {
+    position: absolute;
+    top: 0;
+  }
+
+
+  /*shop-show*/
+  .shop-show-tab .nav-item{
+      font-size: 70%;
+  }
+  .icon-trim-user-show {
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+  
+  /*serach*/
+  .search-img {
+    padding: 2px;
+    margin: 0;
+  }
+
+  /* スクロールフィルター */
+  .mobil-font {
+    font-size: 80%;
+  }
+  .mask.delighter {
+    transition: all .4s ease-out;
+    transform: none;
+    opacity: 1; 
+  }
+  /* スタート時のスタイル */
+  .mask.delighter.started {
+    transform: none;
+    opacity: 0;
+  } 
+  /* エンド時のスタイル */
+  .mask.delighter.started.ended {
+     opacity: 1;
+  }
+
+
+}
+
+

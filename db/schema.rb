@@ -10,19 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_020253) do
+ActiveRecord::Schema.define(version: 2020_04_29_134226) do
 
   create_table "areas", force: :cascade do |t|
     t.string "prefecture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "blands", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "initial"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -38,16 +31,17 @@ ActiveRecord::Schema.define(version: 2020_04_26_020253) do
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "bland_id"
     t.integer "size_id"
     t.integer "color_id"
     t.integer "post_id"
+    t.string "bland"
   end
 
   create_table "colors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "css_color"
   end
 
   create_table "comments", force: :cascade do |t|

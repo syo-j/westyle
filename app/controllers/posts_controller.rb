@@ -30,11 +30,11 @@ class PostsController < ApplicationController
 
     # 同じブランドの投稿
     @clothe_all = Clothe.all
-    @bland = @post.blanded_posts.all
+    @clothe_post = @post.clothes.all
     @bland_posts = []
-    @bland.each do |bland|
+    @clothe_post.each do |post_clothe|
       @clothe_all.each do |clothe|
-        if clothe.bland_id == bland.id
+        if clothe.bland == post_clothe.bland
           @bland_posts << clothe.post
         end
       end
@@ -102,7 +102,6 @@ class PostsController < ApplicationController
     @clothes = @post.clothes.all
 
     @categories = Category.all
-    @blands = Bland.all
 
   end
 
