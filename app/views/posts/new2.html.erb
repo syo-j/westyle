@@ -63,77 +63,83 @@
 	<div class="card border-0 posts-bg">
 		<div class="card-body">
 			<!-- タグ -->
-			<p class="border-bottom">タグ一覧</p>
+			<p class="border-bottom text-center">タグ一覧</p>
 			<div class="row">
-				<% @clothes.each do |clothe| %>
-					<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
-						<div>
-							<i class="fas fa-tag bg-tag" style="color:<%= clothe.color.css_color %>;"></i>
-						</div>
-						<div>
-							<% unless clothe.category.blank? %>
-							<div class="tab-categoey row">
-								<%= image_tag(clothe.category.item_url, class: "img_field col-3" ) %>
+				<% unless @clothes.blank? %>
+					<% @clothes.each do |clothe| %>
+						<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
+							<div>
+								<i class="fas fa-tag bg-tag" style="color:<%= clothe.color.css_color %>;"></i>
 							</div>
-							<% end %>
-						</div>
-						<% if clothe.color.name == "ホワイト系" || clothe.color.name == "イエロー系" || clothe.color.name == "ベージュ系" %>
-							<div class="clothe-tab">
-								<div >
-									<% unless clothe.bland.blank? %>
-										<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
-									<% end %>
+							<div>
+								<% unless clothe.category.blank? %>
+								<div class="tab-categoey row">
+									<%= image_tag(clothe.category.item_url, class: "img_field col-3" ) %>
 								</div>
-								<div>
-									<% unless clothe.name.blank? %>
-										<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
-									<% end %>
-								</div>
-								<% unless @post.user.shop.blank? %>
-									<div>
-										<% unless clothe.price.blank? %>
-											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
-										<% end %>
-									</div>	
 								<% end %>
-								<div>
-									<% unless clothe.size.blank? %>
-										<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
-									<% end %>
-								</div>
 							</div>
-						<% else %>
-							<div class="clothe-tab">
-								<div >
-									<% unless clothe.bland.blank? %>
-										<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
-									<% end %>
-								</div>
-								<div>
-									<% unless clothe.name.blank? %>
-										<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
-									<% end %>
-								</div>
-								<% unless @post.user.shop.blank? %>
-									<div>
-										<% unless clothe.price.blank? %>
-											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+							<% if clothe.color.name == "ホワイト系" || clothe.color.name == "イエロー系" || clothe.color.name == "ベージュ系" %>
+								<div class="clothe-tab">
+									<div >
+										<% unless clothe.bland.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
 										<% end %>
-									</div>	
-								<% end %>
-								<div>
-									<% unless clothe.size.blank? %>
-										<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+									</div>
+									<div>
+										<% unless clothe.name.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+										<% end %>
+									</div>
+									<% unless @post.user.shop.blank? %>
+										<div>
+											<% unless clothe.price.blank? %>
+												<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+											<% end %>
+										</div>	
 									<% end %>
+									<div>
+										<% unless clothe.size.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+										<% end %>
+									</div>
 								</div>
-							</div>
-						<% end %>
-						<div class="tag-delete">
-							<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
-								<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "ml-5 btn btn-outline-danger", method: :delete) %>
+							<% else %>
+								<div class="clothe-tab">
+									<div >
+										<% unless clothe.bland.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
+										<% end %>
+									</div>
+									<div>
+										<% unless clothe.name.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+										<% end %>
+									</div>
+									<% unless @post.user.shop.blank? %>
+										<div>
+											<% unless clothe.price.blank? %>
+												<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+											<% end %>
+										</div>	
+									<% end %>
+									<div>
+										<% unless clothe.size.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+										<% end %>
+									</div>
+								</div>
 							<% end %>
+							<div class="tag-delete">
+								<% unless clothe.id.blank? %><!-- 空のバグを弾く -->
+									<%= link_to("削除", post_clothe_path(clothe.post_id, clothe.id),class: "ml-5 btn btn-outline-danger", method: :delete) %>
+								<% end %>
+							</div>
 						</div>
-					</div>
+					<% end %>
+				<% else %>
+				<div class="col-12">
+					<p class="py-5 text-center">タグ未登録</h6>
+				</div>
 				<% end %>
 			</div>
 		</div>
@@ -147,9 +153,6 @@
 				<%= image_tag(@post.image.to_s) %>
 			</div>
 		</div>
-		<% unless @post.video.blank? %>
-			<%= video_tag @post.video.url, width: "100%", height: "600px", controls: true, autobuffer: true %>
-		<% end %>
 		<div class="col-12 col-lg-7">
 			<h5 class="">コーディネートタイトル</h5>
 			<div class="text-break py-3 border bg-light rounded">
@@ -170,6 +173,11 @@
 			        <% end %>
 			    <% end %>
 			</div>	
+		</div>
+		<div class="col-12 my-3">
+			<% unless @post.video.blank? %>
+				<%= video_tag @post.video.url, width: "100%", controls: true, autobuffer: true %>
+			<% end %>
 		</div>	
 	</div>
 	<div class="row justify-content-center mt-3" >

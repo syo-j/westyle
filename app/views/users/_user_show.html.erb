@@ -17,15 +17,25 @@
                 (<%= @user.age %>歳)
               <% end %>
             </h4>
-            <% if user_signed_in? && @user.id == current_user.id %>
-              <div class="my-4">
-                <%= link_to setting_users_path do %>
-                  <i class="fas fa-user-cog">プロフィール編集</i>
-                <% end %>
-              </div>
+            <% unless @user.area.blank? %>
+              <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
+            <% end %>
+            <% unless @user.gender.blank? %>
+              <%= @user.gender %> / 
+            <% end %>
+            <% unless @user.height.blank? %>
+              <%= @user.height %>cm 
             <% end %>
           </div>
           <div class="col-12 col-md-6">
+            <% if user_signed_in? && @user.id == current_user.id %>
+              <div class="my-4">
+                <%= link_to setting_users_path, class: "btn btn-warning" do %>
+                  <i class="fas fa-user-cog">プロフ設定</i>
+                <% end %>
+              </div>
+            <% end %>
+            
             <!-- フォロー -->
             <% if user_signed_in? %>
               <% if current_user.id != @user.id %>
@@ -92,15 +102,6 @@
               <p>フォロー中<strong><%= @user.followings.count %></strong>人</p>
             </a>
           </div> 
-          <% unless @user.area.blank? %>
-            <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
-          <% end %>
-          <% unless @user.gender.blank? %>
-            <%= @user.gender %> / 
-          <% end %>
-          <% unless @user.height.blank? %>
-            <%= @user.height %>cm 
-          <% end %>
         </div>
       </div>
     </div>
@@ -128,7 +129,7 @@
                   <div class="image-trim-square">
                     <%= link_to post_path(post) do %>
                       <%= image_tag(post.image.to_s, class: "img-fluid" ) %>
-                      <div class="mask" data-delighter>
+                      <div class="mask">
                         <div class="caption">
                           <p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
                           <p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
@@ -157,7 +158,7 @@
                   <div class="image-trim-square">
                     <%= link_to post_path(post) do %>
                       <%= image_tag(post.image.to_s, class: "img-fluid" ) %>
-                      <div class="mask" data-delighter>
+                      <div class="mask">
                         <div class="caption">
                           <p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
                           <p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>

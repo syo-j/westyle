@@ -14,22 +14,39 @@
 
             <h4><%= @user.name %></h4>
 
+            <% unless @user.area.blank? %>
+              <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
+            <% end %>
+            <% unless @user.shop.phone.blank? %>
+              <h6 class="mb-1 text-dark">tell : <%= @user.shop.phone %></h6>
+            <% end %>
+            <% unless @user.shop.hp_url.blank? %>
+              <h6 class="mb-1 text-dark">
+                HP : <%= link_to  @user.shop.hp_url do %>
+                  <%=@user.name%>.HP
+                <% end %> 
+              </h6>
+            <% end %>
+
+            <div class="pt-3">
+              <% unless @staffs.blank? %>
+                <a data-toggle="modal" data-target="#staffsModal" href="#">
+                  <p>スタッフ数<strong><%= @staffs.count %></strong>人</p>
+                </a>
+              <% end %>
+            </div>
+
+          </div>
+          <div class="col-12 col-md-6">
+
             <% if user_signed_in? && @user.id == current_user.id %>
               <div class="my-4">
-                <%= link_to setting_users_path do %>
-                  <i class="fas fa-user-cog">プロフィール編集</i>
+                <%= link_to setting_users_path, class: "btn btn-warning" do %>
+                  <i class="fas fa-user-cog">プロフ設定</i>
                 <% end %>
               </div>
             <% end %>
 
-            <% unless @staffs.blank? %>
-              <a data-toggle="modal" data-target="#staffsModal" href="#">
-                <p>スタッフ数<strong><%= @staffs.count %></strong>人</p>
-              </a>
-            <% end %>
-            
-          </div>
-          <div class="col-12 col-md-6">
             <% if user_signed_in? %>
               <% if current_user.id != @user.id %>
                     <% if @user.followed_by?(current_user) %>
@@ -77,19 +94,6 @@
               <p>フォロー中<strong><%= @user.followings.count %></strong>人</p>
             </a>
           </div> 
-          <% unless @user.area.blank? %>
-            <h6 class="mb-1 text-dark">地域 : <%= @user.area.prefecture %></h6>
-          <% end %>
-          <% unless @user.shop.phone.blank? %>
-            <h6 class="mb-1 text-dark">tell : <%= @user.shop.phone %></h6>
-          <% end %>
-          <% unless @user.shop.hp_url.blank? %>
-            <h6 class="mb-1 text-dark">
-              HP : <%= link_to  @user.shop.hp_url do %>
-                <%=@user.name%>.HP
-              <% end %> 
-            </h6>
-          <% end %>
         </div>
       </div>
     </div>
@@ -117,7 +121,7 @@
                   <div class="image-trim-square">
                     <%= link_to post_path(post) do %>
                       <%= image_tag(post.image.to_s, class: "img-fluid" ) %>
-                      <div class="mask" data-delighter>
+                      <div class="mask">
                         <div class="caption">
                           <p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
                           <p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
@@ -147,7 +151,7 @@
                   <div class="image-trim-square">
                     <%= link_to post_path(post) do %>
                       <%= image_tag(post.image.to_s, class: "img-fluid" ) %>
-                      <div class="mask" data-delighter>
+                      <div class="mask">
                         <div class="caption">
                           <p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
                           <p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
