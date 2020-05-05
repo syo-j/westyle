@@ -147,8 +147,9 @@
 				<%= image_tag(@post.image.to_s) %>
 			</div>
 		</div>
-		<%= video_tag @post.video.url, width: "100%", height: "600px", 
-                  controls: true, autobuffer: true %>
+		<% unless @post.video.blank? %>
+			<%= video_tag @post.video.url, width: "100%", height: "600px", controls: true, autobuffer: true %>
+		<% end %>
 		<div class="col-12 col-lg-7">
 			<h5 class="">コーディネートタイトル</h5>
 			<div class="text-break py-3 border bg-light rounded">
