@@ -111,13 +111,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(
-      :title, :content, :image, :shop_gender, :shop_height
+      :title, :content, :image, :video, :shop_gender, :shop_height
       )
   end
 
   def update_post_params
     params.require(:post).permit(
-      :title, :content, :image, :shop_gender, :shop_height
+      :title, :content, :image, :video, :shop_gender, :shop_height
       )
   end
 

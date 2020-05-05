@@ -136,6 +136,13 @@ footer {
   height: 100%;
   object-fit: cover;
 }
+.tag-image{
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 40px;
+  color: black;
+}
 /* 画像トリミング(縦長) */
 .image-trim-110 {
   position: relative;
@@ -498,26 +505,6 @@ footer {
   .scroll-content {
     height: 360px;
   }
-}
-@media screen and (max-width: 768px) {
-  header div a {
-      font-size: 85%;
-      font-weight: bold;
-  }
-  /*モバイルfooter*/
-  .footer-menu {
-    height: 80px;
-    background-color: rgba(255,255,255,0.7);
-    box-shadow: 10px 10px 15px 10px;
-  }
-  .footer-menu p {
-    font-size: 80%;
-  }
-
-  /*post-show*/
-  .scroll-content {
-    height: 260px;
-  }
   /* タグ */
   .bg-tag {
     font-size: 150px;
@@ -537,6 +524,26 @@ footer {
   .tag-delete {
     position: absolute;
     top: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  header div a {
+      font-size: 85%;
+      font-weight: bold;
+  }
+  /*モバイルfooter*/
+  .footer-menu {
+    height: 80px;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 10px 10px 15px 10px;
+  }
+  .footer-menu p {
+    font-size: 80%;
+  }
+
+  /*post-show*/
+  .scroll-content {
+    height: 260px;
   }
 
 

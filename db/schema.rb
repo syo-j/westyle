@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_29_134226) do
+ActiveRecord::Schema.define(version: 2020_04_30_121949) do
 
   create_table "areas", force: :cascade do |t|
     t.string "prefecture"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2020_04_29_134226) do
     t.integer "shop_id"
     t.string "shop_height"
     t.string "shop_gender"
+    t.string "video"
   end
 
   create_table "relationships", force: :cascade do |t|

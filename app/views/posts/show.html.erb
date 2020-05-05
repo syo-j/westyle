@@ -10,7 +10,16 @@
 				<div class="row no-gutters">
 					<div class="col-12 col-sm-6">
 						<div class="image-trim">
-							<%= image_tag(@post.image.to_s, class: "card-img") %>
+							<% unless @clothes.blank? %>
+								<a data-toggle="modal" data-target="#tagsModal" href="#">
+									<%= image_tag(@post.image.to_s, class: "card-img") %>
+									<i class="fas fa-tag tag-image"></i>
+								</a>
+							<% else %>
+								<a data-toggle="modal" data-target="#tagsModal" href="#">
+									<%= image_tag(@post.image.to_s, class: "card-img") %>
+								</a>
+							<% end %>
 						</div>
 						<div class="row pt-3">
 							<div class="col-6 text-center">
@@ -127,99 +136,10 @@
 			</div>
 		</div>
 
-		<!-- カード2 -->
-		<div class="col-12 mb-2">
-			<div class="card" style="background-color: #EEEEEE;">
-				<div class="card-body">
-					<!-- shopとuserで引き出し別 -->
-					<p class="border-bottom mb-5">モデル情報: 
-						<% unless @post.user.shop.blank? %>
-					        <% unless @post.shop_gender.blank? %>
-					          <%= @post.shop_gender %> / 
-					        <% end %>
-					        <% unless @post.shop_height.blank? %>
-					          <%= @post.shop_height %>cm
-					        <% end %>
-						<% else %>
-							<% unless @post.user.gender.blank? %>
-					          <%= @post.user.gender %> / 
-					        <% end %>
-					        <% unless @post.user.height.blank? %>
-					          <%= @post.user.height %>cm 
-					        <% end %>
-					    <% end %>
-					</p>
-					<!-- アイテム -->
-					<p class="border-bottom">タグ</p>
-					<div class="row">
-						<% @clothes.each do |clothe| %>
-							<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
-								<div>
-									<i class="fas fa-tag bg-tag" style="color:<%= clothe.color.css_color %>;"></i>
-								</div>
-								<div>
-									<% unless clothe.category.blank? %>
-									<div class="tab-categoey row">
-										<%= image_tag(clothe.category.item_url, class: "img_field col-3" ) %>
-									</div>
-									<% end %>
-								</div>
-								<% if clothe.color.name == "ホワイト系" || clothe.color.name == "イエロー系" || clothe.color.name == "ベージュ系" %>
-									<div class="clothe-tab">
-										<div >
-											<% unless clothe.bland.blank? %>
-												<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
-											<% end %>
-										</div>
-										<div>
-											<% unless clothe.name.blank? %>
-												<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
-											<% end %>
-										</div>
-										<% unless @post.user.shop.blank? %>
-											<div>
-												<% unless clothe.price.blank? %>
-													<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
-												<% end %>
-											</div>	
-										<% end %>
-										<div>
-											<% unless clothe.size.blank? %>
-												<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
-											<% end %>
-										</div>
-									</div>
-								<% else %>
-									<div class="clothe-tab">
-										<div >
-											<% unless clothe.bland.blank? %>
-												<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
-											<% end %>
-										</div>
-										<div>
-											<% unless clothe.name.blank? %>
-												<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
-											<% end %>
-										</div>
-										<% unless @post.user.shop.blank? %>
-											<div>
-												<% unless clothe.price.blank? %>
-													<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
-												<% end %>
-											</div>	
-										<% end %>
-										<div>
-											<% unless clothe.size.blank? %>
-												<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
-											<% end %>
-										</div>
-									</div>
-								<% end %>
-							</div>
-						<% end %>
-					</div>
-				</div>
-			</div>
+		<div class="col-12 my-4">
+			<% unless @post.video.blank? %>
+				<%= video_tag @post.video.url, width: "100%", height: "400px", controls: true, autobuffer: true %>
+			<% end %>
 		</div>
 		<div class="col-12">
 			<div>
@@ -280,3 +200,107 @@
 		</div>
 	</div>
 </div>
+
+<!-- タグ -->
+<div class="modal fade" id="tagsModal" tabindex="-1" role="dialog" aria-labelledby="tagsModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    	<div class="modal-content pb-5" style="background-color: #EEEEEE;"> 
+	      	<div class="modal-header sticky-top bg-light">
+	        	<h5 class="modal-title" id="tagsModalLabel"></h5>
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="close">
+	          		<span aria-hide="true">✖︎</span>
+	        	</button>
+	      	</div>
+			<div class="card-body">
+				<!-- shopとuserで引き出し別 -->
+				<p class="border-bottom mb-5">モデル情報: 
+					<% unless @post.user.shop.blank? %>
+				        <% unless @post.shop_gender.blank? %>
+				          <%= @post.shop_gender %> / 
+				        <% end %>
+				        <% unless @post.shop_height.blank? %>
+				          <%= @post.shop_height %>cm
+				        <% end %>
+					<% else %>
+						<% unless @post.user.gender.blank? %>
+				          <%= @post.user.gender %> / 
+				        <% end %>
+				        <% unless @post.user.height.blank? %>
+				          <%= @post.user.height %>cm 
+				        <% end %>
+				    <% end %>
+				</p>
+				<!-- アイテム -->
+				<p class="border-bottom">タグ</p>
+				<div class="row">
+					<% @clothes.each do |clothe| %>
+						<div class="col-6 col-md-4 col-lg-3 py-1 mb-2">
+							<div>
+								<i class="fas fa-tag bg-tag" style="color:<%= clothe.color.css_color %>;"></i>
+							</div>
+							<div>
+								<% unless clothe.category.blank? %>
+								<div class="tab-categoey row">
+									<%= image_tag(clothe.category.item_url, class: "img_field col-3" ) %>
+								</div>
+								<% end %>
+							</div>
+							<% if clothe.color.name == "ホワイト系" || clothe.color.name == "イエロー系" || clothe.color.name == "ベージュ系" %>
+								<div class="clothe-tab">
+									<div >
+										<% unless clothe.bland.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
+										<% end %>
+									</div>
+									<div>
+										<% unless clothe.name.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+										<% end %>
+									</div>
+									<% unless @post.user.shop.blank? %>
+										<div>
+											<% unless clothe.price.blank? %>
+												<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+											<% end %>
+										</div>	
+									<% end %>
+									<div>
+										<% unless clothe.size.blank? %>
+											<h6 class="text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+										<% end %>
+									</div>
+								</div>
+							<% else %>
+								<div class="clothe-tab">
+									<div >
+										<% unless clothe.bland.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.bland %></h6>
+										<% end %>
+									</div>
+									<div>
+										<% unless clothe.name.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.name %></h6>
+										<% end %>
+									</div>
+									<% unless @post.user.shop.blank? %>
+										<div>
+											<% unless clothe.price.blank? %>
+												<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;">¥<%= clothe.price %></h6>
+											<% end %>
+										</div>	
+									<% end %>
+									<div>
+										<% unless clothe.size.blank? %>
+											<h6 class="text-white text-wrap clothes-text mb-2" style="width: 9rem;"><%= clothe.size.name %></h6>
+										<% end %>
+									</div>
+								</div>
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
