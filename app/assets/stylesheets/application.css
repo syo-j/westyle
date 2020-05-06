@@ -391,6 +391,7 @@ footer {
   padding: 0;
 }
 
+
 /* new*/
 /*新規投稿画像プレビュー*/
 #img_field {
@@ -437,6 +438,45 @@ footer {
 }
  
 #img_field:hover i {
+  transition: 0.3s ease-out;
+  display: inline-block;
+  color: #fff;
+}
+/*ショートムービー*/
+#video_field {
+  font-size: 15px;
+  border: solid 2px #009900;
+  color: #666;
+  position: relative;
+  padding: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  overflow: hidden;
+}
+ /*フォトアイコン*/
+#video_field i {
+  font-size: 100px;
+  color: #aaa;
+  line-height: 350px;
+  transition: 0.3s ease-out;
+}
+  /*ファイルアイコン*/
+#video_field i.add {
+  display: none;
+  font-size: 50px;
+  position: absolute;
+  top: -90px;
+  right: 15px;
+}
+ 
+#video_field:hover {
+  background-color: #009900;
+  transition: 0.3s ease-out;
+  opacity: 0.9;
+}
+ 
+#video_field:hover i {
   transition: 0.3s ease-out;
   display: inline-block;
   color: #fff;

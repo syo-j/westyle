@@ -18,18 +18,39 @@
 			    </div>
 			    <!-- id "file"をつけ、「display:none;」で隠す -->
 			    <% if request.path_info == new_post_path %>
-			 		<%= f.file_field :image, required: true, class: "image mt-2 text-truncate", style: "width:280px;", id: "file"%>
+			 		<%= f.file_field :image, required: true, class: "image mt-2 text-truncate", style: "width:280px;", id: "imagefile"%>
 			 	<% elsif request.path_info == edit_post_path %>
 			  		<%= f.file_field :image, class: "image", style: "display:none;", id: "imagefile"%>
 			  	<% end %>
 			</div>
 			<div class="col-12 col-lg-3 mt-3">
-				<h6>推奨ファイルサイズ：</h6>
+				<h6>推奨サイズ：</h6>
+				<h6>612px 813px <span class="small">(1 : 1.3)</span></h6>
 			</div>
 		</div>
 		<div class="row mb-5">
-			<%= f.label :video,"動画" %>
-			<%= f.file_field :video, accept: 'video/*' %>
+			<div class="col-12">
+				<h5><%= f.label :video,"ショートムービー" %></h5>
+			</div>
+			<div class="col-12 row m-auto">
+				<div class="field image col-12">
+				    <!-- id "file"で、fileとdivを紐付けクリック時に連動 -->
+				    <div class="row" id="video_field" onClick="$('#videofile').click()" >
+				 
+				        <!-- 画像があるときは画像を表示する -->
+				        <% if @post.video.url.present? %>
+				          <%= video_tag(@post.video.url) %>
+				        <% else %>
+				          <i class="fab fa-youtube col-12 text-center"></i><i class="fas fa-file-video add"></i>
+				        <% end %>
+				    </div>
+				    <!-- id "file"をつけ、「display:none;」で隠す -->
+				    <%= f.file_field :video, accept: 'video/*', class: "image", style: "display:none;", id: "videofile" %>
+				</div>
+			</div>	
+			<div class="col-12 mt-3">
+				<h6>最大ファイルサイズ：3MB (<span class="small">15秒程度</span>)</h6>
+			</div>
 		</div>
 		<div class="field row mb-5">
 			<h5 class="col-12"><%= f.label :title, "コーディネートタイトル" %></h5>
