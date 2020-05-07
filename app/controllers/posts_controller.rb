@@ -3,8 +3,24 @@ class PostsController < ApplicationController
   impressionist :actions => [:show]
 
   def index
-    @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(30)
+    @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(6)
 
+    @set_posts = Post.all
+    # shopのみ,userのみ
+    @shop_posts = []
+    @user_posts = []
+    @set_posts.each do |post|
+      if post.shop_id.present?
+        @shop_posts << post
+      else
+        @user_posts << post
+      end
+    end
+    @shop_posts_sort = @shop_posts.sort_by {|f| f.created_at}.reverse
+    @shop_posts_sort = Kaminari.paginate_array(@shop_posts_sort).page(params[:page]).per(9)
+    @user_posts_sort = @user_posts.sort_by {|f| f.created_at}.reverse
+    @user_posts_sort = Kaminari.paginate_array(@user_posts_sort).page(params[:page]).per(9)
+    
     # タイムライン表示
     @followings =[]
     if user_signed_in?
@@ -16,7 +32,7 @@ class PostsController < ApplicationController
     end
     @followings_sort = @followings.sort_by {|f| f.created_at}.reverse
     # arrayエラーの場合
-    @followings_sort = Kaminari.paginate_array(@followings_sort).page(params[:page]).per(10)
+    @followings_sort = Kaminari.paginate_array(@followings_sort).page(params[:page]).per(3)
   end
 
 

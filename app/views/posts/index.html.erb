@@ -3,7 +3,7 @@
 <div class="container my-5 posts-bg">
 	<div class='row justify-content-center'>
 		<!-- コンテンツ -->
-		<div class="col-12 col-md-10 col-lg-7">
+		<div class="col-12 col-md-10 col-lg-7 pt-5">
 			<% if user_signed_in? %>
 				<% unless @followings.blank? %>
 					<!-- follower -->
@@ -18,43 +18,34 @@
 		</div>
 		<!-- カテゴリー -->
 		<div class="col-4 d-none d-lg-inline-block">
-			<div class="container-flid py-1 posts-category-bg">
-		        <div class="row">
-		          <div class="col-12">
-		            <h5>
-		              <%= link_to posts_path, class: "text-dark btn" do %>
-		                <i class="fas fa-home"></i>ホーム
-		              <% end %>
-		            </h5>
-		          </div>
-		          <div class="col-12">
-		              <%= link_to search_posts_path, class: "text-dark btn" do %>
-		               <i class="fas fa-search"></i>サーチ
-		              <% end %>
-		          </div>
-		          <div class="col-12">
-		            <%if user_signed_in? %>
-		              <%= link_to setting_users_path, class: "text-dark btn" do %>
-		                <i class="fas fa-user-cog"></i>マイページ
-		              <% end %>
-		            <% end %>
-		          </div>
-		          <div class="col-12">
-		            <%if user_signed_in? %>
-		              <h6>
-		                <%= link_to destroy_user_session_path, method: :delete, class: "text-dark btn" do %>
-		                  <i class="fas fa-user"></i>ログアウト
-		                <% end %>
-		              </h6>
-		            <% else %>
-		              <h6>
-		                <%= link_to new_user_session_path, class: "text-dark btn" do %>
-		                  <i class="fas fa-user"></i>ログイン
-		                <% end %>
-		              </h6>
-		            <% end %>
-		          </div>
-		        </div>
+			<div class="sticky-top posts-category">
+				<div class="container-flid py-1 posts-category-bg rounded">
+			        <div class="row">
+			          	<div class="col-12">
+			          		<% if user_signed_in? %>
+					          	<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+							      <a class="nav-link active page-1" id="v-pills-timeline-tab" data-toggle="pill" href="#v-pills-timeline" role="tab" aria-controls="v-pills-timeline" aria-selected="true">タイムライン</a>
+							      <a class="nav-link page-2" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">ALL</a>
+							      <a class="nav-link page-3" id="v-pills-shop-tab" data-toggle="pill" href="#v-pills-shop" role="tab" aria-controls="v-pills-shop" aria-selected="false">SHOP</a>
+							      <a class="nav-link page-4" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="false">USER</a>
+							    </div>
+							<% else %>
+								<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+							      <a class="nav-link active page-1" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="true">ALL</a>
+							      <a class="nav-link page-2" id="v-pills-shop-tab" data-toggle="pill" href="#v-pills-shop" role="tab" aria-controls="v-pills-shop" aria-selected="false">SHOP</a>
+							      <a class="nav-link page-3" id="v-pills-user-tab" data-toggle="pill" href="#v-pills-user" role="tab" aria-controls="v-pills-user" aria-selected="false">USER</a>
+							    </div>
+							<% end %>
+			          	</div>
+			        </div>
+				</div>
+				<div class="my-5">
+					<p>about</p>
+					<p>contact</p>
+				</div>
+				<div>
+					<p class="text-center py-5"><small>Copyright &copy;2020 WE STYLE,All Rights Reserved.</small></p>
+				</div>
 			</div>
 		</div>
 	</div>

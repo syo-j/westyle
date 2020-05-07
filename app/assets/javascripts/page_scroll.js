@@ -25,6 +25,22 @@ $(function() {
 		});
 	});
 
+	$(".page-3").click(function(){
+		$('.jscroll-3').jscroll({
+		   contentSelector: '.page-list-3',
+		   nextSelector: 'span.next:last a',
+		   loadingHtml: '読み込み中'
+		});
+	});
+
+	$(".page-4").click(function(){
+		$('.jscroll-4').jscroll({
+		   contentSelector: '.page-list-4',
+		   nextSelector: 'span.next:last a',
+		   loadingHtml: '読み込み中'
+		});
+	});
+
 
 	// notice-messege
 	$(function(){

@@ -1,46 +1,170 @@
-<div class="page-list jscroll" >
-	<div class="row">
-		<% @followings_sort.each do |post| %>
-			<div class='col-12'>
-				<!-- カード01 -->
-				<div class='card row mb-4 bg-light'>
-					<div class="col-12 py-1">
-						<%= link_to user_path(post.user_id) do %>
-							<%= image_tag(post.user.photo_url, :class => "img-fluid rounded-circle icon-trim") %>
-							<span><%= post.user.name %></span>
-						<% end %>
-					</div>
-					<div class="img-fluid overflow-hidden image-trim-110">
-						<% if post.image_url.present? %>
-							<%= link_to image_tag(post.image.to_s), post_path(post) %>
-						<% end %>
-					</div>
-					<!-- カードエリアの本文 -->
-					<div class="col-12 row pt-2">
-						<div class="col-12 row">
-							<div class="col-12 my-2 row justify-content-end">
-								<p class="col-2">
-									<div id="likes_buttons_<%= post.id %>">
-							            <%= render partial: 'likes/like', locals: { post: post} %>
-							        </div>
-								</p>
+
+<div class="tab-content row" id="v-pills-tabContent">
+	<div class="tab-pane fade show active col-12" id="v-pills-timeline" role="tabpanel" aria-labelledby="v-pills-timeline-tab">
+		<div class="page-list jscroll" >
+			<div class="row">
+				<% @followings_sort.each do |post| %>
+					<div class="col-12">
+						<!-- カード01 -->
+						<div class='card row mb-4 bg-light'>
+							<div class="col-12 py-1">
+								<%= link_to user_path(post.user_id) do %>
+									<%= image_tag(post.user.photo_url, :class => "img-fluid rounded-circle icon-trim") %>
+									<span><%= post.user.name %></span>
+								<% end %>
 							</div>
-							<h6 class="col-12 pt-2 text-truncate">
-								<strong><%= post.title %></strong>
-							</h6>
-							<p class="col-12 pt-2 text-muted text-truncate">
-								<%= post.content %>
-							</p>
-							<p class="col-12 row pt-3">
-								<span class="small col-6">
-									<%= time_ago_in_words(post.created_at) %>前</span>
-								<span class=" col-6 text-right"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></span>
-							</p>
+							<div class="img-fluid overflow-hidden image-trim-110">
+								<% if post.image_url.present? %>
+									<%= link_to image_tag(post.image.to_s), post_path(post) %>
+								<% end %>
+							</div>
+							<!-- カードエリアの本文 -->
+							<div class="col-12 row pt-2">
+								<div class="col-12 row">
+									<div class="col-12 my-2 row justify-content-end">
+										<p class="col-2">
+											<div id="likes_buttons_<%= post.id %>">
+									            <%= render partial: 'likes/like', locals: { post: post} %>
+									        </div>
+										</p>
+									</div>
+									<h6 class="col-12 pt-2 text-truncate">
+										<strong><%= post.title %></strong>
+									</h6>
+									<p class="col-12 pt-2 text-muted text-truncate">
+										<%= post.content %>
+									</p>
+									<p class="col-12 row pt-3">
+										<span class="small col-6">
+											<%= time_ago_in_words(post.created_at) %>前</span>
+										<span class=" col-6 text-right"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>	
+				<% end %>
+			</div>
+			<%= paginate @followings_sort %>
+		</div>
+	</div>
+	<!-- all -->
+	<div class="tab-pane fade col-12" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+		<div class="page-list-2 jscroll-2">
+			<div class="row">
+				<% @posts.each do |post| %>
+					<div class='col-6 col-sm-4'>
+						<!-- カード01 -->
+						<div class='mb-5'>
+							<div class="image-trim-square">
+								<%= link_to post_path(post) do %>
+									<%= image_tag(post.image.to_s, class: "img-fluid" ) %>
+									<div class="mask">
+										<div class="caption">
+											<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
+											<p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
+										</div>
+									</div>
+								<% end %>
+							</div>
+							<!-- カードエリアの本文 -->
+							<div class="row pt-2">
+								<div class="col-12">
+									<div>
+										<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle s-icon"), user_path(post.user_id) %>
+									</div>
+									<div class="col-12">
+										<p class="text-dark text-center">
+											<span><%= time_ago_in_words(post.created_at) %>前</span>
+										</p>
+									</div>
+								</div>	
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>	
-		<% end %>
+				<% end %>
+			</div>
+			<%= paginate @posts, :param_name => 'post_page' %>
+		</div>
 	</div>
-	<%= paginate @followings_sort %>
+
+	<!-- shop -->
+	<div class="tab-pane fade col-12" id="v-pills-shop" role="tabpanel" aria-labelledby="v-pills-shop-tab">
+		<div class="page-list-3 jscroll-3">
+			<div class="row">
+				<% @shop_posts_sort.each do |post| %>
+					<div class='col-6 col-sm-4'>
+						<!-- カード01 -->
+						<div class='mb-5'>
+							<div class="image-trim-square">
+								<%= link_to post_path(post) do %>
+									<%= image_tag(post.image.to_s, class: "img-fluid" ) %>
+									<div class="mask">
+										<div class="caption">
+											<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
+											<p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
+										</div>
+									</div>
+								<% end %>
+							</div>
+							<!-- カードエリアの本文 -->
+							<div class="row pt-2">
+								<div class="col-12">
+									<div>
+										<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle s-icon"), user_path(post.user_id) %>
+									</div>
+									<div class="col-12">
+										<p class="text-dark text-center">
+											<span><%= time_ago_in_words(post.created_at) %>前</span>
+										</p>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<%= paginate @shop_posts_sort %>
+		</div>
+	</div>
+
+	<!-- user -->
+	<div class="tab-pane fade col-12" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab">
+		<div class="page-list-4 jscroll-4">
+			<div class="row">
+				<% @user_posts_sort.each do |post| %>
+					<div class='col-6 col-sm-4'>
+						<!-- カード01 -->
+						<div class='mb-5'>
+							<div class="image-trim-square">
+								<%= link_to post_path(post) do %>
+									<%= image_tag(post.image.to_s, class: "img-fluid" ) %>
+									<div class="mask">
+										<div class="caption">
+											<p class="mobil-font"><i class="far fa-heart"></i> : <%= post.likes.count %></p>
+											<p class="mobil-font"><i class="fas fa-eye"></i> : <%=  post.impressionist_count %></p>
+										</div>
+									</div>
+								<% end %>
+							</div>
+							<!-- カードエリアの本文 -->
+							<div class="row pt-2">
+								<div class="col-12">
+									<div>
+										<%= link_to image_tag(post.user.photo_url, :class => "img-fluid rounded-circle s-icon"), user_path(post.user_id) %>
+									</div>
+									<div class="col-12">
+										<p class="text-dark text-center">
+											<span><%= time_ago_in_words(post.created_at) %>前</span>
+										</p>
+									</div>
+								</div>	
+							</div>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<%= paginate @user_posts_sort %>
+		</div>
+	</div>
 </div>
