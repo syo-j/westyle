@@ -241,7 +241,9 @@
 							<div>
 								<% unless clothe.category.blank? %>
 								<div class="tab-categoey row">
-									<%= image_tag(clothe.category.item_url, class: "img_field col-3" ) %>
+									<div class="col-3">
+										<%= image_tag(clothe.category.item_url, class: "img-fluid" ) %>
+									</div>	
 								</div>
 								<% end %>
 							</div>
