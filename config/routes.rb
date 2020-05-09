@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/about'
+  get 'home/contact'
   #get 'staffs/create'
   #get 'staffs/destroy'
   #get 'relationships/create'
