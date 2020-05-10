@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  # get 'contacts/new'
+  # get 'contacts/create'
   get 'home/about'
-  get 'home/contact'
   #get 'staffs/create'
   #get 'staffs/destroy'
   #get 'relationships/create'
@@ -46,7 +47,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   
-  
+  resources :contacts, only: [:new, :create]
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

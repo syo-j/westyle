@@ -441,18 +441,18 @@
   content: '';
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   width: 55%;
   height: 80%;
   margin: 5% -5% 0;
   background-image: url("<%= asset_path('about6.png') %>");
   background-size: cover;
-  -webkit-transform-origin: left center;
-  -ms-transform-origin: left center;
-  transform-origin: left center;
-  -webkit-transform: rotate(3deg);
-  -ms-transform: rotate(3deg);
-  transform: rotate(3deg);
+  -webkit-transform-origin: right center;
+  -ms-transform-origin: right center;
+  transform-origin: right center;
+  -webkit-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
   z-index: -1;
 }
 
@@ -481,12 +481,12 @@
   height: 80%;
   margin: 3% -10% 0;
   background: #df6209;
-  -webkit-transform-origin: right center;
-  -ms-transform-origin: right center;
-  transform-origin: right center;
-  -webkit-transform: rotate(-3deg);
-  -ms-transform: rotate(-3deg);
-  transform: rotate(-3deg);
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
   z-index: -2;
 }
 

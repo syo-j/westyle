@@ -1,0 +1,27 @@
+<div class="container">
+	<h2 class="text-center py-5">Contact Us</h2>	
+	<p></p>
+	<%= form_for @contact do |f| %>
+		<div class="form_content row">
+			<div class="row col-12 justify-content-center">
+				<div class="form-group col-12 col-lg-6 mb-5">
+					<%= f.text_field :name,placeholder: 'NAME',required: true, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="row col-12 justify-content-center">
+				<div class="form-group col-12 col-lg-6 mb-5">
+					<%= f.text_field :email,placeholder: 'E-MAIL',required: true, class: 'form-control' %>
+				</div>
+			</div>
+
+			<div class="row col-12 justify-content-center">
+				<div class="form-group col-12 col-lg-6 mb-5">
+					<%= f.text_area :message,placeholder: 'MESSAGE',required: true, size: '10x10', class: 'form-control' %>
+				</div>
+			</div>
+
+			<%= f.submit "送信", data: { disable_with: "送信中..."}, class: "col-3 m-auto btn btn-success" %>
+		</div>
+	<% end %>
+</div>
