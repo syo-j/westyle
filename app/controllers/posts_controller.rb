@@ -5,8 +5,8 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all.order("created_at DESC").page(params[:post_page]).per(6)
 
-    @set_posts = Post.all
     # shopのみ,userのみ
+    @set_posts = Post.all
     @shop_posts = []
     @user_posts = []
     @set_posts.each do |post|
@@ -33,6 +33,7 @@ class PostsController < ApplicationController
     @followings_sort = @followings.sort_by {|f| f.created_at}.reverse
     # arrayエラーの場合
     @followings_sort = Kaminari.paginate_array(@followings_sort).page(params[:page]).per(3)
+
   end
 
 
@@ -110,6 +111,8 @@ class PostsController < ApplicationController
   def search
     @q = Post.ransack(params[:q])
     @post_images = @q.result(distinct: true).page(params[:page]).per(30)
+
+    @area = Area.all
   end
 
   def new2
