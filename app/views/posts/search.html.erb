@@ -12,6 +12,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<% if @post_images.any? %>
+				<p class="col-12 py-5 text-center about-text"><%= @post_images.count %>件表示中</p>
 				<% @post_images.shuffle.each do |article| %>
 					<div class="col-4 search-img">
 						<div class="image-trim-square">
@@ -27,6 +28,18 @@
 						</div>
 					</div>
 				<% end %>
+			<% else %>
+				<div class="text-center py-5 about-text row justify-content-center">
+					<p class="py-5 col-12">検索結果０件</p>
+					<span class="col-4">「投稿タイトル」</span>
+					<span class="col-4">「投稿テキスト」</span>
+					<span class="col-4">「タグのブランド名」</span>
+					<span class="col-4">「タグのカテゴリ名」</span>
+					<span class="col-4">「タグの商品名」</span>
+					<span class="col-4">「アカウント名」</span>
+					<span class="col-4">「出身地域」</span>
+					<p class="py-5 col-12">これらから検索結果を表示させます。</p>
+				</div>
 			<% end %>
 		</div>
 	</div>
