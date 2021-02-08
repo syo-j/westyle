@@ -72,7 +72,7 @@ group :production do
 end
 
 #image_uploade
-gem 'carrierwave', '~> 1.3.1'
+gem 'carrierwave', '~> 1.3.2'
 
 #検索バー
 gem 'ransack'
